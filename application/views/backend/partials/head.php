@@ -206,6 +206,32 @@ by projekindong
             transform: scale(2);
         }
     </style>
+
+    
+    <style>
+        /* COLOR CUSTOM */
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff;
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .page-link {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #ffc107;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+        }
+        a {
+            color: #ffc107;
+            text-decoration: none;
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
     <div class="preloader flex-column justify-content-center align-items-center bg-warning">

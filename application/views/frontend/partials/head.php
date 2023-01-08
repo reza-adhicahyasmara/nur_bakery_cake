@@ -485,20 +485,19 @@ by projekindong
                             </div>
                             <br>
                             <div id="alert_reset_password"></div>
-                            <div class="form-group mb-3">
-                                <input type="hidden" name="id_konsumen" id="id_konsumen" value="<?php echo $this->session->userdata('ses_id_konsumen'); ?>"/>
-                            </div>
+                            <input type="hidden" name="id_konsumen" id="id_konsumen" value="<?php echo $this->session->userdata('ses_id_konsumen'); ?>"/>
+                            <input type="hidden" name="kontak_konsumen" id="kontak_konsumen" value="<?php echo $data_konsumen['kontak_konsumen']; ?>"/>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" name="reset_password_konsumen" id="reset_password_konsumen" placeholder="Password Lama">
-                                <label for="reset_password_konsumen">Password Lama</label>
+                                <input type="password" class="form-control" name="password_lama_konsumen" id="password_lama_konsumen" placeholder="Password Lama">
+                                <label for="password_lama_konsumen">Password Lama</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control" name="password1" id="password1" placeholder="Password Baru">
                                 <label for="password1">Password Baru</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Ketik Ulang Password Baru">
-                                <label for="password2">Ketik Ulang Password Baru</label>
+                                <input type="password" class="form-control" name="password_baru_konsumen" id="password_baru_konsumen" placeholder="Ketik Ulang Password Baru">
+                                <label for="password_baru_konsumen">Ketik Ulang Password Baru</label>
                             </div>
                             </br>
                             <div class="col-12">

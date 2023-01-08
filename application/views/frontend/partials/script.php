@@ -116,7 +116,7 @@
     $('#btn_reset_password').on("click",function(){
         $('#form_reset_password').validate({
             rules: {
-                reset_password_customer: {
+                password_lama_konsumen: {
                     required: true,
                     minlength: 5,
                 },
@@ -124,14 +124,14 @@
                     required: true,
                     minlength: 5
                 },
-                password2: {
+                password_baru_konsumen: {
                     required: true,
                     minlength: 5,
                     equalTo: password1,
                 },
             },
             messages: {
-                reset_password_customer: {
+                password_lama_konsumen: {
                     required: "Password harus diisi",
                     minlength: "Minimal 5 karakter",
                 },
@@ -139,7 +139,7 @@
                     required: "Password harus diisi",
                     minlength: "Minimal 5 karakter"
                 },
-                password2: {
+                password_baru_konsumen: {
                     required: "Password harus diisi",
                     minlength: "Minimal 5 karakter",
                     equalTo: "Password harus sama"

@@ -40,7 +40,7 @@
                                 <small>Hanya tersedia 3 wilayah (Kuningan, Majalengka, dan Cirebon)</small>
                             </div>
                             <div class="form-floating mb-3">
-                                <select type="text" class="form-control" name="kode_provinsi" id="kode_provinsi" placeholder="Contoh: Kuningan">
+                                <select type="text" class="form-control kode_provinsi" name="kode_provinsi" id="kode_provinsi" placeholder="Contoh: Kuningan">
                                     <option value="">Pilih</option>
                                     <?php foreach($provinsi->result() as $row){
                                         if($row->kode_provinsi == '32'){
@@ -51,15 +51,15 @@
                                 <label for="kode_provinsi">Provinsi</label>  
                             </div>
                             <div class="form-floating mb-3">
-                                <select type="text" class="form-control kode_kabupaten" name="kode_kabupaten" id="kode_kabupaten" placeholder="Contoh: Kuningan" disabled></select>
+                                <select type="text" class="form-control kode_kabupaten" name="kode_kabupaten" id="kode_kabupaten" placeholder="Contoh: Kuningan"></select>
                                 <label for="kode_kabupaten">Kabuputen / Kota</label>  
                             </div>
                             <div class="form-floating mb-3">
-                                <select type="text" class="form-control kode_kecamatan" name="kode_kecamatan" id="kode_kecamatan" placeholder="Contoh: Kuningan" disabled></select>
+                                <select type="text" class="form-control kode_kecamatan" name="kode_kecamatan" id="kode_kecamatan" placeholder="Contoh: Kuningan"></select>
                                 <label for="kode_kecamatan">Kecamatan</label>  
                             </div>
                             <div class="form-floating mb-3">
-                                <select type="text" class="form-control kode_desa " name="kode_desa" id="kode_desa" placeholder="Contoh: Kuningan" disabled></select>
+                                <select type="text" class="form-control kode_desa " name="kode_desa" id="kode_desa" placeholder="Contoh: Kuningan"></select>
                                 <label for="kode_desa">Desa / Kelurahan</label>  
                             </div>
                             <div class="row">
@@ -137,8 +137,14 @@
 
 <!-----------------------SELECT OPTION WILAYAH----------------------->
 <script>
+    
     $("#kode_provinsi").change(function() {
-        var kode_provinsi = $(this).val();
+        select_kabupaten();
+    });   
+
+    select_kabupaten();
+    function select_kabupaten() {
+        var kode_provinsi = $('.kode_provinsi').val();
         $.ajax({
             url : '<?php echo base_url('home/select_kabupaten'); ?>',
             method: 'POST',
@@ -147,23 +153,29 @@
             dataType : 'json',
             success: function(data){
                 event.preventDefault();
-                $('.kode_kabupaten').prop("disabled", false);
 
                 var html = '';
                 var i;
-                html += '<option value="0">Pilih</option>';
                 for(i=0; i<data.length; i++){
                     if(data[i].kode_kabupaten == '3208' || data[i].kode_kabupaten == '3209' || data[i].kode_kabupaten == '3210' || data[i].kode_kabupaten == '3274'){
-                    html += '<option value='+data[i].kode_kabupaten+'>'+data[i].nama_kabupaten+'</option>';
-                }
+                        html += '<option value="'+data[i].kode_kabupaten+'">'+data[i].nama_kabupaten+'</option>';
+                    }
                 }
                 $('#kode_kabupaten').html(html);
             }
-        });     
-    });    
+        });  
+        
+        select_kecamatan();   
+        select_desa();
+    }    
  
     $("#kode_kabupaten").change(function() {
-        var kode_kabupaten = $(this).val();
+        select_kecamatan();
+    });   
+    
+    select_kecamatan();
+    function select_kecamatan(){
+        var kode_kabupaten = $('.kode_kabupaten').val();
         $.ajax({
             url : '<?php echo base_url('home/select_kecamatan'); ?>',
             method: 'POST',
@@ -172,21 +184,28 @@
             dataType : 'json',
             success: function(data){
                 event.preventDefault();
-                $('.kode_kecamatan').prop("disabled", false);
-
+                
                 var html = '';
                 var i;
-                html += '<option value="0">Pilih</option>';
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].kode_kecamatan+'>'+data[i].nama_kecamatan+'</option>';
+                    html += '<option value="'+data[i].kode_kecamatan+'">'+data[i].nama_kecamatan+'</option>';
                 }
                 $('#kode_kecamatan').html(html);
             }
-        });     
-    });   
+        }); 
+        
+        select_desa();
+    } 
 
+    
+ 
     $("#kode_kecamatan").change(function() {
-        var kode_kecamatan = $(this).val();
+        select_desa();
+    });   
+    
+    select_desa();
+    function select_desa(){
+        var kode_kecamatan = $('.kode_kecamatan').val();
         $.ajax({
             url : '<?php echo base_url('home/select_desa'); ?>',
             method: 'POST',
@@ -195,19 +214,16 @@
             dataType : 'json',
             success: function(data){
                 event.preventDefault();
-                $('.kode_desa').prop("disabled", false);
 
                 var html = '';
                 var i;
-                html += '<option value="0">Pilih</option>';
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].kode_desa+'>'+data[i].nama_desa+'</option>';
+                    html += '<option value="'+data[i].kode_desa+'">'+data[i].nama_desa+'</option>';
                 }
                 $('#kode_desa').html(html);
             }
-        });     
-    });   
-
+        });
+    }     
 </script>
 
 <!-----------------------DAFTAR----------------------->

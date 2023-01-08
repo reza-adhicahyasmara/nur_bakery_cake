@@ -68,17 +68,17 @@ class Home extends CI_Controller {
 
     function reset_password(){
         $id_konsumen = $this->input->post('id_konsumen');
-        $username_konsumen = $this->input->post('username_konsumen');
-        $password_konsumen = $this->input->post('reset_password_konsumen');
-        $password2 = $this->input->post('password2');
+        $kontak_konsumen = $this->input->post('kontak_konsumen');
+        $password_lama_konsumen = $this->input->post('password_lama_konsumen');
+        $password_baru_konsumen = $this->input->post('password_baru_konsumen');
 
-        $cek_password = $this->Mod_konsumen->auth_konsumen($username_konsumen, $password_konsumen);
-        if($cek_password->num_rows() > 0){
+        $cek_hp_konsumen = $this->Mod_konsumen->auth_hp_konsumen($kontak_konsumen, $password_lama_konsumen);
+        if($cek_hp_konsumen->num_rows() > 0){
 
             echo 1;
             $data  = array(
                 'id_konsumen'               => $id_konsumen,
-                'password_konsumen'         => $password2
+                'password_konsumen'         => $password_baru_konsumen
             );    
             $this->Mod_konsumen->update_konsumen($id_konsumen, $data);
 
