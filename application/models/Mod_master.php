@@ -8,7 +8,7 @@ class Mod_master extends CI_Model {
         $query2 = $this->db->query("SELECT chat.*, konsumen.* 
                                     FROM chat
                                     LEFT JOIN konsumen ON konsumen.id_konsumen = chat.id_konsumen
-                                    WHERE chat.tanggal_chat IN (SELECT MAX(tanggal_chat) FROM chat GROUP BY chat.id_konsumen)
+                                    WHERE chat.tanggal_chat IN (SELECT MAX(tanggal_chat) FROM chat GROUP BY kontak_chat)
                                     ORDER BY chat.tanggal_chat DESc
                                 ");
         return $query2;
@@ -21,17 +21,20 @@ class Mod_master extends CI_Model {
     }
 
     function get_chat_konsumen($id_konsumen){
-        $this->db->select('chat.*, konsumen.*');
+        $this->db->select('chat.*, konsumen.*, karyawan.*');
         $this->db->from('chat');
         $this->db->join('konsumen', 'konsumen.id_konsumen = chat.id_konsumen', 'left');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = chat.id_karyawan', 'left');
         $this->db->where('chat.id_konsumen', $id_konsumen );
         return $this->db->get();
     }
 
-    function get_chat_nonkonsumen($nonmember_kontak_chat){
-        $this->db->select('*');
+    function get_chat_nonkonsumen($kontak_chat){
+        $this->db->select('chat.*, konsumen.*, karyawan.*');
         $this->db->from('chat');
-        $this->db->where('nonmember_kontak_chat', $nonmember_kontak_chat);
+        $this->db->join('konsumen', 'konsumen.id_konsumen = chat.id_konsumen', 'left');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = chat.id_karyawan', 'left');
+        $this->db->where('kontak_chat', $kontak_chat);
         return $this->db->get();
     }
 
@@ -39,9 +42,9 @@ class Mod_master extends CI_Model {
         $this->db->insert('chat', $data);
     }
 
-    function cek_chat($nonmember_kontak_chat){
-        $this->db->where('nonmember_kontak_chat', $nonmember_kontak_chat);
-        return $this->db->get('chat');
+    function cek_chat($kontak_chat){
+        $this->db->where('kontak_konsumen', $kontak_chat);
+        return $this->db->get('konsumen');
     }
 
 

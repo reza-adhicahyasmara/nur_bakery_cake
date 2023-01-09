@@ -228,11 +228,11 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%; text-align:left">Berat</td>
-                                                <td style="width: 80%; text-align:left"><span id="text_berat_ukuran"></span></td>
+                                                <td style="width: 80%; text-align:left"><span id="text_berat_ukuran"></span> gram</td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%; text-align:left">Irisan</td>
-                                                <td style="width: 80%; text-align:left"><span id="text_irisan_ukuran"></span></td>
+                                                <td style="width: 80%; text-align:left"><span id="text_irisan_ukuran"></span> irisan </td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 20%; text-align:left">Saran Penyajian</td>

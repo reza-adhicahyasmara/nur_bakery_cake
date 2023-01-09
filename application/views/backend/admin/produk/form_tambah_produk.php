@@ -92,10 +92,10 @@
             </div>
         </div>
         <div calss="" id="form_irisan" style="display: none;">
-            <label>Irisan</label>
+            <label>Jumlah Irisan</label>
             <br>
             <div class="form-group">
-                <input type="text" class="form-control" name="irisan_ukuran" id="irisan_ukuran" placeholder="10-12 Irisan">
+                <input type="text" class="form-control" name="irisan_ukuran" id="irisan_ukuran" onkeypress="return /[0-9-]/i.test(event.key)" placeholder="10-12">
             </div>
         </div>
         <div calss="" id="form_berat" style="display: none;">
@@ -125,7 +125,7 @@
     </div>
     <div class="float-right">
         <div class="form-group">
-            <button type="button" class="btn btn-primary" id="btn_simpan_ukuran" style="margin-left: 10px;"><span class="bx bx-fw bx-plus"></span> Tambah Varian</button>
+            <button type="button" class="btn btn-primary btn_simpan_ukuran" id="btn_simpan_ukuran" style="margin-left: 10px; display: none"><span class="bx bx-fw bx-plus"></span> Tambah Varian</button>
         </div>
     </div>
     <div id="content_ukuran">
@@ -167,6 +167,7 @@
     $(document).on('click', '.bentuk_produk', function() {
         var bentuk_produk = $('#bentuk_produk').val();
 
+        $("button#btn_simpan_ukuran").hide(500);
         $("div#form_volume").hide(500);
         $("div#form_irisan").hide(500);
         $("div#form_berat").hide(500);
@@ -180,6 +181,7 @@
         if(bentuk_produk == "Persegi"){
             $("label#text_volume").text("Panjang X Lebar X Tinggi");
             $("input#volume_ukuran").attr("placeholder", "20cm X 30xm X 5cm");
+            $("button#btn_simpan_ukuran").show(500);
             $("div#form_volume").show(500);
             $("div#form_irisan").show(500);
             $("div#form_berat").show(500);
@@ -193,6 +195,7 @@
         }else if(bentuk_produk == "Lingkaran"){
             $("label#text_volume").text("Diameter X Tinggi");
             $("input#volume_ukuran").attr("placeholder", "30xm X 5cm");
+            $("button#btn_simpan_ukuran").show(500);
             $("div#form_volume").show(500);
             $("div#form_irisan").show(500);
             $("div#form_berat").show(500);
@@ -225,7 +228,7 @@
         });
     };
     
-    $('#btn_simpan_ukuran').on("click",function(e){
+    $('.btn_simpan_ukuran').on("click",function(e){
         var volume_ukuran = $("input[name=volume_ukuran]").val();
         var irisan_ukuran = $("input[name=irisan_ukuran]").val();
         var berat_ukuran = $("input[name=berat_ukuran]").val();

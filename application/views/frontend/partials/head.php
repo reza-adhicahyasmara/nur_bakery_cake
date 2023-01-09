@@ -98,6 +98,7 @@ by projekindong
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-5/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-5/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/direct-chat/direct-chat.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datetimepicker/jquery.datetimepicker.css">
@@ -108,7 +109,6 @@ by projekindong
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/remixicon/remixicon.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/frontend/css/style.css">
     
     <!-- Rating Star -->
@@ -196,42 +196,6 @@ by projekindong
         /* Firefox */
         input[type=number] {
         -moz-appearance: textfield;
-        }
-    </style>
-
-
-    <!-- Button -->
-    <style>
-        .btn-chat {
-            position: fixed;
-            visibility: hidden;
-            opacity: 0;
-            right: 15px;
-            bottom: 70px;
-            z-index: 996;
-            background: #ffc107;
-            width: 40px;
-            height: 40px;
-            border-radius: 50px;
-            transition: all 0.4s;
-        }
-
-        .btn-chat i {
-            font-size: 22px;
-            color: #fff;
-            line-height: 0;
-            padding-top: 12px;
-            padding-left: 3px
-        }
-
-        .btn-chat:hover {
-            background: #ffc107;
-            color: #fff;
-        }
-
-        .btn-chat.active {
-            visibility: visible;
-            opacity: 1;
         }
     </style>
 
@@ -511,7 +475,7 @@ by projekindong
     </div>
 
     <div id="modal_chat_konsumen" class="modal right fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content" style="border: 2px solid #ffc107; border-radius: 20px">
                 <div class="modal-body">
                     <div class="modal-header">
@@ -519,12 +483,10 @@ by projekindong
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="direct-chat direct-chat-primary">
-                            <div class="card-body">
-                                <div id="content_chat">
+                        <div class="card-body">
+                            <div id="content_chat">
 
-                                </div>
-                            </div>  
+                            </div>
                         </div>  
                     </div>
                 </div>
@@ -541,15 +503,15 @@ by projekindong
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="card-body card-outline direct-chat-primary">
+                        <div class="card-body card-outline direct-chat-warning">
                             <div id="content_chat2" >
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nonkonsumen_nama_chat" placeholder="Nama">
-                                    <label for="nonkonsumen_nama_chat">Nama</label>
+                                    <input type="text" class="form-control" id="nama_chat" placeholder="Nama">
+                                    <label for="nama_chat">Nama</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nonkonsumen_kontak_chat" placeholder="No Kontak">
-                                    <label for="nonkonsumen_kontak_chat">No. Kontak</label>
+                                    <input type="text" class="form-control" id="kontak_chat" placeholder="No Kontak">
+                                    <label for="kontak_chat">No. Kontak</label>
                                 </div>
                                 <br>
                                 <div class="col-12">
@@ -581,7 +543,7 @@ by projekindong
         <a href="#" class="active btn-chat d-flex align-items-center justify-content-center" id="btn-chat-konsumen">
             <i class="bx bx-fw bxs-chat"></i>
             <?php foreach($this->Mod_master->get_all_kontak()->result() as $data){
-                if($data->status_chat == '2' && $data->nonkonsumen_kontak_chat == $this->session->userdata('ses_nonkonsumen_kontak_chat')){
+                if($data->status_chat == '2' && $data->kontak_chat == $this->session->userdata('ses_kontak_chat')){
                     echo '<span class="translate-middle badge rounded-pill bg-danger" style="margin-right: -25px;">N';
                 }
             } ?>

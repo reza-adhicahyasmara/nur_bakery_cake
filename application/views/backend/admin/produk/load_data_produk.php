@@ -14,7 +14,7 @@
             <th id="" style="text-align: center; vertical-align: middle; ">Aksesoris</th>
             <th id="" style="text-align: center; vertical-align: middle; ">Bentuk</th>
             <th id="" style="text-align: center; vertical-align: middle; ">Volume</th>
-            <th id="" style="text-align: center; vertical-align: middle; ">Irisan</th>
+            <th id="" style="text-align: center; vertical-align: middle; ">Jumlah Irisan</th>
             <th id="" style="text-align: center; vertical-align: middle; ">Berat</th>
             <th id="" style="text-align: center; vertical-align: middle; ">Harga</th>
         </tr>
@@ -66,7 +66,7 @@
                     if($row1->hahaha == $row2->kode_produk){?> 
                         <tr>
                             <td class="text-sm" style="text-align: center; vertical-align: middle;"><?php echo $row2->volume_ukuran;?></td>
-                            <td class="text-sm" style="text-align: center; vertical-align: middle;"><?php echo $row2->irisan_ukuran;?></td>
+                            <td class="text-sm" style="text-align: center; vertical-align: middle;"><?php echo $row2->irisan_ukuran ." Irisan";?></td>
                             <td class="text-sm" style="text-align: right; vertical-align: middle;"><?php echo number_format($row2->berat_ukuran, 0, ".", ".");?></td>
                             <td class="text-sm" style="text-align: right; vertical-align: middle;"><?php echo number_format($row2->harga_ukuran, 0, ".", ".");?></td>
                         </tr>

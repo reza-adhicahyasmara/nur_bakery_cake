@@ -46,6 +46,8 @@ class Home extends CI_Controller {
                 $this->session->set_userdata('masuk',TRUE);
                 $this->session->set_userdata('ses_akses','Konsumen');
                 $this->session->set_userdata('ses_id_konsumen',$data['id_konsumen']);
+                $this->session->set_userdata('ses_nama_konsumen',$data['nama_konsumen']);
+                $this->session->set_userdata('ses_kontak_konsumen',$data['kontak_konsumen']);
                 echo 1;         
             }  
             else{
@@ -58,6 +60,8 @@ class Home extends CI_Controller {
                 $this->session->set_userdata('masuk',TRUE);
                 $this->session->set_userdata('ses_akses','Konsumen');
                 $this->session->set_userdata('ses_id_konsumen',$data['id_konsumen']);
+                $this->session->set_userdata('ses_nama_konsumen',$data['nama_konsumen']);
+                $this->session->set_userdata('ses_kontak_konsumen',$data['kontak_konsumen']);
                 echo 1;         
             }  
             else{
@@ -333,111 +337,92 @@ class Home extends CI_Controller {
 
 
     //CHAT
-    
-    function load_chat(){ 
-        $ses_akses = $this->session->userdata('ses_akses'); 
-        $nonkonsumen_kontak_chat = $this->input->post('nonkonsumen_kontak_chat');
 
-        if($ses_akses == "konsumen"){
-            $id_konsumen = $this->session->userdata('ses_id_konsumen');
-            $data['profil'] = $this->Mod_konsumen->get_konsumen($id_konsumen);
-            $data['chat_konsumen'] = $this->Mod_master->get_chat_konsumen($id_konsumen);
-        }elseif($ses_akses == "Nonkonsumen"){
-            $nonkonsumen_kontak_chat = $this->session->userdata('ses_nonkonsumen_kontak_chat');
-            $data['profil_konsumen'] = $this->Mod_master->get_chat_konsumen($nonkonsumen_kontak_chat);
-            $data['chat_konsumen'] = $this->Mod_master->get_chat_konsumen($nonkonsumen_kontak_chat);
-        }elseif($nonkonsumen_kontak_chat != ""){
-            $data['profil_konsumen'] = $this->Mod_master->get_chat_konsumen($nonkonsumen_kontak_chat);
-            $data['chat_konsumen'] = $this->Mod_master->get_chat_konsumen($nonkonsumen_kontak_chat);
+    function mulai_chat(){
+        $nama_chat = $this->input->post('nama_chat');
+        $kontak_chat = $this->input->post('kontak_chat');
+
+        $cek = $this->Mod_master->cek_chat($kontak_chat);
+        if($cek->num_rows() > 0) {
+            
+            $data_konsumen = $this->Mod_master->cek_chat($kontak_chat)->row_array();
+
+            $id_konsumen = $data_konsumen['id_konsumen'];
+            $nama_chat_input = $data_konsumen['nama_konsumen'];
+
+            $this->session->set_userdata('ses_akses','Konsumen');
+            $this->session->set_userdata('ses_id_konsumen',$id_konsumen);
+            $this->session->set_userdata('ses_nama_konsumen',$nama_chat_input);
+            $this->session->set_userdata('ses_kontak_konsumen',$kontak_chat);
+
+        } else {
+
+            $id_konsumen = "";
+            $nama_chat_input = $this->input->post('nama_chat');
+
+            $this->session->set_userdata('masuk',TRUE);
+            $this->session->set_userdata('ses_akses','Nonkonsumen');
+            $this->session->set_userdata('ses_nama_nonkonsumen',$nama_chat);
+            $this->session->set_userdata('ses_kontak_nonkonsumen',$kontak_chat);
+        }
+
+        echo 1;
+                            
+            $data  = array(
+                'id_konsumen'       => $id_konsumen,
+                'tanggal_chat'      => date("Y-m-d H:i:s"),
+                'chat'              => "Hai. Ada yang bisa saya bantu kak ".$nama_chat_input.".. Silahkan ajukan pertanyaan kepada kami.",
+                'status_chat'       => '2',
+                'pengirim_chat'     => 'admin',
+                'nama_chat'         => $nama_chat_input,
+                'kontak_chat'       => $kontak_chat     
+            );
+                        
+            $this->Mod_master->insert_chat($data);   
+    }
+
+    function load_chat(){  
+        $ses_akses = $this->session->userdata('ses_akses'); 
+        $id_konsumen = $this->session->userdata('ses_id_konsumen');;
+
+        if($ses_akses == "Konsumen"){
+            $data['kontak'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
+            $data['chat'] = $this->Mod_master->get_chat_konsumen($id_konsumen)->result();
+        }else{
+            $kontak_chat = $this->session->userdata('ses_kontak_nonkonsumen');
+            $data['chat'] = $this->Mod_master->get_chat_nonkonsumen($kontak_chat)->result();
         }
         $this->load->view('frontend/konsumen/chat/load_chat', $data);
     }
 
-    function kirim_pesan_konsumen(){
-        $id_konsumen = $this->input->post('id_konsumen');
+    function kirim_pesan(){
+        $nama_chat = $this->input->post('nama_chat');
+        $kontak_chat = $this->input->post('kontak_chat');
         $chat = $this->input->post('chat');
-        $tanggal_chat = date("Y-m-d H:i:s");
-        $status_chat = '1';
-        $pengirim_chat = 'konsumen';
 
         if($chat == "" || $chat == NULL){
             echo 2;
         } else {
+            if($this->session->userdata('ses_akses') == 'Konsumen') {
+                $id_konsumen = $this->session->userdata('ses_id_konsumen');
+                $nama_chat = $this->session->userdata('ses_nama_konsumen');
+                $kontak_chat = $this->session->userdata('ses_kontak_konsumen');
+            }else{
+                $id_konsumen = "";
+                $nama_chat = $this->session->userdata('ses_nama_nonkonsumen');
+                $kontak_chat = $this->session->userdata('ses_kontak_nonkonsumen');
+            }
+
             echo 1;
                             
             $data  = array(
-                'id_konsumen'         => $id_konsumen,
-                'tanggal_chat'  => $tanggal_chat,
+                'id_konsumen'       => $id_konsumen,
+                'tanggal_chat'      => date("Y-m-d H:i:s"),
                 'chat'              => $chat,
-                'status_chat'       => $status_chat,
-                'pengirim_chat'     => $pengirim_chat        
-            );
-                        
-            $this->Mod_master->insert_chat($data);   
-
-        }
-    }
-
-    function kirim_pesan_nonkonsumen(){
-        $nonkonsumen_nama_chat = $this->input->post('nonkonsumen_nama_chat');
-        $nonkonsumen_kontak_chat = $this->input->post('nonkonsumen_kontak_chat');
-        $id_konsumen = $this->input->post('nonkonsumen_kontak_chat');
-        $chat = $this->input->post('chat');
-        $tanggal_chat = date("Y-m-d H:i:s");
-        $status_chat = '1';
-        $pengirim_chat = 'konsumen';
-
-        if($chat == "" || $chat == NULL){
-            echo 2;
-        } else {
-            echo 1;
-                            
-            $data  = array(
-                'id_konsumen'                 => $id_konsumen,
-                'tanggal_chat'          => $tanggal_chat,
-                'chat'                      => $chat,
-                'status_chat'               => $status_chat,
-                'pengirim_chat'             => $pengirim_chat,
-                'nonkonsumen_nama_chat'       => $nonkonsumen_nama_chat,
-                'nonkonsumen_kontak_chat'     => $nonkonsumen_kontak_chat        
-            );
-                        
-            $this->Mod_master->insert_chat($data);   
-
-        }
-    }
-
-    function mulai_chat(){
-        $nonkonsumen_nama_chat = $this->input->post('nonkonsumen_nama_chat');
-        $nonkonsumen_kontak_chat = $this->input->post('nonkonsumen_kontak_chat');
-        $id_konsumen = $this->input->post('nonkonsumen_kontak_chat');
-        $chat = "Hai. Ada yang bisa saya bantu";
-        $tanggal_chat = date("Y-m-d H:i:s");
-        $status_chat = '2';
-        $pengirim_chat = 'admin';
-
-        $cek = $this->Mod_master->cek_chat($nonkonsumen_kontak_chat);
-
-        if($nonkonsumen_nama_chat == NULL){
-            echo 2;
-        } else if($nonkonsumen_kontak_chat == NULL){
-            echo 2;
-        } else if($cek->num_rows() > 0) {
-            echo 1;
-            $this->session->set_userdata('masuk',TRUE);
-            $this->session->set_userdata('ses_akses','Nonkonsumen');
-            $this->session->set_userdata('ses_nonkonsumen_kontak_chat',$nonkonsumen_kontak_chat);
-        } else {
-            echo 1;
-                            
-            $data  = array(
-                'id_konsumen'                 => $id_konsumen,
-                'tanggal_chat'              => $tanggal_chat,
-                'chat'                      => $chat,
-                'status_chat'               => $status_chat,
-                'pengirim_chat'             => $pengirim_chat,
-                'nonkonsumen_nama_chat'       => $nonkonsumen_nama_chat,
-                'nonkonsumen_kontak_chat'     => $nonkonsumen_kontak_chat     
+                'status_chat'       => '1',
+                'pengirim_chat'     => 'konsumen',
+                'nama_chat'         => $nama_chat,
+                'kontak_chat'       => $kontak_chat        
             );
                         
             $this->Mod_master->insert_chat($data);   

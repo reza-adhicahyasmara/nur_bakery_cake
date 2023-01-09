@@ -227,24 +227,24 @@
     }); 
 </script>
 
-<!-----------------------CHAT MEMBER----------------------->
+<!-----------------------CHAT KONSUMEN----------------------->
 <script>
-    $("#nonmember_nama_chat").on("input", function(){
+    $("#nama_chat").on("input", function(){
         var regexp = /[^A-z ]/g;
         if($(this).val().match(regexp)){
             $(this).val( $(this).val().replace(regexp,'') );
         }
     });
 
-    $("#nonmember_kontak_chat").on("input", function(){
+    $("#kontak_chat").on("input", function(){
         var regexp = /[^0-9]/g;
         if($(this).val().match(regexp)){
             $(this).val( $(this).val().replace(regexp,'') );
         }
     });
 
-    $('#btn-chat-member').on("click",function(){
-        $('#modal_chat_member').modal('show');
+    $('#btn-chat-konsumen').on("click",function(){
+        $('#modal_chat_konsumen').modal('show');
         loadChat();
     });
 
@@ -264,74 +264,30 @@
         });
     };
 
-    $(document).on('click', '#btn_kirim_pesan_member', function(e) {
-        var id_member=$(this).attr("id_member");
-        var chat = $('#chat').val();
-
-         $.ajax({
-            url : '<?php echo base_url('home/kirim_pesan_member'); ?>',
-            method: 'POST',
-            data: {
-                id_member:id_member,
-                chat:chat
-            },
-            success: function(response){
-                if(response==1){ 
-                    $("#chat").val("");
-
-                    $.ajax({
-                        method : "POST",
-                        url : "<?php echo base_url('home/load_chat'); ?>",
-                        data : {
-                            id_member:id_member,
-                        },
-                        beforeSend : function(){
-                            $('#content_chat').html('<div style="text-align:center"><i class="fa fa-refresh fa-3x fa-spin" style="padding: 20px;" aria-hidden="true"></i></div>');
-                        },
-                        success : function(response){
-                            $('#content_chat').html(response);
-                        }
-                    });
-
-                } else if(response==2){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Pesan harus diisi!',
-                        showConfirmButton: true,
-                        timer: 3000
-                    })
-                }
-            }
-        });
-    }); 
-</script>
-
-<!-----------------------CHAT NON MEMBER----------------------->
-<script>
-    $('#btn-chat-non-member').on("click",function(){
-        $('#modal_chat_nonmember').modal('show');
+    $('#btn-chat-non-konsumen').on("click",function(){
+        $('#modal_chat_nonkonsumen').modal('show');
     });
 
     $(document).on('click', '#btn_mulai_chat', function(e) {
-        var nonmember_nama_chat = $('#nonmember_nama_chat').val();
-        var nonmember_kontak_chat = $('#nonmember_kontak_chat').val();
+        var nama_chat = $('#nama_chat').val();
+        var kontak_chat = $('#kontak_chat').val();
 
          $.ajax({
             url : '<?php echo base_url('home/mulai_chat'); ?>',
             method: 'POST',
             data: {
-                nonmember_nama_chat:nonmember_nama_chat,
-                nonmember_kontak_chat:nonmember_kontak_chat
+                nama_chat:nama_chat,
+                kontak_chat:kontak_chat
             },
             success: function(response){
                 if(response==1){ 
 
-                    var nonmember_kontak_chat = $('#nonmember_kontak_chat').val();
+                    var kontak_chat = $('#kontak_chat').val();
                     $.ajax({
                         method : "POST",
                         url : "<?php echo base_url('home/load_chat'); ?>",
                         data : {
-                            nonmember_kontak_chat:nonmember_kontak_chat
+                            kontak_chat:kontak_chat
                         },
                         beforeSend : function(){
                             $('#content_chat2').html('<div style="text-align:center"><i class="fa fa-refresh fa-3x fa-spin" style="padding: 20px;" aria-hidden="true"></i></div>');
@@ -353,37 +309,19 @@
         });
     }); 
 
-    $(document).on('click', '#btn_kirim_pesan_nonmember', function(e) {
-        var nonmember_nama_chat=$(this).attr("nonmember_nama_chat");
-        var nonmember_kontak_chat=$(this).attr("nonmember_kontak_chat");
+    $(document).on('click', '#btn_kirim_pesan', function(e) {
         var chat = $('#chat').val();
 
          $.ajax({
-            url : '<?php echo base_url('home/kirim_pesan_nonmember'); ?>',
+            url : '<?php echo base_url('home/kirim_pesan'); ?>',
             method: 'POST',
             data: {
-                nonmember_nama_chat:nonmember_nama_chat,
-                nonmember_kontak_chat:nonmember_kontak_chat,
                 chat:chat
             },
             success: function(response){
                 if(response==1){ 
                     $("#chat").val("");
-
-                    $.ajax({
-                        method : "POST",
-                        url : "<?php echo base_url('home/load_chat'); ?>",
-                        data : {
-                            nonmember_kontak_chat:nonmember_kontak_chat
-                        },
-                        beforeSend : function(){
-                            $('#content_chat').html('<div style="text-align:center"><i class="fa fa-refresh fa-3x fa-spin" style="padding: 20px;" aria-hidden="true"></i></div>');
-                        },
-                        success : function(response){
-                            $('#content_chat').html(response);
-                        }
-                    });
-
+                    loadChat();
                 } else if(response==2){
                     Swal.fire({
                         icon: 'error',

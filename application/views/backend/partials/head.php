@@ -266,17 +266,18 @@ by projekindong
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item"><a href="<?php echo base_url('profil_karyawan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-user"></i><p>Profil</p></a></li>
-                                    <li class="nav-item"><a href="<?php echo base_url('profil_karyawan/ubah_password'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bx-lock"></i><p>Ubah Password</p></a></li>
+                                    <li class="nav-item"><a href="<?php echo base_url('profil_karyawan/ubah_password'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-lock"></i><p>Ubah Password</p></a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><hr style="margin-top: 0.4rem"></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/dashboard'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-grid-alt"></i><p>Dashboard</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/konsumen'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-group"></i><p>Konsumen </p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('admin/chat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-chat"></i><p>Chat </p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/ambil'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Ambil<?php if($total_pemesanan_tf != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_tf; ?></span><?php } ?></p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar<?php if($total_pemesanan_cod != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_cod; ?></span><?php } ?></p></a></li>
                             <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-data"></i><p>Master Data  <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?><i class="bx bx-fw bx-chevron-left right"></i></p></a>
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item"><a href="<?php echo base_url('admin/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bx-cake nav-icon"></i><p>Produk <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?></p></a></li>
+                                    <li class="nav-item"><a href="<?php echo base_url('admin/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cake nav-icon"></i><p>Produk <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?></p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/kategori_produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-bookmark"></i><p>Kategori Produk</p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/promo'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-discount"></i><p>Pormo</p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cog"></i><p>Pengaturan</p></a></li>
@@ -303,7 +304,7 @@ by projekindong
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item"><a href="<?php echo base_url('profil_karyawan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-user"></i><p>Profil</p></a></li>
-                                    <li class="nav-item"><a href="<?php echo base_url('profil_karyawan/ubah_password'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bx-lock"></i><p>Ubah Password</p></a></li>
+                                    <li class="nav-item"><a href="<?php echo base_url('profil_karyawan/ubah_password'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-lock"></i><p>Ubah Password</p></a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><hr style="margin-top: 0.4rem"></li>
