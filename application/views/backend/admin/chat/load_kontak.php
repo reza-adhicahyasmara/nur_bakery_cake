@@ -8,7 +8,7 @@
         <?php if($row->foto_konsumen != "") { ?>
             <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/konsumen/'.$row->foto_konsumen);?>" style="width:40px; height:40px; object-fit: cover;">
         <?php }else{ ?>
-            <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/banner/store.svg.');?>" style="width:40px; height:40px; object-fit: cover; background-color:white; border:1px solid #ced4da;">
+            <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/banner/user.svg.');?>" style="width:40px; height:40px; object-fit: cover; background-color:white; border:1px solid #ced4da;">
         <?php } ?> 
         <div class="contacts-list-info">
             <span class="contacts-list-name <?php if($status_chat == 1){ echo 'text-danger'; } else { echo 'text-dark'; }?>">

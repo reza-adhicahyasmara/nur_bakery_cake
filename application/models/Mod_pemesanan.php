@@ -75,7 +75,7 @@ class Mod_pemesanan extends CI_Model {
         return $query2;
     }
 
-    function inseripemesanan($data){
+    function insert_ipemesanan($data){
         return $this->db->insert('ipemesanan', $data);
     }
 
@@ -89,10 +89,13 @@ class Mod_pemesanan extends CI_Model {
         return $query2;
     }
 
-    function cek_status_ipemesanan(){
-        $this->db->select('ipemesanan.*, produk.*');
+    function cek_status_ipemesanan($status_ipemesanan){
+        $this->db->select('ipemesanan.*, produk.kode_produk AS hahaha, produk.*, kategori.*');
         $this->db->from('ipemesanan');
         $this->db->join('produk', 'produk.kode_produk = ipemesanan.kode_produk', 'inner');
+        $this->db->join('kategori', 'kategori.kode_kategori = produk.kode_kategori', 'left');
+        $this->db->join('ukuran', 'ukuran.kode_produk = produk.kode_produk', 'left');
+        $this->db->where('ipemesanan.status_ipemesanan', $status_ipemesanan);
         return $this->db->get();
     }
 

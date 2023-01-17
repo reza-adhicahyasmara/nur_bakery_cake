@@ -7,7 +7,7 @@
                         <?php if($foto_konsumen != "") { ?>
                             <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/konsumen/'.$foto_konsumen);?>" style="width:70px; height:70px; object-fit: cover;">
                         <?php }else{ ?>
-                            <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/banner/user.svg');?>" style="width:70px; height:70px; object-fit: cover;">
+                            <img class="contacts-list-img" alt="image" src="<?php echo base_url('assets/img/banner/user.svg');?>" style="width:70px; height:70px; object-fit: cover; background-color:white; border:1px solid #ced4da;">
                         <?php } ?> 
                     </div>
                     <div class="p-2"> 
@@ -26,35 +26,29 @@
                 if($row->pengirim_chat == "admin"){
         ?>
             <div class="direct-chat-msg right">
-                <div class="direct-chat-infos clearfix">
-                    <span class="direct-chat-name float-right"><?php if($row->nama_karyawan == ""){echo "Customer Service";} else { echo $row->nama_karyawan; };?></span>
-                    <span class="direct-chat-timestamp float-left"><?php echo $row->tanggal_chat;?></span>
+                <div class="direct-chat-text text-right float-right" style="margin-right: 1px;">
+                    <div class="row">
+                        <div class="ml-2 mr-2">
+                            <span><?php echo nl2br($row->chat);?></span>
+                        </div>
+                        <div class="mt-1 ml-2">
+                            <small><?php echo $row->tanggal_chat;?></small>
+                        </div>
+                    </div>
                 </div>
-                <?php if($row->foto_karyawan == '') { ?>
-                    <img class="direct-chat-img" src="<?php echo base_url('assets/img/banner/user.svg');?>" alt="Message User Image">
-                <?php } else { ?>
-                    <img class="direct-chat-img" src="<?php echo base_url('assets/img/karyawan/').$row->foto_karyawan;?>" alt="Message User Image" style="object-fit: cover;">
-                <?php } ?>
-                <div class="direct-chat-text"><?php echo $row->chat;?></div>
             </div>
         <?php }elseif($row->pengirim_chat == "konsumen"){ ?>
             <div class="direct-chat-msg">
-                <div class="direct-chat-infos clearfix">
-                    <span span class="direct-chat-name float-left">
-                        <?php if($row->nama_konsumen == '') { ?>
-                            <?php echo $row->nama_chat;?>
-                        <?php } else { ?>
-                            <?php echo $row->nama_konsumen;?>
-                        <?php } ?>
-                    </span>
-                    <span class="direct-chat-timestamp float-right"><?php echo $row->tanggal_chat;?></span>
+                <div class="direct-chat-text text-left float-left" style="margin-left: 1px;">
+                    <div class="row">
+                        <div class="ml-2 mr-2">
+                            <span><?php echo nl2br($row->chat);?></span>
+                        </div>
+                        <div class="mt-1 ml-2">
+                            <small><?php echo $row->tanggal_chat;?></small>
+                        </div>
+                    </div>
                 </div>
-                <?php if($row->foto_konsumen == '') { ?>
-                    <img class="direct-chat-img" src="<?php echo base_url('assets/img/banner/user.svg');?>" alt="Message User Image">
-                <?php } else { ?>
-                    <img class="direct-chat-img" src="<?php echo base_url('assets/img/konsumen/').$row->foto_konsumen;?>" alt="Message User Image"  style="object-fit: cover;">
-                <?php } ?>
-                <div class="direct-chat-text"><?php echo $row->chat;?></div>
             </div>
         <?php 
                     }

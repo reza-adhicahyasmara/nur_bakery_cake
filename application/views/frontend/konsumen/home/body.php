@@ -79,7 +79,10 @@
                     <hr>
                     <ul class="nav nav-tabs flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active show btn_kategori" data-bs-toggle="tab" href="#tab-1" kode_kategori = <?php echo "Semua"; ?> nama_kategori = "<?php echo "Produk" ?>">Produk Terlaris</a>
+                            <a class="nav-link active show btn_kategori" data-bs-toggle="tab" href="#tab-1" kode_kategori = <?php echo "Semua"; ?> nama_kategori = "<?php echo "Produk" ?>">Semua Produk</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn_kategori" data-bs-toggle="tab" href="#tab-0" kode_kategori = <?php echo "Terlaris"; ?> nama_kategori = "<?php echo "Produk" ?>">Produk Terlaris</a>
                         </li>
                         <?php  foreach($data_kategori as $kat){ ?>
                             <li class="nav-item">
@@ -90,7 +93,7 @@
                 </div>
                 <div class="col-12 col-md-9">
                     <div id="content_produk">
-                        <div class="row row-cols-1 row-cols-md-4 g-4">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
                             <?php 
                                 $delay = 100;
                                 foreach($data_produk as $row1){
@@ -123,10 +126,12 @@
                                     $total1 = 0;
                                     $count1 = 0;
                                     $average1 = 0;
+                                    $terjual = 0;
                                     foreach($data_ulasan_produk as $rat){ 
                                         if($rat->kode == $row1->hahaha && $rat->status_ipemesanan == 4){ 
                                             $total1 += $rat->rating_ipemesanan;
                                             $count1 += 1;
+                                            $terjual += $rat->qty_ipemesanan;
                                         }
                                     }
                                     
@@ -159,7 +164,9 @@
                                                     <br>
                                                 <?php } ?>
                                                 <br>
-                                                <i class="fa fa-star checked"> <?php echo $angka_format1; ?></i>
+                                                <small>
+                                                    <i class="fa fa-star checked"><span> <?php echo $angka_format1; ?></span></i> <span> | Terjual <?php echo $terjual; ?> qty</span>
+                                                </small>
                                             </p>
                                         </div>
                                     </div>

@@ -33,11 +33,11 @@
                 <div class="col-lg-8 col-12">
                     <div class="card card-outline direct-chat direct-chat-warning" >
                         <div id="content_chat">
-                            <div class="text-center" style="padding: 20px;">
+                            <div class="text-center p-5 m-5">
                                 <br>
                                 <span class="nav-icon bx bx-md bxs-chat"></span>
                                 <br>
-                                <h3>Pilih kontak untuk membalas chat.</h3>
+                                <h3>Pilih kontak untuk mengirim pesan.</h3>
                                 <br>
                             </div>
                         </div>

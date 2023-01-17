@@ -98,7 +98,7 @@ by projekindong
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-5/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-5/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/boxicons/css/boxicons.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/direct-chat/direct-chat.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/backend/css/adminlte.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/datetimepicker/jquery.datetimepicker.css">
@@ -250,6 +250,41 @@ by projekindong
         }
     </style>
 
+    <!-- Chating -->
+    <style>
+        .btn-chat {
+            position: fixed;
+            visibility: hidden;
+            opacity: 0;
+            right: 15px;
+            bottom: 70px;
+            z-index: 996;
+            background: #ffc107;
+            width: 40px;
+            height: 40px;
+            border-radius: 50px;
+            transition: all 0.4s;
+        }
+
+        .btn-chat i {
+            font-size: 22px;
+            color: #fff;
+            line-height: 0;
+            padding-top: 12px;
+            padding-left: 3px
+        }
+
+        .btn-chat:hover {
+            background: #ffc107;
+            color: #fff;
+        }
+
+        .btn-chat.active {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -482,12 +517,8 @@ by projekindong
                         <h4>Layanan Chat</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="card-body">
-                            <div id="content_chat">
+                    <div class="modal-body direct-chat direct-chat-warning" id="content_chat">
 
-                            </div>
-                        </div>  
                     </div>
                 </div>
             </div>

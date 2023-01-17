@@ -185,37 +185,15 @@
 
 <!-----------------------CARI PRODUK----------------------->
 <script>
-    $(document).on('click', '.btn_ukuran', function(e) {
-        var kode_ukuran=$(this).attr("kode_ukuran");
-        var nama_ukuran=$(this).attr("nama_ukuran");
-        console.log(nama_ukuran);
+    $(document).on('click', '.btn_kategori', function(e) {
+        var kode_kategori=$(this).attr("kode_kategori");
+        var nama_kategori=$(this).attr("nama_kategori");
         $.ajax({
-            url : '<?php echo base_url('home/cari_ukuran'); ?>',
+            url : '<?php echo base_url('home/cari_kategori'); ?>',
             method: 'POST',
             data: {
-                kode_ukuran:kode_ukuran,
-                nama_ukuran:nama_ukuran
-            },
-            beforeSend : function(){
-                $('#content_produk').html('<div style="text-align:center"><i class="fa fa-refresh fa-3x fa-spin" style="margin-top: 300px; margin-bottom: 300px;" aria-hidden="true"></i></div>');
-            },
-            success : function(response){
-                $('#content_produk').html(response);
-            }
-        });    
-    }); 
-
-    $(document).on('click', '.btn_subkategori', function(e) {
-        var kode_ukuran=$(this).attr("kode_ukuran");
-        var nama_ukuran=$(this).attr("nama_ukuran");
-
-        console.log(nama_ukuran);
-        $.ajax({
-            url : '<?php echo base_url('home/cari_subkategori'); ?>',
-            method: 'POST',
-            data: {
-                kode_ukuran:kode_ukuran,
-                nama_ukuran:nama_ukuran,
+                kode_kategori:kode_kategori,
+                nama_kategori:nama_kategori
             },
             beforeSend : function(){
                 $('#content_produk').html('<div style="text-align:center"><i class="fa fa-refresh fa-3x fa-spin" style="margin-top: 300px; margin-bottom: 300px;" aria-hidden="true"></i></div>');

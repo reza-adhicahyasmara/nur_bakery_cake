@@ -3,6 +3,13 @@
     $data_karyawan = $this->Mod_karyawan->get_karyawan($this->session->userdata('ses_id_karyawan'))->row_array();
     if($data_karyawan['level_karyawan'] == "Admin") { 
 
+        $chat = 0;
+        foreach($this->Mod_master->get_all_kontak()->result() as $data){
+            if($data->status_chat == "1"){
+                $chat = $chat + 1;
+            }
+        }
+
         $konsumen_baru = 0;
         foreach($this->Mod_konsumen->get_all_konsumen()->result() as $row) {
             if($row->status_konsumen == "Baru"){
@@ -272,7 +279,7 @@ by projekindong
                             <li class="nav-item"><hr style="margin-top: 0.4rem"></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/dashboard'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-grid-alt"></i><p>Dashboard</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/konsumen'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-group"></i><p>Konsumen </p></a></li>
-                            <li class="nav-item"><a href="<?php echo base_url('admin/chat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-chat"></i><p>Chat </p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('admin/chat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-chat"></i><p>Chat <?php if($chat != 0){ ?><span class="badge badge-danger right"> <?php echo $chat; ?></span><?php } ?></p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/ambil'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Ambil<?php if($total_pemesanan_tf != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_tf; ?></span><?php } ?></p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar<?php if($total_pemesanan_cod != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_cod; ?></span><?php } ?></p></a></li>
                             <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-data"></i><p>Master Data  <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?><i class="bx bx-fw bx-chevron-left right"></i></p></a>

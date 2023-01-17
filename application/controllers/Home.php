@@ -99,21 +99,42 @@ class Home extends CI_Controller {
 
     function cari_kategori(){
         $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
-        $hak_akses = $this->session->userdata('ses_akses'); 
+        $hak_akses = $this->session->userdata('ses_akses');  
+
         
         $kode_kategori = $this->input->post('kode_kategori');
         $nama_kategori = $this->input->post('nama_kategori');
 
         $data['konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
 
-        if($kode_kategori == 'Semua'){
+        if($kode_kategori == 'Terlaris'){
             $data['nama_kategori'] = $nama_kategori;
-            $data['list_produk'] = $this->Mod_master->get_all_produk()->result();
-            $data['ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+            $status_ipemesanan = 4;
+            $data['data_produk'] = $this->Mod_pemesanan->cek_status_ipemesanan($status_ipemesanan)->result();
+            $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+            $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
+            $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
+            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
+            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+        }elseif($kode_kategori == 'Semua'){
+            $data['nama_kategori'] = $nama_kategori;
+            $data['data_produk'] = $this->Mod_master->get_all_produk()->result();
+            $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+            $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
+            $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
+            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
+            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
         }else{
             $data['nama_kategori'] = $nama_kategori;
-            $data['list_produk'] = $this->Mod_master->get_cari_kategori($kode_kategori)->result();
-            $data['ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+            $data['data_produk'] = $this->Mod_master->get_cari_kategori($kode_kategori)->result();
+            $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+            $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
+            $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
+            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
+            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
         }
 
         $this->load->view('frontend/konsumen/home/load_data_produk', $data);
@@ -121,7 +142,6 @@ class Home extends CI_Controller {
     
     function cari_produk(){
         $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
-        $hak_akses = $this->session->userdata('ses_akses');  
 
         $cari_produk1 = "%".$_POST['cari_produk']."%";
         $data['konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
@@ -130,13 +150,7 @@ class Home extends CI_Controller {
 
         $data['pageTitle'] = "Cari Produk";
         
-        if($id_konsumen != null && $hak_akses == 'Konsumen'){
-            $this->load->view("frontend/konsumen/cari_produk/body",$data);
-        }
-        else{
-            // $this->session->sess_destroy();
-            $this->load->view("frontend/konsumen/cari_produk/body",$data);
-        }
+        $this->load->view("frontend/konsumen/cari_produk/body",$data);
     }
 
     function detail_produk($kode_produk){

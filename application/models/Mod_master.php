@@ -132,24 +132,12 @@ class Mod_master extends CI_Model {
         return $query2;
     }
 
-    function get_cari_kategori($cari_kategori){
+    function get_cari_kategori($kode_kategori){
         $query2 = $this->db->query("SELECT produk.kode_produk AS hahaha, produk.*, kategori.*
                                     FROM produk
                                     LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
                                     LEFT JOIN ukuran ON ukuran.kode_produk = produk.kode_produk
-                                    WHERE produk.kode_kategori = '$cari_kategori'
-                                    GROUP BY hahaha
-                                    ORDER BY produk.nama_produk ASC
-                                ");
-        return $query2;
-    }
-
-    function get_cari_subkategori($cari_subkategori){
-        $query2 = $this->db->query("SELECT produk.kode_produk AS hahaha, produk.*, kategori.*,
-                                    FROM produk
-                                    LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
-                                    LEFT JOIN ukuran ON ukuran.kode_produk = produk.kode_produk
-                                    WHERE produk.kode_subkategori = '$cari_subkategori'
+                                    WHERE produk.kode_kategori = '$kode_kategori'
                                     GROUP BY hahaha
                                     ORDER BY produk.nama_produk ASC
                                 ");
