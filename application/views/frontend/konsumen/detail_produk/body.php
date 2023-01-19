@@ -37,16 +37,16 @@
                                         $total_penilaian = 0;
                                         $total_penjualan = 0;
                                         foreach($data_ulasan_produk as $rat){ 
-                                            if($rat->kode == $data_produk['hahaha'] && $rat->status_ipesanan == 4){ 
+                                            if($rat->kode == $data_produk['hahaha'] && $rat->status_ipemesanan == 4){ 
                                                 $total_penilaian += 1;
-                                                $total += $rat->rating_ipesanan;
+                                                $total += $rat->rating_ipemesanan;
                                                 $count += 1;
                                                 $average = $total / $count;
                                                 $angka_format = number_format($average,1);
                                             }
                                             
-                                            if($rat->kode == $data_produk['hahaha'] && $rat->status_pesanan >= 3){
-                                                $total_penjualan += $rat->jumlah_ipesanan;
+                                            if($rat->kode == $data_produk['hahaha'] && $rat->status_pemesanan >= 3){
+                                                $total_penjualan += $rat->jumlah_ipemesanan;
                                             }
                                         }
 
@@ -137,7 +137,7 @@
                                             }
                                 ?>
                                     <input type="radio" class="btn-check" name="btn_ukuran" id="btn_ukuran<?php echo $no;?>" value="<?php echo $row2->kode_ukuran."|".$row2->volume_ukuran."|".$row2->irisan_ukuran."|".$row2->berat_ukuran."|".$harga_ukuran."|".$potongan_ipromo."|".$harga_promo;?>" autocomplete="off" <?php if($no == 1){echo "checked";} ?> onclick="myFunction(event)">
-                                    <label class="btn btn-outline-warning" for="btn_ukuran<?php echo $no;?>">
+                                    <label class="btn btn-outline-warning rounded" for="btn_ukuran<?php echo $no;?>">
                                         <?php 
                                             echo "<b>".$row2->volume_ukuran."</b>";
                                             if($potongan_ipromo != 0){ echo "<small><span class='badge bg-warning'style='top: -15px; right: -10px;'>".$potongan_ipromo."%</span></small>";} 
@@ -150,54 +150,55 @@
                                 ?>
                             </div>
                         </div>
+                    
+
+                        <div class="form-group mb-3">
+                            <form role="form" id="form_keranjang" method="post" aria-label="">
+                                <input type="hidden" class="form-control" name="id_konsumen" id="id_konsumen" value="<?php if($this->session->userdata('ses_akses') != NUll){ echo $this->session->userdata['ses_id_konsumen']; }?>">
+                                <input type="hidden" class="form-control" name="kode_produk" id="kode_produk" value="<?php echo $data_produk['hahaha']; ?>">
+                                <input type="hidden" class="form-control" name="kode_ukuran" id="kode_ukuran">
+                                <input type="hidden" class="form-control" name="volume_ukuran" id="volume_ukuran">
+                                <input type="hidden" class="form-control" name="irisan_ukuran" id="irisan_ukuran">
+                                <input type="hidden" class="form-control" name="berat_ukuran" id="berat_ukuran">
+                                <input type="hidden" class="form-control" name="harga_ukuran" id="harga_ukuran">
+                                <input type="hidden" class="form-control" name="potongan_ipromo" id="potongan_ipromo">
+                                <input type="hidden" class="form-control" name="harga_promo" id="harga_promo">
+                                <input type="hidden" class="form-control" name="hitung_harga" id="hitung_harga">
+                                
+                                <strong>Jumlah Pembelian</strong><br>
+                                <div class="mb-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-outline-warning" onclick="decrement()" style="width: 25%;"><span class="fa fa-minus"></span></button>
+                                                <input type="number" class="form-control" name="jumlah_ipemesanan" id="jumlah_ipemesanan" min="0" max="1000" value="0" style="width: 50%; text-align:center">
+                                                <button type="button" class="btn btn-outline-warning" onclick="incerment()" style="width: 25%;"><span class="fa fa-plus"></span></button> 
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="row">
+                                                <small>Subtotal</small>
+                                                <strong class="fs-5">Rp. <span id="subtotal_ipemesanan_text">0<span></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                <div class="mb-3 col-4">
+                                    <div class="row">
+                                        <?php if($this->session->userdata('ses_akses') != NUll){ ?>
+                                            <button type="submit" id="btn_tambah_keranjang" class="btn btn-warning btn-block"><span class="fa fa-plus"></span> Keranjang</button>      
+                                        <?php } else { ?>
+                                            <button type="button" class="btn btn-warning btn-block btn_modal_login"><span class="fa fa-plus"></span> Keranjang</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>    
-
-
-                <div class="col-lg-2">
-                    <div class="card-body">
-                        <form role="form" id="form_keranjang" method="post" aria-label="">
-                            <input type="hidden" class="form-control" name="id_konsumen" id="id_konsumen" value="<?php if($this->session->userdata('ses_akses') != NUll){ echo $this->session->userdata['ses_id_konsumen']; }?>">
-                            <input type="hidden" class="form-control" name="kode_produk" id="kode_produk" value="<?php echo $data_produk['hahaha']; ?>">
-                            <input type="hidden" class="form-control" name="kode_ukuran" id="kode_ukuran">
-                            <input type="hidden" class="form-control" name="volume_ukuran" id="volume_ukuran">
-                            <input type="hidden" class="form-control" name="irisan_ukuran" id="irisan_ukuran">
-                            <input type="hidden" class="form-control" name="berat_ukuran" id="berat_ukuran">
-                            <input type="hidden" class="form-control" name="harga_ukuran" id="harga_ukuran">
-                            <input type="hidden" class="form-control" name="potongan_ipromo" id="potongan_ipromo">
-                            <input type="hidden" class="form-control" name="harga_promo" id="harga_promo">
-                            <input type="hidden" class="form-control" name="hitung_harga" id="hitung_harga">
-                            
-                            <div class="form-group mb-3">
-                                <strong>Jumlah Pembelian</strong>
-                            </div>
-                            <div class="row mb-3">
-                                <button type="button" class="btn btn-outline-warning" onclick="decrement()" style="width: 20%;"><span class="fa fa-minus"></span></button>
-                                <input type="number" class="form-control" name="jumlah_ipemesanan" id="jumlah_ipemesanan" min="0" max="1000" value="0" style="width: 60%; text-align:center">
-                                <button type="button" class="btn btn-outline-warning" onclick="incerment()" style="width: 20%;"><span class="fa fa-plus"></span></button> 
-                            </div>
-                            <div class="form-group mb-3">
-                                <div class="row">
-                                    <small>Subtotal</small>
-                                    <strong class="fs-5">Rp. <span id="subtotal_ipemesanan_text">0<span></strong>
-                                </div>
-                            </div>
-                            <?php if($this->session->userdata('ses_akses') != NUll){ ?>
-                            <div class="form-group mb-3">
-                                <div class="row">
-                                    <button type="submit" id="btn_tambah_keranjang" class="btn btn-warning btn-block"><span class="fa fa-plus"></span> Keranjang</button>
-                                </div>
-                            </div>
-                            <?php } else { ?>
-                            <div class="form-group mb-3">
-                                <div class="row">
-                                    <button type="button" class="btn btn-warning btn-block btn_modal_login"><span class="fa fa-plus"></span> Keranjang</button>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -266,7 +267,7 @@
                                                         }
 
                                                         foreach($data_ulasan_produk as $i => $ul){ 
-                                                            if($ul->kode == $data_produk['hahaha'] && $ul->status_ipesanan == 4){ 
+                                                            if($ul->kode == $data_produk['hahaha'] && $ul->status_ipemesanan == 4){ 
                                                     ?>
                                                     <div class="row">
                                                         <div class="col-4">
@@ -279,16 +280,16 @@
                                                                     <?php } ?> 
                                                                 </div>
                                                                 <div class="col-9">
-                                                                    <strong><?php echo $ul->ulasan_ipesanan; ?></strong>
+                                                                    <strong><?php echo $ul->ulasan_ipemesanan; ?></strong>
                                                                     <br>
-                                                                    <small><?php echo $ul->tanggal_ulasan_ipesanan; ?></small>
+                                                                    <small><?php echo $ul->tanggal_ulasan_ipemesanan; ?></small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-8">
                                                             <p>
                                                                 <?php 
-                                                                $aa = $ul->rating_ipesanan;
+                                                                $aa = $ul->rating_ipemesanan;
                                                                 if($aa == "" ){
                                                                     echo "- Belum ada ulasan -";                    
                                                                 }
@@ -328,7 +329,7 @@
                                                                 ?>
                                                             </p>
                                                             <p>
-                                                                <?php echo $ul->ulasan_ipesanan;?>
+                                                                <?php echo $ul->ulasan_ipemesanan;?>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -372,6 +373,105 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <br>
+            <hr>
+            <br>
+            <div class="section-title">
+                <h2>Produk Terkait</h2>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-md-12 col-lg-12 col-12">
+                    <div class="card-body">
+                        <div class="portfolio-info">
+                            <div class="row row-cols-1 row-cols-md-4 g-4">
+                                <?php 
+                                    $delay = 100;
+                                    foreach($data_produk_all as $row1){
+                                        if($row1->kode_kategori == $data_produk['kode_kategori'] && $row1->kode_produk != $data_produk['hahaha']){
+                                        
+                                            //MENCARI MIN MAX
+                                            foreach($data_ukuran as $aaa){
+                                                if($aaa->kode_produk == $row1->kode_produk){
+                                                    $harga_terendah[] = $aaa->harga_ukuran;
+                                                }
+                                            }
+                                        
+                                            //MENCARI POTONGAN HARGA
+                                            $harga_ukuran = 0;
+                                            $potongan_ipromo = 0;
+                                            $harga_promo = 0;
+                                            foreach($data_ukuran as $row2){
+                                                if($row2->kode_produk == $row1->kode_produk){
+                                                    $harga_ukuran = $row2->harga_ukuran;
+
+                                                    foreach($data_ipromo as $row3){
+                                                        if($row3->kode_ukuran == $row2->kode_ukuran){
+                                                            $potongan_ipromo = $row3->potongan_ipromo;
+                                                            $harga_promo = $harga_ukuran - (($potongan_ipromo * $harga_ukuran) / 100);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            //HITUNG RATING STAR
+                                            $total1 = 0;
+                                            $count1 = 0;
+                                            $average1 = 0;
+                                            $terjual = 0;
+                                            foreach($data_ulasan_produk as $rat){ 
+                                                if($rat->kode == $row1->hahaha && $rat->status_ipemesanan == 4){ 
+                                                    $total1 += $rat->rating_ipemesanan;
+                                                    $count1 += 1;
+                                                    $terjual += $rat->qty_ipemesanan;
+                                                }
+                                            }
+                                            
+                                            if($total1 == 0 || $total1 == null){
+                                                $angka_format1 = 0;
+                                            }else if($total1 != 0 || $total1 != null){
+                                                $average1 = $total1/$count1;
+                                                $angka_format1 = number_format($average1,1);
+                                            }
+                                ?>  
+                                <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
+                                    <div class="col">
+                                        <div class="card cards">
+                                        <div class="ratio ratio-1x1">
+                                            <?php if($row1->gambar_produk != "") { ?>
+                                                <img class="image-wrapper rounded-top" src="<?php echo base_url('assets/img/produk/'.$row1->gambar_produk);?>" alt="Image" style="object-fit: cover;">
+                                            <?php }else{ ?>
+                                                <img class="image-wrapper" src="<?php echo base_url('assets/img/banner/package_regular.png');?>" alt="Image" style="object-fit: cover;">
+                                            <?php } ?>
+                                        </div>
+                                            <div class="card-body">
+                                                <strong class="card-title fs-6" style="color: #ffc107"><?php echo mb_strimwidth($row1->nama_produk, 0, 20, "..."); ?></strong>
+                                                <p class="card-text">     
+                                                    <?php if($potongan_ipromo != 0){?>
+                                                        <span class="badge bg-success"><?php echo $potongan_ipromo; ?>%</span>
+                                                        <del>Rp. <?php echo number_format($harga_ukuran, 0, ".", "."); ?></del></li><br>
+                                                        <span>Rp. <?php echo number_format($harga_promo, 0, ".", "."); ?></span>
+                                                    <?php }else{ ?>
+                                                        <span>Rp. <?php echo number_format(min($harga_terendah), 0, ".", "."); ?></span>
+                                                        <br>
+                                                    <?php } ?>
+                                                    <br>
+                                                    <small>
+                                                        <i class="fa fa-star checked"><span> <?php echo $angka_format1; ?></span></i> <span> | Terjual <?php echo $terjual; ?> qty</span>
+                                                    </small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <?php } } ?>
                             </div>
                         </div>
                     </div>

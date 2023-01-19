@@ -145,8 +145,13 @@ class Home extends CI_Controller {
 
         $cari_produk1 = "%".$_POST['cari_produk']."%";
         $data['konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
-		$data['produk'] = $this->Mod_master->get_cari_produk($cari_produk1)->result();
-        $data['ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+		$data['data_produk'] = $this->Mod_master->get_cari_produk($cari_produk1)->result();
+        $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+        $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
+        $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+        $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
+        $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
+        $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
 
         $data['pageTitle'] = "Cari Produk";
         
