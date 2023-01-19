@@ -5,9 +5,9 @@
         <label class="btn" for="gambar_produk">
             <div class="form-control" style="padding: 0px; width:180px; height: 180px;">
                 <?php if($produk['gambar_produk'] != "") { ?>
-                    <img id="blah" src="<?php echo base_url('assets/img/produk/'.$produk['gambar_produk']);?>" class="product-image" alt="Gambar Promo" style="border-radius: 3px; width:180px; height:180px; object-fit: cover; ">  
+                    <img id="blah" src="<?php echo base_url('assets/img/produk/'.$produk['gambar_produk']);?>" class="product-image" alt="Gambar Produk" style="border-radius: 3px; width:180px; height:180px; object-fit: cover; ">  
                 <?php }else{ ?>
-                    <img id="blah" src="<?php echo base_url('assets/img/banner/bx-cake.svg');?>" class="product-image" alt="Gambar Promo" style="border-radius: 3px; width:180px; height:180px; object-fit: cover; ">  
+                    <img id="blah" src="<?php echo base_url('assets/img/banner/bx-cake.svg');?>" class="product-image" alt="Gambar Produk" style="border-radius: 3px; width:180px; height:180px; object-fit: cover; ">  
                 <?php } ?> 
             </div>
         </label>

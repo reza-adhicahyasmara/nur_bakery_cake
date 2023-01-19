@@ -96,10 +96,10 @@
                     
                         <div class="form-group mb-3">
                             <div id="potongan" style="display: none">
-                                <span class="badge bg-success"><text id="text_potongan_ipromo"></text> %</span>
+                                <span class="badge bg-success"><text id="text_potongan_idiskon"></text> %</span>
                                 <del>Rp. <span id="text_harga_ukuran1"></span></del> 
                                 <br>
-                                <strong class="fs-4">Rp. <span id="text_harga_promo"></span></strong>
+                                <strong class="fs-4">Rp. <span id="text_harga_diskon"></span></strong>
                             </div>
                             <div id="tanpa_potongan" style="display: none">
                                 <strong class="fs-4">Rp. <span id="text_harga_ukuran2"></span></strong>
@@ -125,22 +125,22 @@
                                         if($row2->kode_produk == $data_produk['kode_produk']){
                                             $harga_ukuran = $row2->harga_ukuran;
 
-                                            $potongan_ipromo = 0;
-                                            $harga_promo = 0;
-                                            foreach($data_ipromo as $row3){
+                                            $potongan_idiskon = 0;
+                                            $harga_diskon = 0;
+                                            foreach($data_idiskon as $row3){
                                                 if($row3->kode_ukuran == $row2->kode_ukuran){
-                                                    $potongan_ipromo = $row3->potongan_ipromo;
-                                                    $harga_promo = $harga_ukuran - (($potongan_ipromo * $harga_ukuran) / 100);
+                                                    $potongan_idiskon = $row3->potongan_idiskon;
+                                                    $harga_diskon = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
                                                 }else{
 
                                                 }
                                             }
                                 ?>
-                                    <input type="radio" class="btn-check" name="btn_ukuran" id="btn_ukuran<?php echo $no;?>" value="<?php echo $row2->kode_ukuran."|".$row2->volume_ukuran."|".$row2->irisan_ukuran."|".$row2->berat_ukuran."|".$harga_ukuran."|".$potongan_ipromo."|".$harga_promo;?>" autocomplete="off" <?php if($no == 1){echo "checked";} ?> onclick="myFunction(event)">
+                                    <input type="radio" class="btn-check" name="btn_ukuran" id="btn_ukuran<?php echo $no;?>" value="<?php echo $row2->kode_ukuran."|".$row2->volume_ukuran."|".$row2->irisan_ukuran."|".$row2->berat_ukuran."|".$harga_ukuran."|".$potongan_idiskon."|".$harga_diskon;?>" autocomplete="off" <?php if($no == 1){echo "checked";} ?> onclick="myFunction(event)">
                                     <label class="btn btn-outline-warning rounded" for="btn_ukuran<?php echo $no;?>">
                                         <?php 
                                             echo "<b>".$row2->volume_ukuran."</b>";
-                                            if($potongan_ipromo != 0){ echo "<small><span class='badge bg-warning'style='top: -15px; right: -10px;'>".$potongan_ipromo."%</span></small>";} 
+                                            if($potongan_idiskon != 0){ echo "<small><span class='badge bg-success'style='top: -15px; right: -10px;'>".$potongan_idiskon."%</span></small>";} 
                                         ?>
                                     </label>
                                 <?php
@@ -161,8 +161,8 @@
                                 <input type="hidden" class="form-control" name="irisan_ukuran" id="irisan_ukuran">
                                 <input type="hidden" class="form-control" name="berat_ukuran" id="berat_ukuran">
                                 <input type="hidden" class="form-control" name="harga_ukuran" id="harga_ukuran">
-                                <input type="hidden" class="form-control" name="potongan_ipromo" id="potongan_ipromo">
-                                <input type="hidden" class="form-control" name="harga_promo" id="harga_promo">
+                                <input type="hidden" class="form-control" name="potongan_idiskon" id="potongan_idiskon">
+                                <input type="hidden" class="form-control" name="harga_diskon" id="harga_diskon">
                                 <input type="hidden" class="form-control" name="hitung_harga" id="hitung_harga">
                                 
                                 <strong>Jumlah Pembelian</strong><br>
@@ -406,16 +406,16 @@
                                         
                                             //MENCARI POTONGAN HARGA
                                             $harga_ukuran = 0;
-                                            $potongan_ipromo = 0;
-                                            $harga_promo = 0;
+                                            $potongan_idiskon = 0;
+                                            $harga_diskon = 0;
                                             foreach($data_ukuran as $row2){
                                                 if($row2->kode_produk == $row1->kode_produk){
                                                     $harga_ukuran = $row2->harga_ukuran;
 
-                                                    foreach($data_ipromo as $row3){
+                                                    foreach($data_idiskon as $row3){
                                                         if($row3->kode_ukuran == $row2->kode_ukuran){
-                                                            $potongan_ipromo = $row3->potongan_ipromo;
-                                                            $harga_promo = $harga_ukuran - (($potongan_ipromo * $harga_ukuran) / 100);
+                                                            $potongan_idiskon = $row3->potongan_idiskon;
+                                                            $harga_diskon = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
                                                         }
                                                     }
                                                 }
@@ -454,10 +454,10 @@
                                             <div class="card-body">
                                                 <strong class="card-title fs-6" style="color: #ffc107"><?php echo mb_strimwidth($row1->nama_produk, 0, 20, "..."); ?></strong>
                                                 <p class="card-text">     
-                                                    <?php if($potongan_ipromo != 0){?>
-                                                        <span class="badge bg-success"><?php echo $potongan_ipromo; ?>%</span>
+                                                    <?php if($potongan_idiskon != 0){?>
+                                                        <span class="badge bg-success"><?php echo $potongan_idiskon; ?>%</span>
                                                         <del>Rp. <?php echo number_format($harga_ukuran, 0, ".", "."); ?></del></li><br>
-                                                        <span>Rp. <?php echo number_format($harga_promo, 0, ".", "."); ?></span>
+                                                        <span>Rp. <?php echo number_format($harga_diskon, 0, ".", "."); ?></span>
                                                     <?php }else{ ?>
                                                         <span>Rp. <?php echo number_format(min($harga_terendah), 0, ".", "."); ?></span>
                                                         <br>
@@ -513,25 +513,25 @@
         $('#irisan_ukuran').val(myArray[2]);
         $('#berat_ukuran').val(myArray[3]);
         $('#harga_ukuran').val(myArray[4]);
-        $('#potongan_ipromo').val(myArray[5]);
-        $('#harga_promo').val(myArray[6]);
+        $('#potongan_idiskon').val(myArray[5]);
+        $('#harga_diskon').val(myArray[6]);
         
         var kode_ukuran = myArray[0];
         var volume_ukuran = myArray[1];
         var irisan_ukuran = myArray[2];
         var berat_ukuran = myArray[3];
         var harga_ukuran = myArray[4];
-        var potongan_ipromo = myArray[5];
-        var harga_promo = myArray[6];
+        var potongan_idiskon = myArray[5];
+        var harga_diskon = myArray[6];
 
-        if(potongan_ipromo != 0 ){
+        if(potongan_idiskon != 0 ){
             $("div#potongan").show(500);
             $("div#tanpa_potongan").hide(500);
             $('#text_berat_ukuran').text(new Number(berat_ukuran).toLocaleString("id-ID"));
             $('#text_harga_ukuran1').text(new Number(harga_ukuran).toLocaleString("id-ID"));
-            $('#text_potongan_ipromo').text(new Number(potongan_ipromo).toLocaleString("id-ID"));
-            $('#text_harga_promo').text(new Number(harga_promo).toLocaleString("id-ID"));
-            $('#hitung_harga').val(harga_promo);
+            $('#text_potongan_idiskon').text(new Number(potongan_idiskon).toLocaleString("id-ID"));
+            $('#text_harga_diskon').text(new Number(harga_diskon).toLocaleString("id-ID"));
+            $('#hitung_harga').val(harga_diskon);
         }else{
             $("div#potongan").hide(500);
             $("div#tanpa_potongan").show(500);

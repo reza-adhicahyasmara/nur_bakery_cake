@@ -107,16 +107,16 @@
                                  
                                     //MENCARI POTONGAN HARGA
                                     $harga_ukuran = 0;
-                                    $potongan_ipromo = 0;
-                                    $harga_promo = 0;
+                                    $potongan_idiskon = 0;
+                                    $harga_diskon = 0;
                                     foreach($data_ukuran as $row2){
                                         if($row2->kode_produk == $row1->kode_produk){
                                             $harga_ukuran = $row2->harga_ukuran;
 
-                                            foreach($data_ipromo as $row3){
+                                            foreach($data_idiskon as $row3){
                                                 if($row3->kode_ukuran == $row2->kode_ukuran){
-                                                    $potongan_ipromo = $row3->potongan_ipromo;
-                                                    $harga_promo = $harga_ukuran - (($potongan_ipromo * $harga_ukuran) / 100);
+                                                    $potongan_idiskon = $row3->potongan_idiskon;
+                                                    $harga_diskon = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
                                                 }
                                             }
                                         }
@@ -155,10 +155,10 @@
                                         <div class="card-body">
                                             <strong class="card-title fs-6" style="color: #ffc107"><?php echo mb_strimwidth($row1->nama_produk, 0, 20, "..."); ?></strong>
                                             <p class="card-text">     
-                                                <?php if($potongan_ipromo != 0){?>
-                                                    <span class="badge bg-success"><?php echo $potongan_ipromo; ?>%</span>
+                                                <?php if($potongan_idiskon != 0){?>
+                                                    <span class="badge bg-success"><?php echo $potongan_idiskon; ?>%</span>
                                                     <del>Rp. <?php echo number_format($harga_ukuran, 0, ".", "."); ?></del></li><br>
-                                                    <span>Rp. <?php echo number_format($harga_promo, 0, ".", "."); ?></span>
+                                                    <span>Rp. <?php echo number_format($harga_diskon, 0, ".", "."); ?></span>
                                                 <?php }else{ ?>
                                                     <span>Rp. <?php echo number_format(min($harga_terendah), 0, ".", "."); ?></span>
                                                     <br>
@@ -190,7 +190,7 @@
                 <div class="swiper-wrapper">
                     <?php if(empty($data_pemesanan)) { ?>
                         <div class="carousel-item active">
-                            <h5 style="color: white;">Belum ada promo event, daftarkan diri Anda untuk mendapatkan informaasi promo terupdate dari kami.</h5>
+                            <h5 style="color: white;">Belum ada diskon event, daftarkan diri Anda untuk mendapatkan informaasi diskon terupdate dari kami.</h5>
                         </div>
                     <?php
                         }else{
@@ -282,7 +282,7 @@
                             <p>
                                 <ol>
                                     <li>Produk kami merupakan produk original dan berkualitas karena produksi kami sendiri.</li>
-                                    <li>Terdapat harga promo untuk pelanggan baru.</li>
+                                    <li>Terdapat harga diskon untuk pelanggan baru.</li>
                                     <li>Terdapat potongan harga untuk setiap pembelian diatas 5 liter dari setiap varian dan kategori kemasan yang berbeda.</li>
                                     <li>Pengiriman paket yang cepat dan terjamin aman.</li>
                                 </ol>
@@ -431,13 +431,13 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingEleven">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                                            Apakah terdapat promo/ diskon ditoko ini?
+                                            Apakah terdapat diskon/ diskon ditoko ini?
                                         </button>
                                     </h2>
                                     <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <ul>
-                                                <li>Terdapat promo untuk setiap pelanggan baru.</li>
+                                                <li>Terdapat diskon untuk setiap pelanggan baru.</li>
                                                 <li>Terdapat potongan harga untuk setiap pembelian diatas 5 liter dari setiap varian dan kategori kemasan yang berbeda.</li>
                                             </ul>
                                         </div>

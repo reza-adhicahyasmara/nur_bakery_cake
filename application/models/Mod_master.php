@@ -237,112 +237,112 @@ class Mod_master extends CI_Model {
 
 
 
-    //PROMO EVENT
-    function get_display_promo(){
-        $this->db->select('promo.*');
-        $this->db->from('promo');
-        $this->db->where("CURRENT_DATE() BETWEEN DATE_ADD(promo.tanggal_awal_promo, INTERVAL -7 DAY) AND promo.tanggal_akhir_promo");
+    //DISKON EVENT
+    function get_display_diskon(){
+        $this->db->select('diskon.*');
+        $this->db->from('diskon');
+        $this->db->where("CURRENT_DATE() BETWEEN DATE_ADD(diskon.tanggal_awal_diskon, INTERVAL -7 DAY) AND diskon.tanggal_akhir_diskon");
         return $this->db->get(); 
     }
 
-    function get_all_promo(){ 
-        return $this->db->get('promo'); 
+    function get_all_diskon(){ 
+        return $this->db->get('diskon'); 
     }
 
-    function get_promo($kode_promo){
-        $this->db->where('kode_promo', $kode_promo);
-        return $this->db->get('promo');
+    function get_diskon($kode_diskon){
+        $this->db->where('kode_diskon', $kode_diskon);
+        return $this->db->get('diskon');
     }
 
-    function cek_promo($nama_promo){
-        $this->db->where('nama_promo', $nama_promo);
-        return $this->db->get('promo');
+    function cek_diskon($nama_diskon){
+        $this->db->where('nama_diskon', $nama_diskon);
+        return $this->db->get('diskon');
     }
 
-    function insert_promo($data){
-        $this->db->insert('promo', $data);
+    function insert_diskon($data){
+        $this->db->insert('diskon', $data);
     }
 
-    function update_promo($kode_promo, $data){
-        $this->db->where('kode_promo', $kode_promo);
-		$this->db->update('promo', $data);
+    function update_diskon($kode_diskon, $data){
+        $this->db->where('kode_diskon', $kode_diskon);
+		$this->db->update('diskon', $data);
     }
 
-    function delete_promo($kode){
-        $this->db->where('kode_promo', $kode);
-        $this->db->delete('promo');
+    function delete_diskon($kode){
+        $this->db->where('kode_diskon', $kode);
+        $this->db->delete('diskon');
     }
 
 
 
     
        
-    //PROMO LIST
-    function get_display_ipromo(){
-        $this->db->select('ipromo.*, produk.*, ukuran.*, kategori.*, produk.kode_produk AS kode_produk_ipromo');
-        $this->db->from('ipromo');
-        $this->db->join('ukuran', 'ukuran.kode_ukuran = ipromo.kode_ukuran', 'left');
+    //DISKON LIST
+    function get_display_idiskon(){
+        $this->db->select('idiskon.*, produk.*, ukuran.*, kategori.*, produk.kode_produk AS kode_produk_idiskon');
+        $this->db->from('idiskon');
+        $this->db->join('ukuran', 'ukuran.kode_ukuran = idiskon.kode_ukuran', 'left');
         $this->db->join('produk', 'produk.kode_produk = ukuran.kode_produk', 'left');
         $this->db->join('kategori', 'kategori.kode_kategori = produk.kode_kategori', 'left');
-        $this->db->join('promo', 'promo.kode_promo = ipromo.kode_promo', 'left');
-        $this->db->where("CURRENT_DATE() BETWEEN promo.tanggal_awal_promo AND promo.tanggal_akhir_promo");
+        $this->db->join('diskon', 'diskon.kode_diskon = idiskon.kode_diskon', 'left');
+        $this->db->where("CURRENT_DATE() BETWEEN diskon.tanggal_awal_diskon AND diskon.tanggal_akhir_diskon");
 
         return $this->db->get(); 
     }
 
-    function get_all_ipromo(){ 
-        $this->db->select('ipromo.*, produk.*, ukuran.*');
-        $this->db->join('ukuran', 'ukuran.kode_ukuran = ipromo.kode_ukuran', 'left');
+    function get_all_idiskon(){ 
+        $this->db->select('idiskon.*, produk.*, ukuran.*');
+        $this->db->join('ukuran', 'ukuran.kode_ukuran = idiskon.kode_ukuran', 'left');
         $this->db->join('produk', 'produk.kode_produk = ukuran.kode_produk', 'left');
-        return $this->db->get('ipromo'); 
+        return $this->db->get('idiskon'); 
     }
 
-    function get_all_ipromo1(){ 
-        $this->db->select('ipromo.*, produk.*, ukuran.*');
-        $this->db->join('ukuran', 'ukuran.kode_ukuran = ipromo.kode_ukuran', 'left');
+    function get_all_idiskon1(){ 
+        $this->db->select('idiskon.*, produk.*, ukuran.*');
+        $this->db->join('ukuran', 'ukuran.kode_ukuran = idiskon.kode_ukuran', 'left');
         $this->db->join('produk', 'produk.kode_produk = ukuran.kode_produk', 'left');
-        $this->db->where('kode_promo IS NULL');
-        return $this->db->get('ipromo'); 
+        $this->db->where('kode_diskon IS NULL');
+        return $this->db->get('idiskon'); 
     }
 
-    function get_ipromo($kode_ipromo){
-        $this->db->where('kode_ipromo', $kode_ipromo);
-        return $this->db->get('ipromo');
+    function get_idiskon($kode_idiskon){
+        $this->db->where('kode_idiskon', $kode_idiskon);
+        return $this->db->get('idiskon');
     }
 
-    function cek_ipromo($nama_ipromo){
-        $this->db->where('nama_ipromo', $nama_ipromo);
-        return $this->db->get('ipromo');
+    function cek_idiskon($nama_idiskon){
+        $this->db->where('nama_idiskon', $nama_idiskon);
+        return $this->db->get('idiskon');
     }
 
-    function cek_ipromo0(){
-        $this->db->where('kode_promo IS NULL OR kode_ukuran IS NULL');
-        return $this->db->get('ipromo');
+    function cek_idiskon0(){
+        $this->db->where('kode_diskon IS NULL OR kode_ukuran IS NULL');
+        return $this->db->get('idiskon');
     }
 
-    function cek_ipromo1($kode_ukuran){
+    function cek_idiskon1($kode_ukuran){
         $this->db->where('kode_ukuran', $kode_ukuran);
-        $this->db->where('kode_promo IS NULL');
-        return $this->db->get('ipromo');
+        $this->db->where('kode_diskon IS NULL');
+        return $this->db->get('idiskon');
     }
 
-    function insert_ipromo($data){
-        $this->db->insert('ipromo', $data);
+    function insert_idiskon($data){
+        $this->db->insert('idiskon', $data);
     }
 
-    function update_ipromo($kode_ipromo, $data){
-        $this->db->where('kode_ipromo', $kode_ipromo);
-		$this->db->update('ipromo', $data);
+    function update_idiskon($kode_idiskon, $data){
+        $this->db->where('kode_idiskon', $kode_idiskon);
+		$this->db->update('idiskon', $data);
     }
 
-    function delete_ipromo($kode){
-        $this->db->where('kode_ipromo', $kode);
-        $this->db->delete('ipromo');
+    function delete_idiskon($kode){
+        $this->db->where('kode_idiskon', $kode);
+        $this->db->delete('idiskon');
     }
 
-    function delete_all_ipromo($kode){
-        $this->db->where('kode_promo', $kode);
-        $this->db->delete('ipromo');
+    function delete_all_idiskon($kode){
+        $this->db->where('kode_diskon', $kode);
+        $this->db->delete('idiskon');
     }
 
 

@@ -286,7 +286,7 @@ by projekindong
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item"><a href="<?php echo base_url('admin/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cake nav-icon"></i><p>Produk <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?></p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/kategori_produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-bookmark"></i><p>Kategori Produk</p></a></li>
-                                    <li class="nav-item"><a href="<?php echo base_url('admin/promo'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-discount"></i><p>Pormo</p></a></li>
+                                    <li class="nav-item"><a href="<?php echo base_url('admin/diskon'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-offer"></i><p>Diskon</p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cog"></i><p>Pengaturan</p></a></li>
                                 </ul>
                             </li>
@@ -318,7 +318,7 @@ by projekindong
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/dashboard'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-grid-alt"></i><p>Dashboard</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/konsumen'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-group"></i><p>Konsumen</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-package"></i><p>Produk</p></a></li>
-                            <li class="nav-item"><a href="<?php echo base_url('pimpinan/promo'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-discount"></i><p>Pormo</p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('pimpinan/diskon'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-offer"></i><p>Diskon</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/karyawan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-user"></i><p>Karyawan</p></a></li>
                         <?php } ?> 
                     </ul>

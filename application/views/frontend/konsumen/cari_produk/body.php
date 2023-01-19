@@ -46,16 +46,16 @@
                         
                         //MENCARI POTONGAN HARGA
                         $harga_ukuran = 0;
-                        $potongan_ipromo = 0;
-                        $harga_promo = 0;
+                        $potongan_idiskon = 0;
+                        $harga_diskon = 0;
                         foreach($data_ukuran as $row2){
                             if($row2->kode_produk == $row1->kode_produk){
                                 $harga_ukuran = $row2->harga_ukuran;
 
-                                foreach($data_ipromo as $row3){
+                                foreach($data_idiskon as $row3){
                                     if($row3->kode_ukuran == $row2->kode_ukuran){
-                                        $potongan_ipromo = $row3->potongan_ipromo;
-                                        $harga_promo = $harga_ukuran - (($potongan_ipromo * $harga_ukuran) / 100);
+                                        $potongan_idiskon = $row3->potongan_idiskon;
+                                        $harga_diskon = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
                                     }
                                 }
                             }
@@ -94,10 +94,10 @@
                             <div class="card-body">
                                 <strong class="card-title fs-6" style="color: #ffc107"><?php echo mb_strimwidth($row1->nama_produk, 0, 20, "..."); ?></strong>
                                 <p class="card-text">     
-                                    <?php if($potongan_ipromo != 0){?>
-                                        <span class="badge bg-success"><?php echo $potongan_ipromo; ?>%</span>
+                                    <?php if($potongan_idiskon != 0){?>
+                                        <span class="badge bg-success"><?php echo $potongan_idiskon; ?>%</span>
                                         <del>Rp. <?php echo number_format($harga_ukuran, 0, ".", "."); ?></del></li><br>
-                                        <span>Rp. <?php echo number_format($harga_promo, 0, ".", "."); ?></span>
+                                        <span>Rp. <?php echo number_format($harga_diskon, 0, ".", "."); ?></span>
                                     <?php }else{ ?>
                                         <span>Rp. <?php echo number_format(min($harga_terendah), 0, ".", "."); ?></span>
                                         <br>

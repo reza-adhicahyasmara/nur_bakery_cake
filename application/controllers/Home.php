@@ -21,8 +21,8 @@ class Home extends CI_Controller {
         $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
         $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
         $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
-        $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
-        $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+        $data['data_diskon'] = $this->Mod_master->get_display_diskon()->result();
+        $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
       
         $data['pageTitle'] = "Home";
         
@@ -115,8 +115,8 @@ class Home extends CI_Controller {
             $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
             $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
             $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
-            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
-            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+            $data['data_diskon'] = $this->Mod_master->get_display_diskon()->result();
+            $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
         }elseif($kode_kategori == 'Semua'){
             $data['nama_kategori'] = $nama_kategori;
             $data['data_produk'] = $this->Mod_master->get_all_produk()->result();
@@ -124,8 +124,8 @@ class Home extends CI_Controller {
             $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
             $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
             $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
-            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
-            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+            $data['data_diskon'] = $this->Mod_master->get_display_diskon()->result();
+            $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
         }else{
             $data['nama_kategori'] = $nama_kategori;
             $data['data_produk'] = $this->Mod_master->get_cari_kategori($kode_kategori)->result();
@@ -133,8 +133,8 @@ class Home extends CI_Controller {
             $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
             $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
             $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
-            $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
-            $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+            $data['data_diskon'] = $this->Mod_master->get_display_diskon()->result();
+            $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
         }
 
         $this->load->view('frontend/konsumen/home/load_data_produk', $data);
@@ -150,8 +150,8 @@ class Home extends CI_Controller {
         $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
         $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
         $data['data_pemesanan'] = $this->Mod_pemesanan->get_all_pemesanan()->result();
-        $data['data_promo'] = $this->Mod_master->get_display_promo()->result();
-        $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+        $data['data_diskon'] = $this->Mod_master->get_display_diskon()->result();
+        $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
 
         $data['pageTitle'] = "Cari Produk";
         
@@ -166,7 +166,7 @@ class Home extends CI_Controller {
 		$data['data_produk'] = $this->Mod_master->get_detail_produk($kode_produk)->row_array();
         $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
         $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
-        $data['data_ipromo'] = $this->Mod_master->get_display_ipromo()->result();
+        $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
         $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
         $data['data_produk_all'] = $this->Mod_master->get_all_produk()->result();
 
@@ -323,7 +323,7 @@ class Home extends CI_Controller {
                     if($data->kode_pemesanan == ""){
                         $kode_ipemesanan = $data->kode_ipemesanan;
                         $harga_ipemesanan = $data->harga_jual_produk; 
-                        $promo_ipemesanan = $data->promo_produk; 
+                        $diskon_ipemesanan = $data->diskon_produk; 
                         $jumlah_ipemesanan = $data->jumlah_ipemesanan; 
                         $subtotal_ipemesanan = $harga_ipemesanan * $jumlah_ipemesanan;
 
@@ -332,7 +332,7 @@ class Home extends CI_Controller {
                             'kode_ipemesanan'       => $kode_ipemesanan,
                             'kode_pemesanan'        => $kode_pemesanan,
                             'harga_ipemesanan'      => $harga_ipemesanan,
-                            'promo_ipemesanan'      => $promo_ipemesanan,
+                            'diskon_ipemesanan'      => $diskon_ipemesanan,
                             'subtotal_ipemesanan'   => $subtotal_ipemesanan,
                             'status_ipemesanan'     => '2'
                         );

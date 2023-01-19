@@ -32,9 +32,9 @@
                                         <label class="btn" for="foto_karyawan">
                                             <div class="form-control" style="border-radius: 50%; padding: 0px; width:180px; height: 180px;">
                                                 <?php if($edit->foto_karyawan != "") { ?>
-                                                    <img id="blah" src="<?php echo base_url('assets/img/karyawan/'.$edit->foto_karyawan);?>" class="product-image" alt="Gambar Promo" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
+                                                    <img id="blah" src="<?php echo base_url('assets/img/karyawan/'.$edit->foto_karyawan);?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
                                                 <?php }else{ ?>
-                                                    <img id="blah" src="<?php echo base_url('assets/img/banner/user_solid.png');?>" class="product-image" alt="Gambar Promo" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
+                                                    <img id="blah" src="<?php echo base_url('assets/img/banner/user_solid.png');?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
                                                 <?php } ?> 
                                             </div>
                                             <input class="text" accept="image/*" type="file" id="foto_karyawan" name="file" style="display: none;" />
