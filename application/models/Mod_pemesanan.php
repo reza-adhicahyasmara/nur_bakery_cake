@@ -65,7 +65,7 @@ class Mod_pemesanan extends CI_Model {
     }
 
     function get_potongan_ipemesanan_konsumen($id_konsumen){
-        $query2 = $this->db->query("SELECT SUM(jumlah_ipemesanan) as jumlah_pemesanan, kategori.* ,ipemesanan.*, produk.*
+        $query2 = $this->db->query("SELECT SUM(qty_ipemesanan) as jumlah_pemesanan, kategori.* ,ipemesanan.*, produk.*
                                     FROM ipemesanan
                                     INNER JOIN produk ON produk.kode_produk = ipemesanan.kode_produk
                                     LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
@@ -79,11 +79,11 @@ class Mod_pemesanan extends CI_Model {
         return $this->db->insert('ipemesanan', $data);
     }
 
-    function cek_ipemesanan($id_konsumen, $kode_produk){
+    function cek_ipemesanan($id_konsumen, $kode_ukuran){
         $query2 = $this->db->query("SELECT *
                                     FROM ipemesanan
                                     WHERE id_konsumen = '$id_konsumen'
-                                    AND kode_produk = '$kode_produk'
+                                    AND kode_ukuran = '$kode_ukuran'
                                     AND status_ipemesanan = '1'
                                 ");
         return $query2;
@@ -161,7 +161,7 @@ class Mod_pemesanan extends CI_Model {
         return $this->db->get();
     }
 
-    function inserpemesanan($data){
+    function insert_pemesanan($data){
         return $this->db->insert('pemesanan', $data);
     }
 

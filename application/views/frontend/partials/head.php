@@ -91,7 +91,7 @@ by projekindong
     <meta content="" name="keywords">
 
     <link rel="icon" href="<?php echo base_url(); ?>assets/img/banner/bx-cake.svg" >
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/animate.css/animate.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/aos/aos.css">
@@ -290,7 +290,7 @@ by projekindong
 <body>
     <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
-            <i class="bi bi-phone d-flex align-items-center"><span>+1 5589 55488 55</span></i>
+            <i class="bi bi-phone d-flex align-items-center"><span>+62 000000000</span></i>
             <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Setiap Hari: 08:00 - 21:00</span></i>
         </div>
     </section>

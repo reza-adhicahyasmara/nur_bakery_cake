@@ -1,5 +1,15 @@
 <?php 
+//ini wajib dipanggil paling atas
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+//ini sesuaikan foldernya ke file 3 ini
+require 'assets/plugins/PHPMailer/src/Exception.php';
+require 'assets/plugins/PHPMailer/src/PHPMailer.php';
+require 'assets/plugins/PHPMailer/src/SMTP.php';
+
 defined('BASEPATH') || exit('No direct script access allowed');
+
 
 class Home extends CI_Controller {
 
@@ -192,12 +202,13 @@ class Home extends CI_Controller {
         $hak_akses = $this->session->userdata('ses_akses');   
 
         $data['pageTitle'] = "Keranjang";
-
-        $data['konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();    
-		$data['keranjang'] = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen);
-		$data['potongan'] = $this->Mod_pemesanan->get_potongan_ipemesanan_konsumen($id_konsumen);
-		$data['kurir'] = $this->Mod_master->get_all_kurir();
-		$data['rekening'] = $this->Mod_master->get_all_rekening();
+            
+        $data['data_konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
+		$data['data_keranjang'] = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen)->result();
+        $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+        $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
+        $kode_pengaturan = 1;
+		$data['data_pengaturan'] = $this->Mod_master->get_pengaturan($kode_pengaturan)->row_array();
 
         if($id_konsumen != null && $hak_akses == 'Konsumen'){
             $this->load->view("frontend/konsumen/keranjang/body",$data);
@@ -211,25 +222,47 @@ class Home extends CI_Controller {
     function tambah_keranjang(){
         $id_konsumen = $this->input->post('id_konsumen');
         $kode_produk = $this->input->post('kode_produk');
-        $jumlah_ipemesanan = $this->input->post('jumlah_ipemesanan');
+        $kode_ukuran = $this->input->post('kode_ukuran');
+        $kode_ipemesanan = $this->input->post('kode_ipemesanan');
+        $qty_ipemesanan = $this->input->post('qty_ipemesanan');
         $status_ipemesanan = 1;
 
-        $cek_produk = $this->Mod_pemesanan->cek_ipemesanan($id_konsumen, $kode_produk);
+        $cek_produk = $this->Mod_pemesanan->cek_ipemesanan($id_konsumen, $kode_ukuran);
         if($cek_produk->num_rows() > 0){
-            echo "Produk sudah ada..!!";
-        } else if($jumlah_ipemesanan == 0){
-            echo "Item tidak boleh kosong";
-        } else {
+            echo 2; 
+            
+            $produk = $this->Mod_pemesanan->cek_ipemesanan($id_konsumen, $kode_ukuran)->row_array();
+            $kode_ipemesanan = $produk['kode_ipemesanan'];
+
+            $data  = array(
+                'kode_ipemesanan'       => $kode_ipemesanan,
+                'qty_ipemesanan'        => $qty_ipemesanan + $produk['qty_ipemesanan'],       
+            );
+                        
+            $this->Mod_pemesanan->update_ipemesanan($kode_ipemesanan, $data); 
+
+        } 
+        else if($id_konsumen != ""){
             echo 1;
                             
             $data  = array(
                 'id_konsumen'           => $id_konsumen,
                 'kode_produk'           => $kode_produk,
-                'jumlah_ipemesanan'     => $jumlah_ipemesanan,
+                'kode_ukuran'           => $kode_ukuran,
+                'qty_ipemesanan'        => $qty_ipemesanan,
                 'status_ipemesanan'     => $status_ipemesanan        
             );
                         
             $this->Mod_pemesanan->insert_ipemesanan($data);   
+        } 
+        else if($id_konsumen == ""){
+            echo 3;
+     
+            $data  = array(
+                'kode_ipemesanan'        => $kode_ipemesanan,      
+                'qty_ipemesanan'        => $qty_ipemesanan,      
+            );
+            $this->Mod_pemesanan->update_ipemesanan($kode_ipemesanan, $data); 
         }
     }
 
@@ -238,112 +271,184 @@ class Home extends CI_Controller {
         $this->Mod_pemesanan->delete_ipemesanan($kode_ipemesanan);
     } 
 
+    function update_checked(){
+        $kode_ipemesanan = $this->input->post('kode_ipemesanan');
+        $check_ipemesanan = $this->input->post('check_ipemesanan');
+        foreach ($kode_ipemesanan as $row) {
+        
+            $data = array(
+                'kode_ipemesanan'       => $row,
+                'check_ipemesanan'      => $check_ipemesanan
+            );
+            
+            $this->Mod_pemesanan->update_ipemesanan($row, $data); 
+        }
+    } 
 
 
 
+ 
+    //CHECKOUT
 
-    //PESANAN
+    function cek_ongkir(){
+        $kota_asal = $this->input->post('kota_asal');
+        $kota_tujuan = $this->input->post('kota_tujuan');
+        $kurir = $this->input->post('kurir');
+        $berat = $this->input->post('berat');
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://api.rajaongkir.com/starter/cost",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "origin=".$kota_asal."&destination=".$kota_tujuan."&weight=".$berat."&courier=".$kurir."",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: a92cb2d8c3d01481046b2df77a662298"
+        ),
+        ));
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+            exit("cURL Error #:" . $err);
+        }
+        print_r($response);
+        //echo json_decode($response);
+    }
     
     function checkout(){
         //DATA PESANAN
+        $kode_pemesanan = "INV.".date("Ymd-His"); 
         $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
-        $kode_rekening = $this->input->post('kode_rekening');
-        $id_kurir = $this->input->post('id_kurir');
-        $total_belanja_pemesanan = $this->input->post('total_belanja_pemesanan');
-        $tarif_pemesanan = $this->input->post('tarif_pemesanan');
-        $potongan_pemesanan = $this->input->post('potongan_pemesanan');
-        $total_tagihan_pemesanan = $this->input->post('total_tagihan_pemesanan');
-        $metode_pemesanan = $this->input->post('metode_pemesanan');
         $tanggal_pemesanan = date("Y-m-d H:i:s");
-        $kode_pemesanan = "INV-".date("Ymd-His")."-".$id_konsumen;
+        $rekening_pemesanan = $this->input->post('rekening_pemesanan');
+        $total_belanja_pemesanan = $this->input->post('total_belanja_pemesanan');
+        $total_tagihan_pemesanan = $this->input->post('total_tagihan_pemesanan');
+        $status_pby_pemesanan =  "Belum Dibayarkan";
+        $metode_pengiriman_pemesanan = $this->input->post('metode_pengiriman_pemesanan');
+        $kurir_pemesanan = $this->input->post('kurir_pemesanan');
+        $berat_pemesanan = $this->input->post('berat_pemesanan');
         $status_pemesanan = "1";
-        $status_pby_pemesanan = "Belum Dibayarkan";
-              
-        $data1  = array(
-            'kode_pemesanan'              => $kode_pemesanan,
-            'kode_rekening'             => $kode_rekening,
-            'id_kurir'                  => $id_kurir,
-            'id_konsumen'                 => $id_konsumen,
-            'total_belanja_pemesanan'     => $total_belanja_pemesanan,
-            'tarif_pemesanan'             => $tarif_pemesanan,
-            'potongan_pemesanan'          => $potongan_pemesanan,
-            'total_tagihan_pemesanan'     => $total_tagihan_pemesanan,
-            'metode_pemesanan'            => $metode_pemesanan, 
-            'tanggal_pemesanan'           => $tanggal_pemesanan,
-            'status_pemesanan'            => $status_pemesanan,
-            'status_pby_pemesanan'        => $status_pby_pemesanan        
-        );  
         
-        
-        //DATA Ipemesanan
-        $table_tmp = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen)->result();
 
 
         //CONFIG EMAIL
         $data_konsumen = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
-        $this->load->library('email');
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'flash.gallery.kuningan@gmail.com',
-            'smtp_pass' => 'bukadong19',
-            'mailtype' => 'html',
-            'charset' => 'iso-8859-1',
-            'wordwrap' => TRUE
-        );
-    
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-        $this->email->from($config['smtp_user']);
-        $this->email->to($data_konsumen['email_konsumen']);
+        $data_keranjang = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen)->result();
+        $data_ukuran = $this->Mod_master->get_all_ukuran()->result();
+        $data_idiskon = $this->Mod_master->get_display_idiskon()->result();
+        
 
-        if($metode_pemesanan == "Pesan Antar" && $total_belanja_pemesanan < 99999){
-            echo "Total belanja anda kurang dari Rp. 100.000";
-        } else if($metode_pemesanan == "Pesan Ambil" && $total_belanja_pemesanan < 99999){
-            echo "Total belanja anda kurang dari Rp. 100.000";
-        } else{
-            $this->email->subject('Pesanan Telah Dibuat');
-            $this->email->message(
+        //SETTING FORM
+        $email = $data_konsumen['email_konsumen'];
+        $judul = 'Transaksi Pemesanan Selesai Dibuat';
+        $pesan = 'Yth Bapak/Ibu konsumen Nur Bakery & Cake. Berikut kami kirimkan informasi pemesanan. <br><br>'.
                 'Kode pesanan : '.$kode_pemesanan.'<br>'.
                 'Tanggal pesanan : '.$tanggal_pemesanan.'<br>'.
-                'Metode pesanan : '.$metode_pemesanan.'<br>'.
-                'Total Tagihan : Rp '.number_format($total_belanja_pemesanan, 0, ".", ".").'<br><br><br>'.
-                'Silahkan melakukan pembayaran sesuai dengan tagihan dan rekening yang anda pilih. Selanjutnya upload bukti pembayaran ke dalam sistem kami.<br>'.
-                'Info Lebih Lanjut Klik dibawah ini<br>http://localhost/flash_gallery/transaksi/detail/'.$kode_pemesanan.
-                'Terima kasih'
-            );
-            
-            if($this->email->send()){
-                echo 1;
+                'Metode pesanan : '.$metode_pengiriman_pemesanan.'<br>'.
+                'Pembayaran ke : '.$rekening_pemesanan.'<br>'.
+                'Total Tagihan : Rp '.number_format($total_belanja_pemesanan, 0, ".", ".").'<br><br>'.
+                'Silahkan melakukan pembayaran sesuai dengan tagihan dan rekening yang anda pilih. Selanjutnya upload bukti pembayaran ke dalam sistem kami.<br><br>'.
+                'Info Lebih Lanjut Klik dibawah ini<br>http://localhost/nur_bakery_cake/transaksi/detail/'.$kode_pemesanan.'<br><br>'.
+                'Terima kasih';
+        // $nama_file = $_FILES['file']['name'];
+        // $file_tmp = $_FILES['file']['tmp_name'];    
+   
+        // move_uploaded_file($file_tmp, '../../file/'.$nama_file);
 
-                $this->Mod_pemesanan->insert_pemesanan($data1);  
-    
-                foreach($table_tmp as $data){
-                    if($data->kode_pemesanan == ""){
-                        $kode_ipemesanan = $data->kode_ipemesanan;
-                        $harga_ipemesanan = $data->harga_jual_produk; 
-                        $diskon_ipemesanan = $data->diskon_produk; 
-                        $jumlah_ipemesanan = $data->jumlah_ipemesanan; 
-                        $subtotal_ipemesanan = $harga_ipemesanan * $jumlah_ipemesanan;
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
 
-    
-                        $data = array(
-                            'kode_ipemesanan'       => $kode_ipemesanan,
-                            'kode_pemesanan'        => $kode_pemesanan,
-                            'harga_ipemesanan'      => $harga_ipemesanan,
-                            'diskon_ipemesanan'      => $diskon_ipemesanan,
-                            'subtotal_ipemesanan'   => $subtotal_ipemesanan,
-                            'status_ipemesanan'     => '2'
-                        );
-                        
-                        $this->Mod_pemesanan->update_ipemesanan($kode_ipemesanan, $data); 
+        //Server settings
+        $mail->SMTPDebug = 2;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'bakerycake791@gmail.com';                     //SMTP username
+        $mail->Password   = 'ditbxtyshpivffsz';                               //SMTP password
+        $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //pengirim
+        $mail->setFrom('bakerycake791@gmail.com', 'Nur Cake & Bakery');
+        $mail->addAddress($email);     //Add a recipient
+
+        //Content
+
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = $judul;
+        $mail->Body    = $pesan;
+        // $mail->addAttachment('../../file/'.$nama_file);
+        $mail->AltBody = '';
+        // $mail->AddEmbeddedImage('assets/img/banner/bx-cake.svg', 'logo'); //abaikan jika tidak ada logo
+        //$mail->addAttachment(''); 
+
+        if($mail->send()){
+            //DATA PEMESANAN
+            $data1  = array(
+                'kode_pemesanan'                => $kode_pemesanan,
+                'id_konsumen'                   => $id_konsumen,
+                'tanggal_pemesanan'             => $tanggal_pemesanan,
+                'rekening_pemesanan'            => $rekening_pemesanan,
+                'total_belanja_pemesanan'       => $total_belanja_pemesanan,
+                'total_tagihan_pemesanan'       => $total_tagihan_pemesanan,
+                'status_pby_pemesanan'          => $status_pby_pemesanan,
+                'metode_pengiriman_pemesanan'   => $metode_pengiriman_pemesanan,
+                'kurir_pemesanan'               => $kurir_pemesanan, 
+                'berat_pemesanan'               => $berat_pemesanan,
+                'status_pemesanan'              => $status_pemesanan,        
+            );  
+
+            $this->Mod_pemesanan->insert_pemesanan($data1);  
+        
+
+            //DATA IPEMESANAN
+            foreach($data_keranjang as $row1){
+                if($row1->kode_pemesanan == "" && $row1->check_ipemesanan == "1"){
+                                
+                    //MENCARI POTONGAN HARGA
+                    foreach($data_ukuran as $row2){
+                        if($row2->kode_ukuran == $row1->kode_ukuran){
+                            $harga_ukuran = $row2->harga_ukuran;
+
+                            $subtotal_harga = $harga_ukuran * $row1->qty_ipemesanan;
+
+                            foreach($data_idiskon as $row3){
+                                if($row3->kode_ukuran == $row2->kode_ukuran){
+                                    $potongan_idiskon = $row3->potongan_idiskon;
+                                    $subtotal_harga = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
+
+                                }else{
+                                    $potongan_idiskon = 0;
+                                }
+                            }
+                        }
                     }
+
+                    $data = array(
+                        'kode_ipemesanan'       => $row1->kode_ipemesanan,
+                        'kode_pemesanan'        => $kode_pemesanan,
+                        'harga_ipemesanan'      => $harga_ukuran,
+                        'diskon_ipemesanan'     => $potongan_idiskon,
+                        'subtotal_ipemesanan'   => $subtotal_harga,
+                        'status_ipemesanan'     => '2'
+                    );
+                    
+                    $this->Mod_pemesanan->update_ipemesanan($row1->kode_ipemesanan, $data); 
                 }
-            }else{
-                echo "Gagal, tidak ada koneksi internet, silahkan coba lagi.";
             }
-        }  
+
+        } else {
+            echo "Gagal";
+        }
     }
 
 

@@ -46,7 +46,7 @@
                                             }
                                             
                                             if($rat->kode == $data_produk['hahaha'] && $rat->status_pemesanan >= 3){
-                                                $total_penjualan += $rat->jumlah_ipemesanan;
+                                                $total_penjualan += $rat->qty_ipemesanan;
                                             }
                                         }
 
@@ -172,7 +172,7 @@
                                         <div class="col-12 col-md-4">
                                             <div class="row">
                                                 <button type="button" class="btn btn-outline-warning" onclick="decrement()" style="width: 25%;"><span class="fa fa-minus"></span></button>
-                                                <input type="number" class="form-control" name="jumlah_ipemesanan" id="jumlah_ipemesanan" min="0" max="1000" value="0" style="width: 50%; text-align:center">
+                                                <input type="number" class="form-control" name="qty_ipemesanan" id="qty_ipemesanan" min="1" max="1000" value="1" style="width: 50%; text-align:center">
                                                 <button type="button" class="btn btn-outline-warning" onclick="incerment()" style="width: 25%;"><span class="fa fa-plus"></span></button> 
                                             </div>
                                         </div>
@@ -387,6 +387,7 @@
             <div class="section-title">
                 <h2>Produk Terkait</h2>
             </div>
+            
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 col-lg-12 col-12">
                     <div class="card-body">
@@ -481,6 +482,109 @@
     </section>
 </main>
 
+<div id="modal_belanja_lagi" class="modal animated pulse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="border-radius: 20px;">
+            <div class="modal-header">
+                <h3>Produk Lainnya... AYO!! Belanja Lagi..!</h3>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-12 col-lg-12 col-12">
+                        <div class="card-body">
+                            <div class="portfolio-info">
+                                <div class="row row-cols-1 row-cols-md-4 g-4">
+                                    <?php 
+                                        $delay = 100;
+                                        foreach($data_produk_all as $row1){
+                                            if($row1->kode_kategori == $data_produk['kode_kategori'] && $row1->kode_produk != $data_produk['hahaha']){
+                                            
+                                                //MENCARI MIN MAX
+                                                foreach($data_ukuran as $aaa){
+                                                    if($aaa->kode_produk == $row1->kode_produk){
+                                                        $harga_terendah[] = $aaa->harga_ukuran;
+                                                    }
+                                                }
+                                            
+                                                //MENCARI POTONGAN HARGA
+                                                $harga_ukuran = 0;
+                                                $potongan_idiskon = 0;
+                                                $harga_diskon = 0;
+                                                foreach($data_ukuran as $row2){
+                                                    if($row2->kode_produk == $row1->kode_produk){
+                                                        $harga_ukuran = $row2->harga_ukuran;
+
+                                                        foreach($data_idiskon as $row3){
+                                                            if($row3->kode_ukuran == $row2->kode_ukuran){
+                                                                $potongan_idiskon = $row3->potongan_idiskon;
+                                                                $harga_diskon = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                //HITUNG RATING STAR
+                                                $total1 = 0;
+                                                $count1 = 0;
+                                                $average1 = 0;
+                                                $terjual = 0;
+                                                foreach($data_ulasan_produk as $rat){ 
+                                                    if($rat->kode == $row1->hahaha && $rat->status_ipemesanan == 4){ 
+                                                        $total1 += $rat->rating_ipemesanan;
+                                                        $count1 += 1;
+                                                        $terjual += $rat->qty_ipemesanan;
+                                                    }
+                                                }
+                                                
+                                                if($total1 == 0 || $total1 == null){
+                                                    $angka_format1 = 0;
+                                                }else if($total1 != 0 || $total1 != null){
+                                                    $average1 = $total1/$count1;
+                                                    $angka_format1 = number_format($average1,1);
+                                                }
+                                    ?>  
+                                    <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
+                                        <div class="col">
+                                            <div class="card cards">
+                                            <div class="ratio ratio-1x1">
+                                                <?php if($row1->gambar_produk != "") { ?>
+                                                    <img class="image-wrapper rounded-top" src="<?php echo base_url('assets/img/produk/'.$row1->gambar_produk);?>" alt="Image" style="object-fit: cover;">
+                                                <?php }else{ ?>
+                                                    <img class="image-wrapper" src="<?php echo base_url('assets/img/banner/package_regular.png');?>" alt="Image" style="object-fit: cover;">
+                                                <?php } ?>
+                                            </div>
+                                                <div class="card-body">
+                                                    <strong class="card-title fs-6" style="color: #ffc107"><?php echo mb_strimwidth($row1->nama_produk, 0, 20, "..."); ?></strong>
+                                                    <p class="card-text">     
+                                                        <?php if($potongan_idiskon != 0){?>
+                                                            <span class="badge bg-success"><?php echo $potongan_idiskon; ?>%</span>
+                                                            <del>Rp. <?php echo number_format($harga_ukuran, 0, ".", "."); ?></del></li><br>
+                                                            <span>Rp. <?php echo number_format($harga_diskon, 0, ".", "."); ?></span>
+                                                        <?php }else{ ?>
+                                                            <span>Rp. <?php echo number_format(min($harga_terendah), 0, ".", "."); ?></span>
+                                                            <br>
+                                                        <?php } ?>
+                                                        <br>
+                                                        <small>
+                                                            <i class="fa fa-star checked"><span> <?php echo $angka_format1; ?></span></i> <span> | Terjual <?php echo $terjual; ?> qty</span>
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <?php } } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php $this->load->view('frontend/partials/footer.php') ?>
 <?php $this->load->view('frontend/partials/script.php') ?>
@@ -546,13 +650,13 @@
 
 
         var harga_jual_produk = $('#hitung_harga').val();
-        var jumlah_ipemesanan = $('#jumlah_ipemesanan').val();
+        var qty_ipemesanan = $('#qty_ipemesanan').val();
 
-        var subtotal_ipemesanan = harga_jual_produk * jumlah_ipemesanan;
+        var subtotal_ipemesanan = harga_jual_produk * qty_ipemesanan;
 
         $('#subtotal_ipemesanan_text').val(subtotal_ipemesanan);        
         $('#subtotal_ipemesanan_text').text(new Number(subtotal_ipemesanan).toLocaleString("id-ID"));
-        $('#jumlah').text(jumlah_ipemesanan);
+        $('#jumlah').text(qty_ipemesanan);
     }
 </script>
 
@@ -560,54 +664,33 @@
 <script type="text/javascript">
 
     function incerment() {
-        document.getElementById('jumlah_ipemesanan').stepUp();
+        document.getElementById('qty_ipemesanan').stepUp();
         hitung_subtotal();
     }
 
     function decrement() {
-        document.getElementById('jumlah_ipemesanan').stepDown();
+        document.getElementById('qty_ipemesanan').stepDown();
         hitung_subtotal();
     }
 
-    $("#jumlah_ipemesanan").on("keyup change", function(e) {
+    $("#qty_ipemesanan").on("keyup change", function(e) {
         hitung_subtotal();
     })
     
     function hitung_subtotal(){
 
         var harga_jual_produk = $('#hitung_harga').val();
-        var jumlah_ipemesanan = $('#jumlah_ipemesanan').val();
+        var qty_ipemesanan = $('#qty_ipemesanan').val();
 
-        var subtotal_ipemesanan = harga_jual_produk * jumlah_ipemesanan;
+        var subtotal_ipemesanan = harga_jual_produk * qty_ipemesanan;
 
         $('#subtotal_ipemesanan_text').val(subtotal_ipemesanan);        
         $('#subtotal_ipemesanan_text').text(new Number(subtotal_ipemesanan).toLocaleString("id-ID"));
-        $('#jumlah').text(jumlah_ipemesanan);
+        $('#jumlah').text(qty_ipemesanan);
     }
 
     $('#btn_tambah_keranjang').on("click",function(){
         $('#form_keranjang').validate({
-            rules: {
-                jumlah_ipemesanan: {
-                    required: '0',
-                },
-            },
-            messages: {
-                jumlah_ipemesanan: {
-                    required: "Jumlah harus diisi",
-                },
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            },
             submitHandler: function() {
                 $.ajax({
                     url : '<?php echo base_url('home/tambah_keranjang'); ?>',
@@ -620,7 +703,18 @@
                                 title: 'Berhasil!',
                                 text: 'Produk telah masuk daftar belanja',
                                 showConfirmButton: true,
-                                confirmButtonColor: '#007bff',
+                                confirmButtonColor: '#ffc107',
+                                timer: 3000
+                            }).then(function(){
+                                $('#modal_belanja_lagi').modal('show');
+                            });
+                        }else if(response==2){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil!',
+                                text: 'Jumlah produk telah ditambahkan',
+                                showConfirmButton: true,
+                                confirmButtonColor: '#ffc107',
                                 timer: 3000
                             }).then(function(){
                                 $('#modal_belanja_lagi').modal('show');
@@ -630,10 +724,9 @@
                                 icon: 'error',
                                 title: response,
                                 showConfirmButton: true,
-                                confirmButtonColor: '#007bff',
+                                confirmButtonColor: '#ffc107',
                                 timer: 3000
                             });
-                            $('#daftar').prop("disabled",false);
                         }
                     }
                 });   

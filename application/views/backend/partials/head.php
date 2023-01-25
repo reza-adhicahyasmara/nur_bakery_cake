@@ -30,7 +30,7 @@
         $cod = "Cash on Delivery";
 
         foreach($this->Mod_pemesanan->get_all_pemesanan()->result() as $data){
-            if($data->metode_pby_pemesanan == $transfer){
+            if($data->metode_pengiriman_pemesanan == $transfer){
                 if($data->status_pemesanan == '1'){
                     $menunggu_pembayaran_tf = $menunggu_pembayaran_tf + 1;
                 }
@@ -43,7 +43,7 @@
                 if($data->status_pemesanan == '4'){
                     $proses_pengiriman_tf = $proses_pengiriman_tf + 1;
                 }
-            }else if($data->metode_pby_pemesanan == $cod){
+            }else if($data->metode_pengiriman_pemesanan == $cod){
                 if($data->status_pemesanan == '1'){
                     $menunggu_verifikasi_cod = $menunggu_verifikasi_cod + 1;
                 }
