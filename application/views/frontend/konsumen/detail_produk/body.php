@@ -387,7 +387,6 @@
             <div class="section-title">
                 <h2>Produk Terkait</h2>
             </div>
-            
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 col-lg-12 col-12">
                     <div class="card-body">

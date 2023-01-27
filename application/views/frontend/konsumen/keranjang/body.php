@@ -444,7 +444,7 @@
             type: 'warning',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#007bff',
+            confirmButtonColor: '#ffc107',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Ya, hapus',
             cancelButtonText: "Tidak, batalkan",
@@ -716,14 +716,14 @@
                                 title: 'Gagal!',
                                 text: response,
                                 showConfirmButton: true,
-                                confirmButtonColor: '#007bff',
+                                confirmButtonColor: '#ffc107',
                             })
                         }else{
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Checkout Berhasil!',
                                 showConfirmButton: true,
-                                confirmButtonColor: '#007bff',
+                                confirmButtonColor: '#ffc107',
                             }).then(function(){
                                 window.location.replace("<?php echo base_url('transaksi'); ?>");
                             });

@@ -337,7 +337,7 @@ by projekindong
                         </li>
                     <?php } ?>
                     <li class="dropdown">
-                        <a href="#">
+                        <a href="#" id="profil_konsumen">
                             <?php echo $data_konsumen['nama_konsumen']; 
                                 if($data_konsumen['foto_konsumen'] == '') { ?>
                                     <img src="<?php echo base_url('assets/img/banner/profile.jpg');?>" style="width:30px; height:30px; object-fit: cover; border-radius: 30px; margin-right:5px" alt="User Image">
@@ -345,7 +345,7 @@ by projekindong
                                     <img src="<?php echo base_url('assets/img/konsumen/').$data_konsumen['foto_konsumen'];?>" style="width:30px; height:30px; object-fit: cover; border-radius: 30px; margin-right:5px" alt="User Image">
                                 <?php } ?>
                                 <?php if($total != 0){ ?>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                         <?php echo $total; ?>
                                     </span>
                             <?php } ?>
@@ -372,7 +372,7 @@ by projekindong
                             <li><hr class="dropdown-divider"></li>
                             <?php if($data_konsumen['status_konsumen'] == 'Aktif'){ ?>
                                     <li>
-                                        <a class="dropdown-item" href="<?php echo base_url('transaksi') ?>"> Transaksi
+                                        <a class="dropdown-item" href="<?php echo base_url('home/transaksi') ?>"> Transaksi
                                             <?php if($total_transaksi != 0){ ?>
                                                 <span class="badge bg-danger text-xs" style="width:20px; height:20px; border-radius: 50%;"><?php echo $total_transaksi; ?></span>
                                             <?php } ?>

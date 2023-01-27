@@ -4,10 +4,11 @@ defined('BASEPATH') || exit('No direct script access allowed');
 class Mod_pemesanan extends CI_Model {
 
     function get_all_list_pembelian($kode_pemesanan){
-        $query2 = $this->db->query("SELECT produk.kode_produk AS xxx, ipemesanan.*, produk.*, kategori.*
+        $query2 = $this->db->query("SELECT produk.kode_produk AS xxx, ipemesanan.*, produk.*, kategori.*, ukuran.*
                                     FROM ipemesanan
                                     INNER JOIN produk ON produk.kode_produk = ipemesanan.kode_produk
                                     LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
+                                    LEFT JOIN ukuran ON ukuran.kode_produk = produk.kode_produk
                                     WHERE ipemesanan.kode_pemesanan = '$kode_pemesanan'
                                     GROUP BY ipemesanan.kode_ipemesanan
                                     ORDER BY produk.nama_produk ASC
@@ -43,20 +44,22 @@ class Mod_pemesanan extends CI_Model {
 
     //IPEMESANAN
     function get_all_ipemesanan(){
-        $query2 = $this->db->query("SELECT ipemesanan.*, produk.*, kategori.*, produk.kode_produk AS hahaha
+        $query2 = $this->db->query("SELECT ipemesanan.*, produk.*, kategori.*, ukuran.*, produk.kode_produk AS hahaha
                                     FROM ipemesanan
                                     INNER JOIN produk ON produk.kode_produk = ipemesanan.kode_produk
                                     LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
+                                    LEFT JOIN ukuran ON ukuran.kode_produk = produk.kode_produk
                                     ORDER BY produk.nama_produk ASC
                                 ");
         return $query2;
     }
 
     function get_all_ipemesanan_konsumen($id_konsumen){
-        $query2 = $this->db->query("SELECT produk.kode_produk AS hahaha, produk.kode_produk AS xxx,  ipemesanan.*, produk.*, kategori.*
+        $query2 = $this->db->query("SELECT produk.kode_produk AS hahaha, produk.kode_produk AS xxx,  ipemesanan.*, produk.*, kategori.*, ukuran.*
                                     FROM ipemesanan
                                     INNER JOIN produk ON produk.kode_produk = ipemesanan.kode_produk
                                     LEFT JOIN kategori ON kategori.kode_kategori = produk.kode_kategori
+                                    LEFT JOIN ukuran ON ukuran.kode_produk = produk.kode_produk
                                     WHERE ipemesanan.id_konsumen = '$id_konsumen'
                                     GROUP BY ipemesanan.kode_ipemesanan
                                     ORDER BY produk.nama_produk ASC
@@ -90,7 +93,7 @@ class Mod_pemesanan extends CI_Model {
     }
 
     function cek_status_ipemesanan($status_ipemesanan){
-        $this->db->select('ipemesanan.*, produk.kode_produk AS hahaha, produk.*, kategori.*');
+        $this->db->select('ipemesanan.*, produk.kode_produk AS hahaha, produk.*, kategori.*, ukuran.*');
         $this->db->from('ipemesanan');
         $this->db->join('produk', 'produk.kode_produk = ipemesanan.kode_produk', 'inner');
         $this->db->join('kategori', 'kategori.kode_kategori = produk.kode_kategori', 'left');
@@ -110,7 +113,7 @@ class Mod_pemesanan extends CI_Model {
     }
 
     function get_detail_produk($kode_produk){
-        $this->db->select('produk.kode_produk AS hahaha, produk.*, kategori.*');
+        $this->db->select('produk.kode_produk AS hahaha, produk.*, kategori.*, ukuran.*');
         $this->db->from('produk');
         $this->db->join('kategori', 'kategori.kode_kategori = produk.kode_kategori', 'left');
         $this->db->where('produk.kode_produk', $kode_produk);
@@ -131,13 +134,14 @@ class Mod_pemesanan extends CI_Model {
 
     //pemesanan
     function get_all_pemesanan(){
-        $this->db->select('pemesanan.*, konsumen.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*');
+        $this->db->select('pemesanan.*, konsumen.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*, karyawan.*');
         $this->db->from('pemesanan');
         $this->db->join('konsumen', 'konsumen.id_konsumen = pemesanan.id_konsumen', 'inner');
         $this->db->join('provinsi', 'provinsi.kode_provinsi = konsumen.kode_provinsi', 'left');
         $this->db->join('kabupaten', 'kabupaten.kode_kabupaten = konsumen.kode_kabupaten', 'left');
         $this->db->join('kecamatan', 'kecamatan.kode_kecamatan = konsumen.kode_kecamatan', 'left');
         $this->db->join('desa', 'desa.kode_desa = konsumen.kode_desa', 'left');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = pemesanan.id_karyawan', 'left');
         return $this->db->get();
     }
 
@@ -150,13 +154,14 @@ class Mod_pemesanan extends CI_Model {
     }
 
     function get_detail_pemesanan($kode_pemesanan){
-        $this->db->select('pemesanan.*, konsumen.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*');
+        $this->db->select('pemesanan.*, konsumen.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*, karyawan.*');
         $this->db->from('pemesanan');
         $this->db->join('konsumen', 'konsumen.id_konsumen = pemesanan.id_konsumen', 'inner');
         $this->db->join('provinsi', 'provinsi.kode_provinsi = konsumen.kode_provinsi', 'left');
         $this->db->join('kabupaten', 'kabupaten.kode_kabupaten = konsumen.kode_kabupaten', 'left');
         $this->db->join('kecamatan', 'kecamatan.kode_kecamatan = konsumen.kode_kecamatan', 'left');
         $this->db->join('desa', 'desa.kode_desa = konsumen.kode_desa', 'left');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = pemesanan.id_karyawan', 'left');
         $this->db->where('pemesanan.kode_pemesanan', $kode_pemesanan);
         return $this->db->get();
     }

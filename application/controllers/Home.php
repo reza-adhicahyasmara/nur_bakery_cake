@@ -382,7 +382,6 @@ class Home extends CI_Controller {
         $mail->addAddress($email);     //Add a recipient
 
         //Content
-
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $judul;
         $mail->Body    = $pesan;
@@ -449,6 +448,126 @@ class Home extends CI_Controller {
         } else {
             echo "Gagal";
         }
+    }
+
+
+
+
+
+    
+
+
+
+
+
+    //TRANSAKSI KONSUMEN
+    function transaksi() {
+        $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
+        $hak_akses = $this->session->userdata('ses_akses');  
+
+        if($id_konsumen != null && $hak_akses == 'Konsumen'){
+            $data['pageTitle'] = "Transaksi";
+
+            $data['data_konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_pemesanan($id_konsumen)->result();
+            $data['data_produk'] = $this->Mod_pemesanan->get_all_ipemesanan()->result();
+
+            $this->load->view("frontend/konsumen/transaksi/body",$data);
+        }
+        else{  
+            $this->session->sess_destroy();
+            redirect('home');
+        }  
+    }
+
+    function detail_transaksi(){ 
+            $kode_pemesanan = $this->input->post('kode_pemesanan');
+            $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
+        
+            
+            $data['data_konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_detail_pemesanan($kode_pemesanan)->row_array();
+            $data['data_produk'] = $this->Mod_pemesanan->get_all_list_pembelian($kode_pemesanan)->result();
+
+            $this->load->view("frontend/konsumen/transaksi/body_detail",$data);
+    }
+
+    function invoice($kode_pemesanan){
+        $data['pageTitle'] = "Invoice";
+        
+        $data['data_pemesanan'] = $this->Mod_pemesanan->get_detail_pemesanan($kode_pemesanan)->row_array();
+        $data['data_produk'] = $this->Mod_pemesanan->get_all_list_pembelian($kode_pemesanan)->result();
+
+        $this->load->view("frontend/konsumen/transaksi/invoice",$data);
+    }
+
+
+    //PEMBAYARAN
+    function upload_pembayaran(){
+        $kode_pemesanan = $this->input->post('kode_pemesanan_pembayaran');
+        $status_pby_pemesanan = "Sudah Ditransfer";
+        $status_pemesanan = "2";
+
+        $config['upload_path'] = './assets/img/pemesanan';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf';
+        $config['image_library'] = 'gd2';
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 500;
+        $this->load->library('image_lib', $config);
+        $this->image_lib->resize();
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('file')){  
+            $data = array('upload_data' => $this->upload->data());
+            $bukti_pby_pemesanan = $data['upload_data']['file_name'];
+
+            echo 1;         
+            $save  = array( 
+                'kode_pemesanan'        => $kode_pemesanan,
+                'bukti_pby_pemesanan'   => $bukti_pby_pemesanan,
+                'status_pby_pemesanan'  => $status_pby_pemesanan,
+                'status_pemesanan'      => $status_pemesanan
+            );
+                        
+            $this->Mod_pemesanan->update_pemesanan($kode_pemesanan, $save);   
+
+        }else{
+            echo "Data harus diisi";
+        }
+    }
+
+
+    //PENERIMAAN PRODUK
+    function verifikasi_proses_produk(){
+        $id_karyawan = $this->input->post('id_karyawan');
+        $kode_pemesanan = $this->input->post('kode_pemesanan');
+        $metode_pby_pemesanan = $this->input->post('metode_pby_pemesanan');
+        $status_pemesanan = $this->input->post('status_pemesanan');
+ 
+
+        //UPDATE STATUS KARYAWAN
+        if($metode_pby_pemesanan == "Cash on Delivery"){                 
+            $status_pby_pemesanan = "Lunas";
+            $data1  = array(
+                'id_karyawan'         => $id_karyawan,
+                'status_karyawan'     => "Ada"    
+            );      
+            $this->Mod_karyawan->update_karyawan($id_karyawan, $data1);  
+        }else{
+            $status_pby_pemesanan = $this->input->post('status_pby_pemesanan');
+        }
+
+        //UPDATE PEMESANAN
+        $data2  = array( 
+            'kode_pemesanan'        => $kode_pemesanan,
+            'status_pby_pemesanan'  => $status_pby_pemesanan,
+            'status_pemesanan'      => $status_pemesanan,
+        );
+                    
+        $this->Mod_pemesanan->update_pemesanan($kode_pemesanan, $data2);  
+        
+        echo 1;         
+    
     }
 
 
