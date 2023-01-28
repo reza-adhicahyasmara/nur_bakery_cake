@@ -574,11 +574,6 @@ class Home extends CI_Controller {
 
 
 
-
-
-
-
-
     //CHAT
 
     function mulai_chat(){

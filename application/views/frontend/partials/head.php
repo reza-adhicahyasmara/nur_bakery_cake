@@ -38,9 +38,6 @@
             if($data->status_pemesanan == '5'){
                 $menunggu_pengambilan = $menunggu_pengambilan + 1;
             }
-            if($data->status_pemesanan == '6'){
-                $komplain = $komplain + 1;
-            }
             
         }
 
@@ -61,26 +58,25 @@
 
         $total = $total_transaksi + $menunggu_ulasan;
 
-        $notifikasi = $total_transaksi + $total;
+        $notifikasi = $total;
     }
 ?>  
 
 <!DOCTYPE html>
 <html lang="en">
-<!--   
-                                                                           
-                                                                            
-            ////////////   //   ////        //   ////////////        //          888   888              /////////           //        //             /////////     //          //
-           //             //   // //       //        //            ////        888888 8    8           //       //        ////       //           //              //          //
-          //             //   //  //      //        //           //  //       8888888*      8         //        //      //  //      //          //               //          //     
-         //             //   //   //     //        //          //    //       88888888*     8        //       //      //    //     //           //              //          //
-        //             //   //    //    //        //         //      //        88888*      8        /////////       //      //    //             ///////       //          // 
-       //             //   //     //   //        //        ////////////         8888*     8        //             ////////////   //                    //     //          //
-      //             //   //      //  //        //        //        //            888*  8         //             //        //   //                      //   //          //
-     //             //   //       // //        //        //        //              88*8          //             //        //   //                     //    //          //
-    ////////////   //   //        ////        //        //        //                 *          //             //        //   ////////////   /////////     //////////////
+<!--  
 
-by projekindong
+    PPPPPPPP    RRRRRRRR    II      AA            II  DDDDDDD         AA      MMMM        MMMM      AA      NNNN        NN        MMMM        MMMM  EEEEEEEEEE  RRRRRRRR    TTTTTTTTTT  UU      UU      AA
+    PP     PP   RR     RR   II     AAAA           II  DD    DD       AAAA     MM MM      MM MM     AAAA     NN NN       NN        MM MM      MM MM  EE          RR     RR       TT      UU      UU     AAAA 
+    PP      PP  RR      RR  II    AA  AA          II  DD     DD     AA  AA    MM  MM    MM  MM    AA  AA    NN  NN      NN        MM  MM    MM  MM  EE          RR      RR      TT      UU      UU    AA  AA
+    PP     PP   RR     RR   II   AA    AA         II  DD      DD   AA    AA   MM   MM  MM   MM   AA    AA   NN   NN     NN        MM   MM  MM   MM  EE          RR     RR       TT      UU      UU   AA    AA
+    PPPPPPPP    RRRRRRRR    II  AAAAAAAAAA        II  DD      DD  AAAAAAAAAA  MM    MMMM    MM  AAAAAAAAAA  NN    NN    NN        MM    MMMM    MM  EEEEEE      RRRRRRRR        TT      UU      UU  AAAAAAAAAA
+    PP          RR     RR   II  AA      AA        II  DD      DD  AA      AA  MM            MM  AA      AA  NN     NN   NN        MM            MM  EE          RR     RR       TT      UU      UU  AA      AA
+    PP          RR      RR  II  AA      AA        II  DD     DD   AA      AA  MM            MM  AA      AA  NN      NN  NN        MM            MM  EE          RR      RR      TT      UU      UU  AA      AA
+    PP          RR      RR  II  AA      AA        II  DD    DD    AA      AA  MM            MM  AA      AA  NN       NN NN        MM            MM  EE          RR      RR      TT       UU    UU   AA      AA
+    PP          RR      RR  II  AA      AA        II  DDDDDDD     AA      AA  MM            MM  AA      AA  NN        NNNN        MM            MM  EEEEEEEEEE  RR      RR      TT        UUUUUU    AA      AA
+
+by exitus
 -->
 <head>
     <meta charset="utf-8">

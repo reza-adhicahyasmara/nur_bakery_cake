@@ -13,27 +13,27 @@
 
 
     foreach($data_pemesanan as $data){
-            if($data->status_pemesanan == '1'){
-                $menunggu_transfer = $menunggu_transfer + 1;
-            }
-            if($data->status_pemesanan == '2'){
-                $validasi_pembayaran = $validasi_pembayaran + 1;
-            }
-            if($data->status_pemesanan == '3'){
-                $proses_pembuatan = $proses_pembuatan + 1;
-            }
-            if($data->status_pemesanan == '4'){
-                $pengiriman = $pengiriman + 1;
-            }
-            if($data->status_pemesanan == '6'){
-                $pengambilan = $pengambilan + 1;
-            }
-            if($data->status_pemesanan == '7'){
-                $selesai = $selesai + 1;
-            }
-            if($data->status_pemesanan == '8'){
-                $batal = $batal + 1;
-            }
+        if($data->status_pemesanan == '1'){
+            $menunggu_transfer = $menunggu_transfer + 1;
+        }
+        if($data->status_pemesanan == '2'){
+            $validasi_pembayaran = $validasi_pembayaran + 1;
+        }
+        if($data->status_pemesanan == '3'){
+            $proses_pembuatan = $proses_pembuatan + 1;
+        }
+        if($data->status_pemesanan == '4'){
+            $pengiriman = $pengiriman + 1;
+        }
+        if($data->status_pemesanan == '5'){
+            $pengambilan = $pengambilan + 1;
+        }
+        if($data->status_pemesanan == '6'){
+            $selesai = $selesai + 1;
+        }
+        if($data->status_pemesanan == '7'){
+            $batal = $batal + 1;
+        }
     }
     
     $badge_menunggu_transfer = "<span class='badge rounded-pill bg-secondary text-sm'>Menunggu Transfer</span>";
@@ -152,12 +152,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
                                                                     foreach($data_produk as $row1){
                                                                         if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            } 
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -175,7 +185,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -191,7 +201,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>
@@ -246,12 +255,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
                                                                     foreach($data_produk as $row1){
-                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -269,7 +288,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -285,7 +304,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>
@@ -340,12 +358,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
                                                                     foreach($data_produk as $row1){
-                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){ 
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -363,7 +391,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -379,7 +407,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>
@@ -434,12 +461,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
                                                                     foreach($data_produk as $row1){
                                                                         if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }   
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -457,7 +494,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -473,7 +510,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>
@@ -528,12 +564,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
                                                                     foreach($data_produk as $row1){
                                                                         if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }     
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -551,7 +597,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -567,7 +613,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>
@@ -586,6 +631,110 @@
 
                         <div class="col-lg-12 menu-item filter_selesai">
                         
+                            <div style="overflow-x:auto;">
+                                <table style="width:100%" class="table table-borderless">
+                                    
+                                    <tbody>
+                                        <?php 
+                                            foreach($data_pemesanan as $haha) {
+                                                if($haha->status_pemesanan == 6 ){
+                                        ?>
+                                            <thead class="border">
+                                                <tr>
+                                                    <td style="text-align: left; vertical-align: middle;">
+                                                        <small><?php echo $haha->tanggal_pemesanan;?></small>
+                                                        <?php
+                                                            if($haha->status_pemesanan == 1){
+                                                                echo $badge_menunggu_transfer;
+                                                            } elseif($haha->status_pemesanan == 2){
+                                                                echo $badge_validasi_pembayaran;
+                                                            } elseif($haha->status_pemesanan == 3){
+                                                                echo $badge_proses_pembuatan;
+                                                            } elseif($haha->status_pemesanan == 4){
+                                                                echo $badge_pengiriman;
+                                                            } elseif($haha->status_pemesanan == 5){
+                                                                echo $badge_pengambilan;
+                                                            } elseif($haha->status_pemesanan == 6){
+                                                                echo $badge_selesai;
+                                                            } elseif($haha->status_pemesanan == 7){
+                                                                echo $badge_batal;
+                                                            }
+                                                        ?>
+                                                        <small><?php echo $haha->kode_pemesanan;?></small>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: left; vertical-align: middle;">
+                                                        <table style="width:100%" id="table" class="table ">
+                                                            <tbody>
+                                                                <?php 
+                                                                    $jumlah_produk = -2;
+                                                                    $no = 1;
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
+
+                                                                    foreach($data_produk as $row1){
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }
+                                                                        
+                                                                ?>      
+                                                                <tr>
+                                                                    <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
+                                                                        <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
+                                                                            <div class="" style="text-align: center;">
+                                                                                <?php if($row1->gambar_produk != ""){ ?>
+                                                                                    <img src="<?php echo base_url('assets/img/produk/').$row1->gambar_produk; ?>" alt="" style="border-radius: 10px; width: 100px; height: 100px;  object-fit: cover; ">
+                                                                                <?php }else{ ?>
+                                                                                    <img src="<?php echo base_url('assets/img/banner/logo.png'); ?>" alt="" style="border-radius: 10px; width: 100px; height: 100px;  object-fit: cover; ">
+                                                                                <?php } ?>
+                                                                            </div>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="pt-4 pb-4" style="text-align: left; vertical-align: middle;">
+                                                                        <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
+                                                                            <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
+                                                                            <br> 
+                                                                            <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
+                                                                        </a>
+                                                                        <br>
+                                                                        <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
+                                                                            <?php if($jumlah_produk > 0 ){ echo "+ <small>".$jumlah_produk." produk lainnya</small>"; } ?>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="pt-4 pb-4" style="text-align: right; vertical-align: bottom;">
+                                                                        Total Belanja <span class="fs-5 text-bold">Rp. <?php echo number_format($haha->total_tagihan_pemesanan, 0, ".", "."); ?></span>
+                                                                        <br>
+                                                                        <a class="btn btn_detail_transaksi text-warning" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">Lihat Detail Transaksi</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php     
+                                                                    $no++;
+                                                                        } 
+                                                                    } 
+                                                                ?>   
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        <?php 
+                                                } 
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 menu-item filter_batal">
                             <div style="overflow-x:auto;">
                                 <table style="width:100%" class="table table-borderless">
                                     
@@ -623,106 +772,22 @@
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
-                                                                    $jumlah_produk = 0;
+                                                                    $jumlah_produk = -2;
                                                                     $no = 1;
-                                                                    $jumlah_produk += 1;
                                                                     foreach($data_produk as $row1){
-                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
-                                                                <tr>
-                                                                    <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
-                                                                        <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
-                                                                            <div class="" style="text-align: center;">
-                                                                                <?php if($row1->gambar_produk != ""){ ?>
-                                                                                    <img src="<?php echo base_url('assets/img/produk/').$row1->gambar_produk; ?>" alt="" style="border-radius: 10px; width: 100px; height: 100px;  object-fit: cover; ">
-                                                                                <?php }else{ ?>
-                                                                                    <img src="<?php echo base_url('assets/img/banner/logo.png'); ?>" alt="" style="border-radius: 10px; width: 100px; height: 100px;  object-fit: cover; ">
-                                                                                <?php } ?>
-                                                                            </div>
-                                                                        </a>
-                                                                    </td>
-                                                                    <td class="pt-4 pb-4" style="text-align: left; vertical-align: middle;">
-                                                                        <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
-                                                                            <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
-                                                                            <br> 
-                                                                            <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
-                                                                        </a>
-                                                                        <br>
-                                                                        <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
-                                                                            <?php if($jumlah_produk > 0 ){ echo "+ <small>".$jumlah_produk." produk lainnya</small>"; } ?>
-                                                                        </a>
-                                                                    </td>
-                                                                    <td class="pt-4 pb-4" style="text-align: right; vertical-align: bottom;">
-                                                                        Total Belanja <span class="fs-5 text-bold">Rp. <?php echo number_format($haha->total_tagihan_pemesanan, 0, ".", "."); ?></span>
-                                                                        <br>
-                                                                        <a class="btn btn_detail_transaksi text-warning" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">Lihat Detail Transaksi</a>
-                                                                    </td>
-                                                                </tr>
-                                                                <?php     
-                                                                    $no++;
-                                                                        } 
-                                                                        $jumlah_produk++;
-                                                                    } 
-                                                                ?>   
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                        <?php 
-                                                } 
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                                                        if($row1->kode_pemesanan == $haha->kode_pemesanan){
+                                                                            $jumlah_produk += 1;
+                                                                        }
+                                                                    }
 
-                        <div class="col-lg-12 menu-item filter_batal">
-                            <div style="overflow-x:auto;">
-                                <table style="width:100%" class="table table-borderless">
-                                    
-                                    <tbody>
-                                        <?php 
-                                            foreach($data_pemesanan as $haha) {
-                                                if($haha->status_pemesanan == 8 ){
-                                        ?>
-                                            <thead class="border">
-                                                <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
-                                                        <small><?php echo $haha->tanggal_pemesanan;?></small>
-                                                        <?php
-                                                            if($haha->status_pemesanan == 1){
-                                                                echo $badge_menunggu_transfer;
-                                                            } elseif($haha->status_pemesanan == 2){
-                                                                echo $badge_validasi_pembayaran;
-                                                            } elseif($haha->status_pemesanan == 3){
-                                                                echo $badge_proses_pembuatan;
-                                                            } elseif($haha->status_pemesanan == 4){
-                                                                echo $badge_pengiriman;
-                                                            } elseif($haha->status_pemesanan == 5){
-                                                                echo $badge_pengambilan;
-                                                            } elseif($haha->status_pemesanan == 6){
-                                                                echo $badge_selesai;
-                                                            } elseif($haha->status_pemesanan == 7){
-                                                                echo $badge_batal;
-                                                            }
-                                                        ?>
-                                                        <small><?php echo $haha->kode_pemesanan;?></small>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
-                                                        <table style="width:100%" id="table" class="table ">
-                                                            <tbody>
-                                                                <?php 
-                                                                    $jumlah_produk = 0;
-                                                                    $no = 1;
-                                                                    $jumlah_produk += 1;
                                                                     foreach($data_produk as $row1){
                                                                         if($row1->kode_pemesanan == $haha->kode_pemesanan && $no < 2){  
-                                                                ?>      
+                                                                            if($row1->diskon_ipemesanan == ""){
+                                                                                $subtotal_harga = $row1->harga_ipemesanan;
+                                                                            }else{
+                                                                                $subtotal_harga = $row1->harga_ipemesanan - (($row1->diskon_ipemesanan * $row1->harga_ipemesanan) / 100);
+                                                                            }
+                                                                ?> 
                                                                 <tr>
                                                                     <td class="pt-4 pb-4" style="text-align: center; vertical-align: middle; width:15%">
                                                                         <a href="<?php echo base_url('home/detail_produk/').$row1->hahaha;?>" style="color: black;"> 
@@ -740,7 +805,7 @@
                                                                             <span class="fs-6 text-bold"><?php echo $row1->nama_produk; ?></span>
                                                                             <br> 
                                                                             <small><?php echo number_format($row1->qty_ipemesanan, 0, ".", ".")." Item" ; ?></small> x 
-                                                                            <small>Rp. <?php echo number_format($row1->harga_ipemesanan, 0, ".", "."); ?></small>
+                                                                            <small>Rp. <?php echo number_format($subtotal_harga, 0, ".", "."); ?></small>
                                                                         </a>
                                                                         <br>
                                                                         <a href="#" class="btn_detail_transaksi" kode_pemesanan="<?php echo $haha->kode_pemesanan; ?>">
@@ -756,7 +821,6 @@
                                                                 <?php     
                                                                     $no++;
                                                                         } 
-                                                                        $jumlah_produk++;
                                                                     } 
                                                                 ?>   
                                                             </tbody>

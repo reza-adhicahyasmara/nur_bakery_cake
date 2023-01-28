@@ -151,7 +151,7 @@
                             <br>
                             <div class="form-group">
                                 <div class="row">
-                                    <button type="button" id="btn_beli" class="btn btn-warning btn-block">Beli</button>
+                                    <button type="button" id="btn_beli" class="btn btn-warning btn-block rounded-pill">Beli</button>
                                 </div>
                             </div>
                             <?php } ?>

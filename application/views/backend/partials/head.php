@@ -17,46 +17,66 @@
             }
         }
 
-        $menunggu_pembayaran_tf = 0;
-        $verifikasi_pembayaran_tf = 0;
-        $proses_packing_tf = 0;
-        $proses_pengiriman_tf = 0;
+        $menunggu_pembayaran_ac = 0;
+        $verifikasi_pembayaran_ac = 0;
+        $proses_pembuatan_ac = 0;
+        $proses_pengiriman_ac = 0;
 
-        $menunggu_verifikasi_cod = 0;
-        $proses_packing_cod = 0;
-        $proses_pengiriman_cod = 0;
+        $menunggu_pembayaran_ae = 0;
+        $verifikasi_pembayaran_ae = 0;
+        $proses_pembuatan_ae = 0;
+        $proses_pengiriman_ae = 0;
 
-        $transfer = "Transfer";
-        $cod = "Cash on Delivery";
+        $menunggu_pembayaran_as = 0;
+        $verifikasi_pembayaran_as = 0;
+        $proses_pembuatan_as = 0;
+        $proses_pengiriman_as = 0;
 
         foreach($this->Mod_pemesanan->get_all_pemesanan()->result() as $data){
-            if($data->metode_pengiriman_pemesanan == $transfer){
+            if($data->metode_pengiriman_pemesanan == "Antar Cepat"){
                 if($data->status_pemesanan == '1'){
-                    $menunggu_pembayaran_tf = $menunggu_pembayaran_tf + 1;
+                    $menunggu_pembayaran_ac = $menunggu_pembayaran_ac + 1;
                 }
                 if($data->status_pemesanan == '2'){
-                    $verifikasi_pembayaran_tf = $verifikasi_pembayaran_tf + 1;
+                    $verifikasi_pembayaran_ac = $verifikasi_pembayaran_ac + 1;
                 }
                 if($data->status_pemesanan == '3'){
-                    $proses_packing_tf = $proses_packing_tf + 1;
+                    $proses_pembuatan_ac = $proses_pembuatan_ac + 1;
                 }
                 if($data->status_pemesanan == '4'){
-                    $proses_pengiriman_tf = $proses_pengiriman_tf + 1;
+                    $proses_pengiriman_ac = $proses_pengiriman_ac + 1;
                 }
-            }else if($data->metode_pengiriman_pemesanan == $cod){
+            }else if($data->metode_pengiriman_pemesanan == "Ekspedisi"){
                 if($data->status_pemesanan == '1'){
-                    $menunggu_verifikasi_cod = $menunggu_verifikasi_cod + 1;
+                    $menunggu_pembayaran_ae = $menunggu_pembayaran_ae + 1;
+                }
+                if($data->status_pemesanan == '2'){
+                    $verifikasi_pembayaran_ae = $verifikasi_pembayaran_ae + 1;
                 }
                 if($data->status_pemesanan == '3'){
-                    $proses_packing_cod = $proses_packing_cod + 1;
+                    $proses_pembuatan_ae = $proses_pembuatan_ae + 1;
                 }
                 if($data->status_pemesanan == '4'){
-                    $proses_pengiriman_cod = $proses_pengiriman_cod + 1;
+                    $proses_pengiriman_ae = $proses_pengiriman_ae + 1;
+                }
+            }else if($data->metode_pengiriman_pemesanan == "Ambil Sendiri"){
+                if($data->status_pemesanan == '1'){
+                    $menunggu_pembayaran_as = $menunggu_pembayaran_as + 1;
+                }
+                if($data->status_pemesanan == '2'){
+                    $verifikasi_pembayaran_as = $verifikasi_pembayaran_as + 1;
+                }
+                if($data->status_pemesanan == '3'){
+                    $proses_pembuatan_as = $proses_pembuatan_as + 1;
+                }
+                if($data->status_pemesanan == '5'){
+                    $proses_pengiriman_as = $proses_pengiriman_as + 1;
                 }
             }
         }
-        $total_pemesanan_tf = $menunggu_pembayaran_tf + $verifikasi_pembayaran_tf + $proses_packing_tf + $proses_pengiriman_tf;
-        $total_pemesanan_cod = $menunggu_verifikasi_cod + $proses_packing_cod + $proses_pengiriman_cod;
+        $total_pemesanan_ac = $menunggu_pembayaran_ac + $verifikasi_pembayaran_ac + $proses_pembuatan_ac + $proses_pengiriman_ac;
+        $total_pemesanan_ae = $menunggu_pembayaran_ae + $verifikasi_pembayaran_ae + $proses_pembuatan_ae + $proses_pengiriman_ae;
+        $total_pemesanan_as = $menunggu_pembayaran_as + $verifikasi_pembayaran_as + $proses_pembuatan_as + $proses_pengiriman_as;
         
         $stok_limit_adm = 0; 
         // foreach($this->Mod_master->get_all_produk()->result() as $row) {
@@ -65,7 +85,7 @@
         //     }
         // }
 
-        $notifikasi = $total_pemesanan_tf + $total_pemesanan_cod + $stok_limit_adm;
+        $notifikasi = $total_pemesanan_ac + $total_pemesanan_ae + $total_pemesanan_as + $chat;
 
     }
     $url_foto_karyawan = base_url('assets/img/karyawan/'.$data_karyawan['foto_karyawan']);
@@ -75,20 +95,20 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<!--   
-                                                                           
-                                                                            
-            ////////////   //   ////        //   ////////////        //          888   888              /////////           //        //             /////////     //          //
-           //             //   // //       //        //            ////        888888 8    8           //       //        ////       //           //              //          //
-          //             //   //  //      //        //           //  //       8888888*      8         //        //      //  //      //          //               //          //     
-         //             //   //   //     //        //          //    //       88888888*     8        //       //      //    //     //           //              //          //
-        //             //   //    //    //        //         //      //        88888*      8        /////////       //      //    //             ///////       //          // 
-       //             //   //     //   //        //        ////////////         8888*     8        //             ////////////   //                    //     //          //
-      //             //   //      //  //        //        //        //            888*  8         //             //        //   //                      //   //          //
-     //             //   //       // //        //        //        //              88*8          //             //        //   //                     //    //          //
-    ////////////   //   //        ////        //        //        //                 *          //             //        //   ////////////   /////////     //////////////
 
-by projekindong
+<!--  
+
+    PPPPPPPP    RRRRRRRR    II      AA            II  DDDDDDD         AA      MMMM        MMMM      AA      NNNN        NN        MMMM        MMMM  EEEEEEEEEE  RRRRRRRR    TTTTTTTTTT  UU      UU      AA
+    PP     PP   RR     RR   II     AAAA           II  DD    DD       AAAA     MM MM      MM MM     AAAA     NN NN       NN        MM MM      MM MM  EE          RR     RR       TT      UU      UU     AAAA 
+    PP      PP  RR      RR  II    AA  AA          II  DD     DD     AA  AA    MM  MM    MM  MM    AA  AA    NN  NN      NN        MM  MM    MM  MM  EE          RR      RR      TT      UU      UU    AA  AA
+    PP     PP   RR     RR   II   AA    AA         II  DD      DD   AA    AA   MM   MM  MM   MM   AA    AA   NN   NN     NN        MM   MM  MM   MM  EE          RR     RR       TT      UU      UU   AA    AA
+    PPPPPPPP    RRRRRRRR    II  AAAAAAAAAA        II  DD      DD  AAAAAAAAAA  MM    MMMM    MM  AAAAAAAAAA  NN    NN    NN        MM    MMMM    MM  EEEEEE      RRRRRRRR        TT      UU      UU  AAAAAAAAAA
+    PP          RR     RR   II  AA      AA        II  DD      DD  AA      AA  MM            MM  AA      AA  NN     NN   NN        MM            MM  EE          RR     RR       TT      UU      UU  AA      AA
+    PP          RR      RR  II  AA      AA        II  DD     DD   AA      AA  MM            MM  AA      AA  NN      NN  NN        MM            MM  EE          RR      RR      TT      UU      UU  AA      AA
+    PP          RR      RR  II  AA      AA        II  DD    DD    AA      AA  MM            MM  AA      AA  NN       NN NN        MM            MM  EE          RR      RR      TT       UU    UU   AA      AA
+    PP          RR      RR  II  AA      AA        II  DDDDDDD     AA      AA  MM            MM  AA      AA  NN        NNNN        MM            MM  EEEEEEEEEE  RR      RR      TT        UUUUUU    AA      AA
+
+by exitus
 -->
 <head>
 
@@ -280,8 +300,9 @@ by projekindong
                             <li class="nav-item"><a href="<?php echo base_url('admin/dashboard'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-grid-alt"></i><p>Dashboard</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/konsumen'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-group"></i><p>Konsumen </p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/chat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-chat"></i><p>Chat <?php if($chat != 0){ ?><span class="badge badge-danger right"> <?php echo $chat; ?></span><?php } ?></p></a></li>
-                            <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/ambil'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Ambil<?php if($total_pemesanan_tf != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_tf; ?></span><?php } ?></p></a></li>
-                            <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar<?php if($total_pemesanan_cod != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_cod; ?></span><?php } ?></p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/ambil_sendiri'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Ambil Sendiri<?php if($total_pemesanan_as != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_as; ?></span><?php } ?></p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar_cepat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar Cepat<?php if($total_pemesanan_ac != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_ac; ?></span><?php } ?></p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar_ekspedisi'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar Ekspedisi<?php if($total_pemesanan_ae != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_ae; ?></span><?php } ?></p></a></li>
                             <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-data"></i><p>Master Data  <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?><i class="bx bx-fw bx-chevron-left right"></i></p></a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item"><a href="<?php echo base_url('admin/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cake nav-icon"></i><p>Produk <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?></p></a></li>

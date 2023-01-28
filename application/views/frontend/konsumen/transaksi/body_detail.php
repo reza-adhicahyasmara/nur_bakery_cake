@@ -255,9 +255,7 @@
                                 <small>Berat <?php echo number_format(($qty_ipemesanan * $item->berat_ukuran)/1000, 2, ",", "."). " Kg" ; ?></small>
                             </div>
                             <div class="col-md-3" style="margin-top: 5%; text-align:center">
-                                <?php if($status_pemesanan != 4 && $status_pemesanan != 7){ ?>
-                                    <a class='btn btn-outline-success btn-sm btn-rounded' href="<?php echo base_url('home/detail_produk/').$item->kode_produk; ?>" style="margin:3px">Beli Lagi</a>
-                                <?php } ?>
+                                <a class='btn btn-outline-success btn-sm btn-rounded rounded-pill' href="<?php echo base_url('home/detail_produk/').$item->kode_produk; ?>" style="margin:3px">Beli Lagi</a>
                             </div>
                         </div>
                         <hr>
@@ -329,7 +327,7 @@
                                 </div>
                             </div>
                             </br>
-                            <button type="button" class="btn btn-outline-success btn_simpan_pembayaran" style="width:100%" kode_pemesanan = <?php echo $kode_pemesanan; ?>><span class="bx bx-fw bx-upload"></span>Upload Pemabayaran</button>
+                            <button type="button" class="btn btn-outline-success rounded-pill btn_simpan_pembayaran" style="width:100%" kode_pemesanan = <?php echo $kode_pemesanan; ?>><span class="bx bx-fw bx-upload"></span>Upload Pemabayaran</button>
                         <?php }  ?>
                         </br>
                     </div>  
@@ -351,13 +349,13 @@
                     </div>
                 <?php } ?>
             </div>
-            <?php if($status_pemesanan == 4){ ?>
+            <?php if($status_pemesanan == 4 || $status_pemesanan == 5){ ?>
                 <div class="form-group">
-                    <button type="button" class="btn btn-outline-primary" id="btn_penerimaan_produk" style="width:100%"><span class="fa fa-check"></span> Selesaikan Pemesanan</button>
+                    <button type="button" class="btn btn-outline-primary rounded-pill" id="btn_penerimaan_produk" style="width:100%"><span class="fa fa-check"></span> Selesaikan Pemesanan</button>
                 </div>
             <?php } ?>
             <div class="form-group">
-                <a href="<?php echo base_url('home/invoice/').$kode_pemesanan;?>" class="btn btn-outline-warning" target="_blank" style="width:100%"><span class="bx bx-fw bxs-printer"></span>Cetak Invoice</a>
+                <a href="<?php echo base_url('home/invoice/').$kode_pemesanan;?>" class="btn btn-outline-warning rounded-pill" target="_blank" style="width:100%"><span class="bx bx-fw bxs-printer"></span>Cetak Invoice</a>
             </div>
         </div>
     </div>
@@ -424,12 +422,12 @@
 <script>
     var url_global_penerimaan_produk = '<?php echo base_url('home/verifikasi_proses_produk'); ?>';
 
-    $('#btn_penerimaan_produk').on("click",function(){
+    $('button#btn_penerimaan_produk').on("click",function(){
         var id_karyawan = $('#id_karyawan').val();
         var kode_pemesanan = $('#kode_pemesanan').val();
         var metode_pengiriman_pemesanan = $('#metode_pengiriman_pemesanan').val();
         var status_pby_pemesanan = $('#status_pby_pemesanan').val();
-        var status_pemesanan = "5";
+        var status_pemesanan = "6";
 
         Swal.fire({
             title: 'Selesaikan Pemesanan',
@@ -437,10 +435,10 @@
             type: 'warning',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, simpan',
-            cancelButtonText: "Tidak, batalkan",
+            confirmButtonColor: '#ffc107',
+            cancelButtonColor: '#dc3545',
+            confirmButtonText: 'Simpan',
+            cancelButtonText: "Tidak",
             showLoaderOnConfirm: true,
 
             preConfirm: (response) => {       
