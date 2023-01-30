@@ -1,16 +1,8 @@
 <?php $this->load->view('frontend/partials/head.php') ?>
 
 <main id="main">
-    <section class="breadcrumbs">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="fs-5">Keranjang</span>
-                <ol>
-                    <li><a href="<?php echo base_url('home');?>">Home</a></li>
-                    <li>Keranjang</li>
-                </ol>
-            </div>
-        </div>
+    <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 80px">
+
     </section>
 
     <section id="portfolio-details" class="portfolio-details">

@@ -272,22 +272,13 @@
 
 
 
-        <?php if($status_pemesanan == 6){ ?>        
+        <?php if($status_pemesanan == 7){ ?>        
             <section id="portfolio-details" class="portfolio-details">
                 <div class="container">
                     <div class="portfolio-info" style="border-radius: 10px">
                         <span class="text-bold fs-4">Keterangan Pemesanan Pembatalan</span>
                         <br>
-                        <div class="col-lg-12">
-                            <div class="row justify-content-md-center" style="text-align: center">
-                                </br> 
-                                <div class="d-flex justify-content-center">
-                                    <div class="col-md-6 col-12">
-                                        <textarea class="form-control" readonly style="height: 200px;"><?php echo $keterangan_pemesanan; ?></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="text-bold fs-6"><?php echo $keterangan_pemesanan; ?></span>
                     </div>
                 </div>
             </section>

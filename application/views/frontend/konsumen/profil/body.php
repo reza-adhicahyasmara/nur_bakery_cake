@@ -1,16 +1,8 @@
 <?php $this->load->view('frontend/partials/head.php') ?>
 
 <main id="main">
-    <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Profil</h2>
-                <ol>
-                    <li><a href="<?php echo base_url('home');?>">Home</a></li>
-                    <li>Profil</li>
-                </ol>
-            </div>
-        </div>
+    <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 80px">
+
     </section>
 
     <section class="inner-page">
@@ -127,14 +119,14 @@
 <?php $this->load->view('frontend/partials/footer.php') ?>
 <?php $this->load->view('frontend/partials/script.php') ?>
 
-<!-----------------------FUNGSI----------------------->
+<!-----------------------FUNGSI LAIN----------------------->
 <script>
-    $(document).ready(function() {
-        $("#home").addClass("active");
+    $(document).ready(function() {  
+        $("#profil_konsumen").addClass("active");
         $("#topbar").removeClass("topbar-transparent");
         $("#header").removeClass("header-transparent");
     });
- 
+    
 	foto_konsumen.onchange = evt => {
 		const [file] = foto_konsumen.files
 		if (file) {

@@ -119,7 +119,7 @@ class Home extends CI_Controller {
 
         if($kode_kategori == 'Terlaris'){
             $data['nama_kategori'] = $nama_kategori;
-            $status_ipemesanan = 4;
+            $status_ipemesanan = 3;
             $data['data_produk'] = $this->Mod_pemesanan->cek_status_ipemesanan($status_ipemesanan)->result();
             $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
             $data['data_kategori'] = $this->Mod_master->get_all_kategori()->result();
@@ -539,6 +539,7 @@ class Home extends CI_Controller {
 
     //PENERIMAAN PRODUK
     function verifikasi_proses_produk(){
+        $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
         $id_karyawan = $this->input->post('id_karyawan');
         $kode_pemesanan = $this->input->post('kode_pemesanan');
         $metode_pby_pemesanan = $this->input->post('metode_pby_pemesanan');
@@ -546,21 +547,32 @@ class Home extends CI_Controller {
  
 
         //UPDATE STATUS KARYAWAN
-        if($metode_pby_pemesanan == "Cash on Delivery"){                 
-            $status_pby_pemesanan = "Lunas";
+        if($metode_pby_pemesanan == "Antar Cepat"){   
             $data1  = array(
                 'id_karyawan'         => $id_karyawan,
                 'status_karyawan'     => "Ada"    
             );      
             $this->Mod_karyawan->update_karyawan($id_karyawan, $data1);  
-        }else{
-            $status_pby_pemesanan = $this->input->post('status_pby_pemesanan');
         }
+
+        //UPDATE STATUS IPEMESANAN
+        $data_keranjang = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen)->result();
+        foreach($data_keranjang as $row1){
+            if($row1->kode_pemesanan == $kode_pemesanan){
+
+                $data = array(
+                    'kode_ipemesanan'       => $row1->kode_ipemesanan,
+                    'status_ipemesanan'     => '3'
+                );
+                
+                $this->Mod_pemesanan->update_ipemesanan($row1->kode_ipemesanan, $data); 
+            }
+        }
+
 
         //UPDATE PEMESANAN
         $data2  = array( 
             'kode_pemesanan'        => $kode_pemesanan,
-            'status_pby_pemesanan'  => $status_pby_pemesanan,
             'status_pemesanan'      => $status_pemesanan,
         );
                     
@@ -568,6 +580,72 @@ class Home extends CI_Controller {
         
         echo 1;         
     
+    }
+
+
+
+
+
+    
+
+
+
+
+
+    //ULASAN
+
+    function ulasan(){
+        $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
+        $hak_akses = $this->session->userdata('ses_akses'); 
+
+        if($id_konsumen != null && $hak_akses == 'Konsumen'){
+            $data['pageTitle'] = "Ulasan";
+
+            $data['data_pemesanan'] = $this->Mod_pemesanan->get_pemesanan($id_konsumen)->result();
+            $data['data_produk'] = $this->Mod_pemesanan->get_all_ipemesanan_konsumen($id_konsumen)->result();
+    
+            $this->load->view("frontend/konsumen/ulasan/body",$data);
+        }
+        else{
+            $this->session->sess_destroy();
+            redirect('home');
+        }
+    }
+
+    function update_ulasan_pemesanan(){
+        $kode_pemesanan = $this->input->post('kode_pemesanan');
+        $tanggal_ulasan_pemesanan = date("Y-m-d H:i:s");
+        $rating_pemesanan = $this->input->post('rating_pemesanan');
+        $ulasan_pemesanan = $this->input->post('ulasan_pemesanan');
+
+        echo 1;         
+        $data  = array( 
+            'kode_pemesanan'            => $kode_pemesanan,
+            'tanggal_ulasan_pemesanan'  => $tanggal_ulasan_pemesanan,
+            'rating_pemesanan'          => $rating_pemesanan,
+            'ulasan_pemesanan'          => $ulasan_pemesanan
+        );
+                    
+        $this->Mod_pemesanan->update_pemesanan($kode_pemesanan, $data); 
+    }
+
+    function update_ulasan_produk(){
+        $kode_ipemesanan = $this->input->post('kode_ipemesanan');
+        $tanggal_ulasan_ipemesanan = date("Y-m-d H:i:s");
+        $rating_ipemesanan = $this->input->post('rating_ipemesanan');
+        $ulasan_ipemesanan = $this->input->post('ulasan_ipemesanan');
+        $status_ipemesanan = '4';
+
+        echo 1;         
+        $data  = array( 
+            'kode_ipemesanan'             => $kode_ipemesanan,
+            'tanggal_ulasan_ipemesanan'   => $tanggal_ulasan_ipemesanan,
+            'rating_ipemesanan'           => $rating_ipemesanan,
+            'ulasan_ipemesanan'           => $ulasan_ipemesanan,
+            'status_ipemesanan'           => $status_ipemesanan
+        );
+                    
+        $this->Mod_pemesanan->update_ipemesanan($kode_ipemesanan, $data); 
     }
 
 

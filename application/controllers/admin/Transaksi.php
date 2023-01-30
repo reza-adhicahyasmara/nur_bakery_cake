@@ -112,23 +112,6 @@ class Transaksi extends CI_Controller {
             );      
             $this->Mod_karyawan->update_karyawan($id_karyawan, $data2);  
         }
-
-
-        //UPDATE STATUS IPEMESANAN DAN STOK PRODUK
-        $data_ipemesanan = $this->Mod_pemesanan->get_all_list_pembelian($kode_pemesanan)->result();
-        if($status_pemesanan == 4){
-            
-            foreach($data_ipemesanan as $data){
-                $kode_ipemesanan = $data->kode_ipemesanan; 
-                
-                $data3 = array(
-                    'kode_ipemesanan'       => $kode_ipemesanan,
-                    'status_ipemesanan'     => '3'
-                );
-
-                $this->Mod_pemesanan->update_ipemesanan($kode_ipemesanan, $data3); 
-            }
-        }
     
     }
 

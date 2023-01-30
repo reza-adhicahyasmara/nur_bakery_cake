@@ -38,7 +38,9 @@
             if($data->status_pemesanan == '5'){
                 $menunggu_pengambilan = $menunggu_pengambilan + 1;
             }
-            
+            if($data->status_pemesanan == 6 && $data->ulasan_pemesanan == ''){
+                $total_ulasan_pemesanan = $total_ulasan_pemesanan + 1;
+            }
         }
 
         $total_transaksi = $menunggu_pembayaran + $verfikasi_pemabayaran + $proses_packing + $sedang_dikirim + $menunggu_pengambilan + $komplain;
@@ -46,17 +48,17 @@
 
 
         $keranjang = 0;
-        $menunggu_ulasan = 0;
+        $total_ulasan_produk = 0;
         foreach($data_keranjang as $data){
             if($data->status_ipemesanan == '1'){
                 $keranjang = $keranjang + 1;
             }
             if($data->status_ipemesanan == '3'){
-                $menunggu_ulasan = $menunggu_ulasan + 1;
+                $total_ulasan_produk = $total_ulasan_produk + 1;
             }
         }
 
-        $total = $total_transaksi + $menunggu_ulasan;
+        $total = $total_transaksi + $total_ulasan_produk + $total_ulasan_pemesanan;
 
         $notifikasi = $total;
     }
@@ -375,9 +377,9 @@ by exitus
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="<?php echo base_url('ulasan') ?>"> Ulasan
-                                            <?php if($menunggu_ulasan + $total_ulasan_pemesanan!= 0){ ?>
-                                                <span class="badge bg-danger text-xs" style="width:20px; height:20px; border-radius: 50%;"><?php echo $menunggu_ulasan + $total_ulasan_pemesanan; ?></span>
+                                        <a class="dropdown-item" href="<?php echo base_url('home/ulasan') ?>"> Ulasan
+                                            <?php if($total_ulasan_produk + $total_ulasan_pemesanan!= 0){ ?>
+                                                <span class="badge bg-danger text-xs" style="width:20px; height:20px; border-radius: 50%;"><?php echo $total_ulasan_produk + $total_ulasan_pemesanan; ?></span>
                                             <?php } ?>
                                         </a>
                                     </li>
@@ -400,33 +402,26 @@ by exitus
     <div id="modal_login" class="modal animated pulse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border: 2px solid #ffc107; border-radius: 20px">
-                <div class="modal-body">
+                <div class="modal-body"> 
+                    <div class="modal-header">
+                        <h4>Login</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <form role="form" id="form_login" method="post" aria-label="">
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h3>Login</h3>
-                                </div>
-                                <div class="col-2" style="text-align: right;">
-                                    <button type="button" class="btn-close float-sm-right" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                            </div>
-                            <br>
-                            <div id="alert_login"></div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 mt-3">
                                 <input type="text" class="form-control" name="email_hp_login" id="email_hp_login" placeholder="Email / No. Handphone">
                                 <label for="email_hp_login">Email / No. Handphone</label>
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 mt-3">
                                 <input type="password" class="form-control" name="password_login" id="password_login" placeholder="Password">
                                 <label for="password_login">Password</label>
                             </div>
-                            </br>
-                            <div class="col-12">
+                            <div class="form-group">
                                 <button type="submit" id="btn_login" class="btn btn-warning rounded-pill" style="width:100%">Login</button>  
                             </div>
                             </br>
-                            <div class="col-12">
+                            <div class="form-group">
                                 <small>Anda tidak memiliki akun? Klik <a id="daftar" href="<?php echo base_url('home/daftar');?>"><b>DISINI</b></a> untuk mendaftar.</small>
                             </div>
                         </div>
@@ -440,22 +435,15 @@ by exitus
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border: 2px solid #ffc107; border-radius: 20px">
                 <div class="modal-body">
-                    <div class="modal-body">  
-                        <div class="row">
-                            <div class="col-10">
-                                <h3>Logout</h3>
-                            </div>
-                            <div class="col-2" style="text-align: right;">
-                                <button type="button" class="btn-close float-sm-right" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                        </div>
-                        <br>                      
-                        </br>                        
-                        </br>
-                        <h4 class="form-label" style="text-align:center">Apakah anda yakin akan logut?</h4>                        
-                        </br>                        
-                        </br>
-                        <div class="col-12">
+                    <div class="modal-header">
+                        <h4>Logout</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">                  
+                        <div class="form-group m-4 p-4">
+                            <strong class="form-label">Apakah anda yakin akan logut?</strong>    
+                        </div>          
+                        <div class="form-group">
                             <button type="submit" id="btn_logout" class="btn btn-danger rounded-pill" style="width:100%">Logout</button>  
                         </div>
                     </div>
@@ -468,34 +456,28 @@ by exitus
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border: 2px solid #ffc107; border-radius: 20px">
                 <div class="modal-body">
+                    <div class="modal-header">
+                        <h4>Ubah Password</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <form role="form" id="form_reset_password" method="post" aria-label="">
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h3>Ubah Password</h3>
-                                </div>
-                                <div class="col-2" style="text-align: right;">
-                                    <button type="button" class="btn-close float-sm-right" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                            </div>
-                            <br>
-                            <div id="alert_reset_password"></div>
                             <input type="hidden" name="id_konsumen" id="id_konsumen" value="<?php echo $this->session->userdata('ses_id_konsumen'); ?>"/>
                             <input type="hidden" name="kontak_konsumen" id="kontak_konsumen" value="<?php echo $data_konsumen['kontak_konsumen']; ?>"/>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 mt-3">
                                 <input type="password" class="form-control" name="password_lama_konsumen" id="password_lama_konsumen" placeholder="Password Lama">
                                 <label for="password_lama_konsumen">Password Lama</label>
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 mt-3">
                                 <input type="password" class="form-control" name="password1" id="password1" placeholder="Password Baru">
                                 <label for="password1">Password Baru</label>
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3 mt-3">
                                 <input type="password" class="form-control" name="password_baru_konsumen" id="password_baru_konsumen" placeholder="Ketik Ulang Password Baru">
                                 <label for="password_baru_konsumen">Ketik Ulang Password Baru</label>
                             </div>
                             </br>
-                            <div class="col-12">
+                            <div class="form-group">
                                 <button type="submit" id="btn_reset_password" class="btn btn-warning rounded-pill" style="width:100%" style="width:100%">Simpan</button>  
                             </div>
                         </div>
@@ -532,16 +514,16 @@ by exitus
                     <div class="modal-body">
                         <div class="card-body card-outline direct-chat-warning">
                             <div id="content_chat2" >
-                                <div class="form-floating mb-3">
+                                <div class="form-floating mb-3 mt-3">
                                     <input type="text" class="form-control" id="nama_chat" placeholder="Nama">
                                     <label for="nama_chat">Nama</label>
                                 </div>
-                                <div class="form-floating mb-3">
+                                <div class="form-floating mb-3 mt-3">
                                     <input type="text" class="form-control" id="kontak_chat" placeholder="No Kontak">
                                     <label for="kontak_chat">No. Kontak</label>
                                 </div>
                                 <br>
-                                <div class="col-12">
+                                <div class="form-group">
                                     <button type="button" id="btn_mulai_chat" class="btn btn-warning rounded-pill" style="width:100%">Mulai Chat</button>  
                                 </div>    
                                 <br>   
