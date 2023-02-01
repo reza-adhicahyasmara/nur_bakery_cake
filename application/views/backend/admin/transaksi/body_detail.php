@@ -100,11 +100,43 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-12">
-                        </br>
-                        <h4>Data Pembeli</h4>
-                        </br>
                         <div class="row"> 
                             <div class="col-md-6 col-sm-12 col-12"> 
+                                </br>
+                                <h4>Data Pemesanan</h4>
+                                </br>
+                                <div class="form-group">
+                                    <table style="width: 100%;">
+                                        <caption></caption>
+                                        <tr>
+                                            <th id="" style="width: 35%;"><span class="text-md">Invoice</span></th>
+                                            <td style="width: 5%;"><span> : </b></td>
+                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['kode_pemesanan']; ?></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th id="" style="width: 35%;"><span class="text-md">Tanggal</span></th>
+                                            <td style="width: 5%;"><span> : </b></td>
+                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['tanggal_pemesanan']; ?></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th id="" style="width: 35%;"><span class="text-md">Metode Pembelian</span></th>
+                                            <td style="width: 5%;"><span> : </b></td>
+                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['metode_pengiriman_pemesanan']; ?></span></td>
+                                        </tr>
+                                        <?php if($status_pemesanan == 6){ ?> 
+                                            <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Keterangan Pembatalan</span></th>
+                                                <td style="width: 5%;"><span> : </b></td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['keterangan_pemesanan']; ?></span></td>
+                                            </tr>
+                                        <?php } ?>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-12"> 
+                                </br>
+                                <h4>Data Pembeli</h4>
+                                </br>
                                 <div class="form-group">
                                     <table style="width: 100%;">
                                     <caption></caption>
@@ -132,85 +164,84 @@
                                     </br>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 col-12"> 
-                                <div class="form-group">
-                                    <table style="width: 100%;">
-                                    <caption></caption>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Kode</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['kode_pemesanan']; ?></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Tanggal</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['tanggal_pemesanan']; ?></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Metode Pembelian</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['metode_pengiriman_pemesanan']; ?></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Kurir</span></th>
-                                            <td style="width: 5%;">:</td>
-                                            <td style="width: 60%;"><span class="text-md"><?php $kurir = explode("|",$data_detail['kurir_pemesanan']); echo $kurir[0]." - ".$kurir[1]." (".$kurir[2]." Hari)"; ?></span></td>
-                                        </tr>
-                                        <?php 
-                                            if($metode_pengiriman_pemesanan == "Ekspedisi"){    
-                                                $url = "antar_ekspedisi"; 
-                                        ?>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <div class="row"> 
+                                <div class="col-md-6 col-sm-12 col-12"> 
+                                    </br>
+                                    <h4>Data Pembayaran</h4>
+                                    </br>
+                                    <div class="form-group">
+                                        <table style="width: 100%;">
+                                            <caption></caption>
                                             <tr>
-                                                <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">No. Resi</span></th>
-                                                <td style="width: 5%; vertical-align: top;"><span> : </b></td>
-                                                <td style="width: 60%; vertical-align: top;"><span class="text-md"><?php if($data_detail['noresi_pemesanan'] != ""){ echo $data_detail['noresi_pemesanan']; ?></span> <a href="<?php echo "https://parcelsapp.com/id/tracking/".$data_detail['noresi_pemesanan']; ?>" class="btn btn-sm btn-outline-primary" target="_blank"><span class="bx bx-fw bx-search"></span>Lacak</a> <?php }else{ echo "-";} ?></td>
-                                            </tr>
-                                        <?php  
-                                            } elseif($metode_pengiriman_pemesanan == "Antar Cepat"){    
-                                                $url = "antar_cepat"; 
-                                        ?>
-                                            <tr>
-                                                <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">Pramuniaga</span></th>
-                                                <td style="width: 5%; vertical-align: top;"><span> : </b></td>
-                                                <td style="width: 60%; vertical-align: top;"><span class="text-md"><?php echo $data_detail['nama_karyawan']; ?></td>
-                                            </tr>
-                                        <?php  
-                                            } elseif($metode_pengiriman_pemesanan == "Ambil Sendiri"){    
-                                                $url = "antar_cepat"; 
-                                        ?>
-                                            <tr>
-                                                <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">Prosedur Ambil</span></th>
-                                                <td style="width: 5%; vertical-align: top;"><span> : </b></td>
-                                                <td style="width: 60%; vertical-align: top;">Konsumen dapat malakukan pengambilan produk setelah, proses produksi produk telah selesai.</td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Transfer</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['rekening_pemesanan']; ?></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Total Pembayaran</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;"><span class="text-md"><?php echo "Rp. ".number_format($data_detail['total_belanja_pemesanan'], 0, ".", ".") ?></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th id="" style="width: 35%;"><span class="text-md">Status Pembayaran</span></th>
-                                            <td style="width: 5%;"><span> : </b></td>
-                                            <td style="width: 60%;">
-                                                <span class="text-md"><?php echo  $badge_status_pby_pemesanan; ?></span>
-                                            </td>
-                                        </tr>
-                                        <?php if($status_pemesanan == 6){ ?> 
-                                            <tr>
-                                                <th id="" style="width: 35%;"><span class="text-md">Keterangan Pembatalan</span></th>
+                                                <th id="" style="width: 35%;"><span class="text-md">Transfer</span></th>
                                                 <td style="width: 5%;"><span> : </b></td>
-                                                <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['kererangan_pemesanan']; ?></span></td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['rekening_pemesanan']; ?></span></td>
                                             </tr>
-                                        <?php } ?>
-                                    </table>  
+                                            <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Total Pembayaran</span></th>
+                                                <td style="width: 5%;"><span> : </b></td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo "Rp. ".number_format($data_detail['total_belanja_pemesanan'], 0, ".", ".") ?></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Status Pembayaran</span></th>
+                                                <td style="width: 5%;"><span> : </b></td>
+                                                <td style="width: 60%;">
+                                                    <span class="text-md"><?php echo  $badge_status_pby_pemesanan; ?></span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-6 col-sm-12 col-12">
+                                    </br>
+                                    <?php if($metode_pengiriman_pemesanan == "Ambil Sendiri"){  echo "<h4>Data Pengambilan</h4>"; } else { echo "<h4>Data Pengiriman</h4>"; } ?>
+                                    </br>
+                                    <div class="form-group">
+                                        <table style="width: 100%;">
+                                        <caption></caption>
+                                            <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Kurir</span></th>
+                                                <td style="width: 5%;">:</td>
+                                                <td style="width: 60%;"><span class="text-md"><?php $kurir = explode("|",$data_detail['kurir_pemesanan']); echo $kurir[0]." - ".$kurir[1]." (".$kurir[2]." Hari)"; ?></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Ongkos Kirim</span></th>
+                                                <td style="width: 5%;">:</td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo  "Rp. ".number_format($kurir[3], 0, ".", "."); ?></span></td>
+                                            </tr>
+                                            <?php 
+                                                if($metode_pengiriman_pemesanan == "Ekspedisi"){    
+                                                    $url = "antar_ekspedisi"; 
+                                            ?>
+                                                <tr>
+                                                    <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">No. Resi</span></th>
+                                                    <td style="width: 5%; vertical-align: top;"><span> : </b></td>
+                                                    <td style="width: 60%; vertical-align: top;"><span class="text-md"><?php if($data_detail['noresi_pemesanan'] != ""){ echo $data_detail['noresi_pemesanan']; ?></span> <a href="<?php echo "https://parcelsapp.com/id/tracking/".$data_detail['noresi_pemesanan']; ?>" class="btn btn-sm btn-outline-primary" target="_blank"><span class="bx bx-fw bx-search"></span>Lacak</a> <?php }else{ echo "-";} ?></td>
+                                                </tr>
+                                            <?php  
+                                                } elseif($metode_pengiriman_pemesanan == "Antar Cepat"){    
+                                                    $url = "antar_cepat"; 
+                                            ?>
+                                                <tr>
+                                                    <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">Pramuniaga</span></th>
+                                                    <td style="width: 5%; vertical-align: top;"><span> : </b></td>
+                                                    <td style="width: 60%; vertical-align: top;"><span class="text-md"><?php echo $data_detail['nama_karyawan']; ?></td>
+                                                </tr>
+                                            <?php  
+                                                } elseif($metode_pengiriman_pemesanan == "Ambil Sendiri"){    
+                                                    $url = "ambil_sendiri"; 
+                                            ?>
+                                                <tr>
+                                                    <th id="" style="width: 25%; vertical-align: top;"><span class="text-md">Prosedur Ambil</span></th>
+                                                    <td style="width: 5%; vertical-align: top;"><span> : </b></td>
+                                                    <td style="width: 60%; vertical-align: top;">Konsumen dapat malakukan pengambilan produk setelah, proses produksi produk telah selesai.</td>
+                                                </tr>
+                                            <?php } ?>
+                                        </table>  
+                                    </div>
+                                </div>
                         </div>
                     </div>
 

@@ -174,19 +174,111 @@ class Mod_pemesanan extends CI_Model {
         $this->db->where('kode_pemesanan', $kode_pemesanan);
         $this->db->update('pemesanan', $data);
     }
+    
+    function grafik_transaksi(){
+        $countLimit = $this->db->query("SELECT SUM(total_tagihan_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'Antar Cepat' AS jenis 
+                                        FROM pemesanan
+                                        WHERE metode_pengiriman_pemesanan = 'Antar Cepat'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT SUM(total_tagihan_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'Ekspedisi' AS jenis
+                                        FROM pemesanan
+                                        WHERE metode_pengiriman_pemesanan = 'Ekspedisi'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT SUM(total_tagihan_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'Ambil Sendiri' AS jenis
+                                        FROM pemesanan
+                                        WHERE metode_pengiriman_pemesanan = 'Ambil Sendiri'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        GROUP BY bulan");
+        return $countLimit;
+    }
+    
+    function grafik_kepuasan(){
+        $countLimit = $this->db->query("SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_0' AS jenis 
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '0'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_1' AS jenis 
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '1'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_2' AS jenis 
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '2'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_3' AS jenis 
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '3'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_4' AS jenis 
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '4'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan
+                                        UNION
+                                        SELECT COUNT(rating_pemesanan) AS jumlah, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun, 'rating_5' AS jenis
+                                        FROM pemesanan
+                                        WHERE rating_pemesanan = '5'
+                                        AND YEAR(tanggal_pemesanan) = YEAR(CURDATE())
+                                        AND ulasan_pemesanan IS NOT NULL
+                                        GROUP BY bulan");
+        return $countLimit;
+    }
+
+    function grafik_pesan_antar(){
+        $this->db->select("COUNT(kode_pemesanan) AS pemesanan, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun");
+        $this->db->from('pemesanan');
+        $this->db->where('status_pemesanan', '5');
+        $this->db->where('metode_pengiriman_pemesanan', 'Transfer');
+        $this->db->group_by('bulan');
+        return $this->db->get();
+    }
+
+    function grafik_pesan_ambil(){
+        $this->db->select("COUNT(kode_pemesanan) AS pemesanan, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun");
+        $this->db->from('pemesanan');
+        $this->db->where('status_pemesanan', '5');
+        $this->db->where('metode_pengiriman_pemesanan', 'Cash on Delivery');
+        $this->db->group_by('bulan');
+        return $this->db->get();
+    }
+
+    function grafik_batal(){
+        $this->db->select("COUNT(kode_pemesanan) AS pemesanan, MONTH(tanggal_pemesanan) AS bulan, YEAR(tanggal_pemesanan) AS tahun");
+        $this->db->from('pemesanan');
+        $this->db->where('status_pemesanan', '6');
+        $this->db->group_by('bulan');
+        return $this->db->get();
+    }
 
 
-
-    //GRAFIK
-
-
-    //LAPORAN
-    function get_laporan($tanggal_awal, $tanggal_akhir, $metode_pemesanan, $status_pemesanan){
-        $this->db->select('pemesanan.*, konsumen.*');
+    function get_laporan($tanggal_awal, $tanggal_akhir, $metode_pembelian, $status_pemesanan){
+        $this->db->select('pemesanan.*, konsumen.*, karyawan.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*');
         $this->db->from('pemesanan');
         $this->db->join('konsumen', 'konsumen.id_konsumen = pemesanan.id_konsumen', 'left');
+        $this->db->join('karyawan', 'karyawan.id_karyawan = pemesanan.id_karyawan', 'left');
+        $this->db->join('provinsi', 'provinsi.kode_provinsi = konsumen.kode_provinsi', 'left');
+        $this->db->join('kabupaten', 'kabupaten.kode_kabupaten = konsumen.kode_kabupaten', 'left');
+        $this->db->join('kecamatan', 'kecamatan.kode_kecamatan = konsumen.kode_kecamatan', 'left');
+        $this->db->join('desa', 'desa.kode_desa = konsumen.kode_desa', 'left');
         $this->db->where("pemesanan.tanggal_pemesanan BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
-        $this->db->where("pemesanan.metode_pemesanan IN($metode_pemesanan)");
+        $this->db->where("pemesanan.metode_pengiriman_pemesanan", "$metode_pembelian");
         $this->db->where("pemesanan.status_pemesanan IN($status_pemesanan)");
         return $this->db->get();
     }
