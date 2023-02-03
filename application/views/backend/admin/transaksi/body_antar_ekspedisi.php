@@ -33,14 +33,42 @@
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark"><span class="nav-icon bx bx-fw bxs-book"></span>Transaksi Antar Ekspedisi</h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 float-sm-right">
                     <ol class="breadcrumb float-sm-right">
-                        
+                        <form role="form" id="form_laporan" method="post">
+                            <div class="row">
+                                <div class="col-3">
+                                    <select class="form-control metode_pengiriman_pemesanan" id="metode_pengiriman_pemesanan" name="metode_pengiriman_pemesanan" >
+                                        <option value="'Antar Cepat','Ekspedisi','Ambil Sendiri'">Semua Metode Pemb.</option>
+                                        <option value="'Antar Cepat'">Antar Cepat</option>
+                                        <option value="'Ekspedisi'">Antar Ekspedisi</option>
+                                        <option value="'Ambil Sendiri'">Ambil Sendiri </option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <select class="form-control status_pemesanan" id="status_pemesanan" name="status_pemesanan" >
+                                        <option value="'1','2','3','4','5','6','7'">Semua Status Trans.</option>
+                                        <option value="'1'">Menunggu Transfer</option>
+                                        <option value="'2'">Transfer Masuk</option>
+                                        <option value="'3'">Proses Pembuatan </option>
+                                        <option value="'4'">Produk Dikirim </option>
+                                        <option value="'5'">Produk Siap Ambil </option>
+                                        <option value="'6'">Selesai</option>
+                                        <option value="'7'">Batal</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control" id="tanggal_awal" name="tanggal_awal" placeholder="Tanggal Awal">
+                                </div>
+                                <div class="col-2">      
+                                    <input type="text" class="form-control" id="tanggal_akhir" name="tanggal_akhir" placeholder="Tanggal Awal">
+                                </div>
+                                <div class="col-2"> 
+                                    <button type="submit" class="btn btn-warning print_laporan" style="width: 100%;"  target="_blank"><span class="fas fa-file-excel"></span> Export Excel</button>
+                                </div>
+                            </div>
+                        </form>
                     </ol>
-                </div><!-- /.col -->
-                <div class="m-2 breadcrumb">
-                    <span class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></span>
-                    <span class="breadcrumb-item active">Transaksi Antar Ekspedisi</span>
                 </div>
             </div>
         </div>
@@ -48,7 +76,6 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="row">
             <div class="col-12 col-sm-12">
                 <div class="card card-warning card-outline card-outline-tabs ">
                     <div class="card-header p-0 border-bottom-0">

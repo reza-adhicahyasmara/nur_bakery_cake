@@ -26,3 +26,101 @@
 <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/dist/backend/js/adminlte.js"></script>
+
+<!-----------------------LAPORAN TRANSAKSI----------------------->
+<script type="text/javascript">
+
+    $(document).ready(function(){   
+        $('#tanggal_awal').datetimepicker({
+            //inline:true,
+            autoclose: true,
+            timepicker:false,
+            format:'Y-m-d'
+        });
+    });
+
+    $(document).ready(function(){   
+        $('#tanggal_akhir').datetimepicker({
+            //inline:true,
+            autoclose: true,
+            timepicker:false,
+            format:'Y-m-d'
+        });
+    });
+
+    $(document).ready(function() {
+        $('.print_laporan').on("click",function(){
+            $("#form_laporan").valid();
+        });
+
+        $('#form_laporan').validate({
+            rules: {
+                metode_pengiriman_pemesanan: {
+                    required: true,
+                },
+                status_pemesanan: {
+                    required: true,
+                },
+                tanggal_awal: {
+                    required: true,
+                },
+                tanggal_akhir: {
+                    required: true,
+                },
+            },
+            messages: {
+                metode_pengiriman_pemesanan: {
+                    required: "Harus diisi",
+                },
+                status_pemesanan: {
+                    required: "Harus diisi",
+                },
+                tanggal_awal: {
+                    required: "Harus diisi",
+                },
+                tanggal_akhir: {
+                    required: "Harus diisi",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function() {
+                var metode_pengiriman_pemesanan = $('#metode_pengiriman_pemesanan').val();
+                var status_pemesanan = $('#status_pemesanan').val();
+                var tanggal_awal = $('#tanggal_awal').val();
+                var tanggal_akhir = $('#tanggal_akhir').val();
+
+                $.ajax({
+                    url : "<?php echo base_url('admin/transaksi/laporan_data_pemesanan'); ?>",
+                    method: 'POST',
+                    data: {
+                        metode_pengiriman_pemesanan:metode_pengiriman_pemesanan,
+                        status_pemesanan:status_pemesanan,
+                        tanggal_awal:tanggal_awal,
+                        tanggal_akhir:tanggal_akhir
+                    },
+                    success: function(response){ 
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data telah disimpan!',
+                            text: 'Folder Penyimpanan C://xampp/htdocs/nur_bakery_cake/assets/berkas',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#ffc107',
+                        }).then(function(){
+                            window.open("file:///C:/");
+                        })
+                    }
+                }); 
+            }
+        });
+    });
+</script>

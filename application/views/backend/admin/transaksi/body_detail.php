@@ -40,14 +40,12 @@
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark"><span class="nav-icon bx bx-fw bxs-book"></span>Detail Transaksi</h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 float-sm-right">
                     <ol class="breadcrumb float-sm-right">
+                        <span class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></span>
+                        <span class="breadcrumb-item"><a href="<?php echo base_url('admin/transaksi'); ?>">Transaksi</a></span>
+                        <span class="breadcrumb-item active">Detail Transaksi</span>
                     </ol>
-                </div><!-- /.col -->
-                <div class="m-2 breadcrumb">
-                    <span class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></span>
-                    <span class="breadcrumb-item"><a href="<?php echo base_url('admin/transaksi'); ?>">Transaksi</a></span>
-                    <span class="breadcrumb-item active">Detail Transaksi</span>
                 </div>
             </div>
         </div>
@@ -60,7 +58,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="col-8">
                             <div class="row" data-aos="fade-right">  
-                                <a href="<?php echo base_url('transaksi/invoice/').$data_detail['kode_pemesanan'];?>" class="btn btn-outline-warning ml-2 mr-3" target="_blank"><span class="bx bx-fw bxs-printer"></span>Cetak</a>
+                                <a href="<?php echo base_url('home/invoice/').$data_detail['kode_pemesanan'];?>" class="btn btn-outline-warning ml-2 mr-3" target="_blank"><span class="bx bx-fw bxs-printer"></span>Cetak</a>
                                 <?php if($status_pemesanan == 1) { ?>  
                                     <button type="button" class="btn btn-outline-danger mr-3" id="btn_batalkan_transaksi"><span class="fa fa-times"></span> Batalkan Transaksi</button>
                                 <?php } else if($status_pemesanan > 1){ ?> 

@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <span class="breadcrumb-item active">Dashboard</span>
+                       
                     </ol>
                 </div>
             </div>

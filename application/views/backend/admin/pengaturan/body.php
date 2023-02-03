@@ -9,8 +9,7 @@
                 </div>
                 <div class="col-sm-6 float-sm-right">
                     <ol class="breadcrumb float-sm-right m-2">
-                        <span class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></span>
-                        <span class="breadcrumb-item active">Pengaturan</span>
+                        
                     </ol>
                 </div>
             </div>
@@ -155,7 +154,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Biaya Ongkos Kirim</h4>
+                            <h4>Biaya Ongkos Kirim Antar Cepat</h4>
                             <small>Pengaturan tarif harga pesan antar setiap kecamatan.</small>
                             <hr>
                             <div class="mb-3">

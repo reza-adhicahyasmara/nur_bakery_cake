@@ -9,8 +9,7 @@
                 </div>
                 <div class="col-sm-6 float-sm-right">
                     <ol class="breadcrumb float-sm-right m-2">
-                        <span class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a></span>
-                        <span class="breadcrumb-item active">Konsumen</span>
+                        
                     </ol>
                 </div>
             </div>

@@ -268,7 +268,7 @@ class Mod_pemesanan extends CI_Model {
     }
 
 
-    function get_laporan($tanggal_awal, $tanggal_akhir, $metode_pembelian, $status_pemesanan){
+    function get_laporan($tanggal_awal, $tanggal_akhir, $status_pemesanan, $metode_pengiriman_pemesanan){
         $this->db->select('pemesanan.*, konsumen.*, karyawan.*, provinsi.*, kabupaten.*, kecamatan.*, desa.*');
         $this->db->from('pemesanan');
         $this->db->join('konsumen', 'konsumen.id_konsumen = pemesanan.id_konsumen', 'left');
@@ -278,8 +278,8 @@ class Mod_pemesanan extends CI_Model {
         $this->db->join('kecamatan', 'kecamatan.kode_kecamatan = konsumen.kode_kecamatan', 'left');
         $this->db->join('desa', 'desa.kode_desa = konsumen.kode_desa', 'left');
         $this->db->where("pemesanan.tanggal_pemesanan BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
-        $this->db->where("pemesanan.metode_pengiriman_pemesanan", "$metode_pembelian");
         $this->db->where("pemesanan.status_pemesanan IN($status_pemesanan)");
+        $this->db->where("pemesanan.metode_pengiriman_pemesanan IN($metode_pengiriman_pemesanan)");
         return $this->db->get();
     }
 

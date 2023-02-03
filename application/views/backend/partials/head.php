@@ -303,20 +303,14 @@ by exitus
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/ambil_sendiri'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Ambil Sendiri<?php if($total_pemesanan_as != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_as; ?></span><?php } ?></p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar_cepat'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar Cepat<?php if($total_pemesanan_ac != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_ac; ?></span><?php } ?></p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('admin/transaksi/antar_ekspedisi'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-book"></i><p>Transaksi Antar Ekspedisi<?php if($total_pemesanan_ae != 0){ ?><span class="badge badge-danger right"> <?php echo $total_pemesanan_ae; ?></span><?php } ?></p></a></li>
-                            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-data"></i><p>Master Data  <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?><i class="bx bx-fw bx-chevron-left right"></i></p></a>
-                                <ul class="nav nav-treeview">
+                            <!-- <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-data"></i><p>Master Data  <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?><i class="bx bx-fw bx-chevron-left right"></i></p></a>
+                                <ul class="nav nav-treeview"> -->
                                     <li class="nav-item"><a href="<?php echo base_url('admin/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cake nav-icon"></i><p>Produk <?php if($stok_limit_adm != 0){ ?><span class="badge badge-danger right"> <?php echo $stok_limit_adm; ?></span><?php } ?></p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/kategori_produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-bookmark"></i><p>Kategori Produk</p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/diskon'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-offer"></i><p>Diskon</p></a></li>
                                     <li class="nav-item"><a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cog"></i><p>Pengaturan</p></a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon bx bx-fw bxs-file"></i><p>Laporan <i class="bx bx-fw bx-chevron-left right"></i></p></a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item"><a href="<?php echo base_url('admin/laporan/data_pemesanan_transfer'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-file"></i><p>Data Transaksi Transfer</p></a></li>
-                                    <li class="nav-item"><a href="<?php echo base_url('admin/laporan/data_pemesanan_cod'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-file"></i><p>Data Transaksi COD</p></a></li>
-                                </ul>
-                            </li>
+                                <!-- </ul>
+                            </li> -->
 
 
 
