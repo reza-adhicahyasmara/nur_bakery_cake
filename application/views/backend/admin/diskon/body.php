@@ -174,6 +174,30 @@
                         success: function(response){
                             if(response==1){
                                 Swal.fire({
+                                    icon: 'error',
+                                    title: 'Produk kosong..!!',
+                                    showConfirmButton: true,
+                                    confirmButtonColor: '#ffc107',
+                                    timer: 3000
+                                })
+                            }else if(response==2){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Nama diskon sudah ada..!!',
+                                    showConfirmButton: true,
+                                    confirmButtonColor: '#ffc107',
+                                    timer: 3000
+                                })
+                            }else if(response==3){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gambar tidak boleh kosong..!!',
+                                    showConfirmButton: true,
+                                    confirmButtonColor: '#ffc107',
+                                    timer: 3000
+                                })
+                            } else {
+                                Swal.fire({
                                     icon: 'success',
                                     title: 'Berhasil Disimpan!',
                                     showConfirmButton: true,
@@ -183,15 +207,6 @@
                                     load_data_diskon();
                                     $('#modal_diskon').modal('hide');
                                 });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Gagal!',
-                                    text: response,
-                                    showConfirmButton: true,
-                                    confirmButtonColor: '#ffc107',
-                                    timer: 3000
-                                })
                             }
                         }
                     });

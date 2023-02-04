@@ -273,8 +273,8 @@
                                                         <div class="col-4">
                                                             <div class="row">
                                                                 <div class="image col-3">
-                                                                    <?php if($ul->foto_member != "") { ?>
-                                                                        <img src="<?php echo base_url('assets/img/member/').$ul->foto_member; ?>" class="img-circle elevation-1" style=" border-radius: 20px; width:50px; height:50px; object-fit: cover;" alt="Image">
+                                                                    <?php if($ul->foto_konsumen != "") { ?>
+                                                                        <img src="<?php echo base_url('assets/img/konsumen/').$ul->foto_konsumen; ?>" class="img-circle elevation-1" style=" border-radius: 20px; width:50px; height:50px; object-fit: cover;" alt="Image">
                                                                     <?php }else{ ?>
                                                                         <img src="<?php echo  base_url('assets/img/banner/profile.jpg'); ?>" class="img-circle elevation-1"  style="width:50px; height:50px; object-fit: cover; background-color:white" alt="Image">
                                                                     <?php } ?> 

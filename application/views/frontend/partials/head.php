@@ -315,6 +315,7 @@ by exitus
                             </form>
                         </ul>
                     </li>
+                    <li><a class="nav-link scrollto" id="acara_diskon" href="<?php echo base_url('home/acara_diskon');?>">Acara Diskon</a></li>
                     <li><a class="nav-link scrollto" id="pedoman_berbelanja" href="<?php echo base_url('home/pedoman_berbelanja');?>">Pedoman Berbelanja</a></li>
                     <li><a class="nav-link scrollto" id="tentang" href="<?php echo base_url('home/tentang');?>">Tentang</a></li>
                     <?php if($this->session->userdata('ses_id_konsumen') == null && $this->session->userdata('ses_akses') != 'Konsumen'){?>

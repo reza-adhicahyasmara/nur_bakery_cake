@@ -66,12 +66,37 @@
 
 
 <main id="main">  
-      
+
     <section id="specials" class="specials">
         <div class="container">
             <div class="section-title">
                 <h2>Produk Terbaik <span>Kami</span></h2>
                 <p>Dibuat dengan bahan baku berkualitas. Diolah dengan tangan profesional dengan cita rasa premium.</p>
+            </div>
+            <div class="events-slider swiper mb-5">
+                <div class="swiper-wrapper">
+                    <?php if(empty($data_diskon)) {?>
+                    
+                    <?php } else { ?>     
+                        
+                            <?php
+                                $no = 1;
+                                foreach($data_diskon as $row){ 
+                            ?>  
+                            <div class="swiper-slide">
+                            <a href="<?php echo base_url('home/detail_acara_diskon/').$row->kode_diskon;?>">
+                                <div>
+                                    <img alt="Gambar diskon" src="<?php echo base_url('assets/img/diskon/').$row->gambar_diskon;?>" style="width:100%; height: 400px; object-fit: cover; border-radius: 5px">
+                                </div>
+                            </a>
+                        </div>
+                            <?php   
+                                    $no++;    
+                                }
+                            ?>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-3">
@@ -184,29 +209,36 @@
 
     
     <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-        <div class="container position-relative">
-            <div class="testimonials-slider swiper" >
+    
+    <section id="events" class="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ulasan  <span>Konsumen Setia</span> Nur Baker Cake</h2>
+            </div>
+            <div class="events-slider swiper">
                 <div class="swiper-wrapper">
                     <?php if(empty($data_pemesanan)) { ?>
                         <div class="carousel-item active">
-                            <h5 style="color: white;">Belum ada diskon event, daftarkan diri Anda untuk mendapatkan informaasi diskon terupdate dari kami.</h5>
+                            <spaan class="fs-5 text-white" class="color: white;">Belum ada diskon event, daftarkan diri Anda untuk mendapatkan informaasi diskon terupdate dari kami.</spaan>
                         </div>
                     <?php
                         }else{
                             $no = 1;
                             foreach($data_pemesanan as $row) {
-                                if($row->status_pemesanan == 7 && $row->ulasan_pemesanan != ""){
+                                if($row->status_pemesanan == 6 && $row->ulasan_pemesanan != ""){
                     ?>
                     <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <?php if($row->foto_member != "") { ?>
-                                <img class="testimonial-img" src="<?php echo base_url('assets/img/member/'.$row->foto_member);?>" alt="User Image" style="width:100px; height:100px; object-fit: cover; border-radius: 50px;">
+                        <div class="testimonial-item text-center">
+                            <?php if($row->foto_konsumen != "") { ?>
+                                <img class="testimonial-img" src="<?php echo base_url('assets/img/konsumen/'.$row->foto_konsumen);?>" alt="User Image" style="width:100px; height:100px; object-fit: cover; border-radius: 50px;">
                             <?php }else{ ?>
                                 <img class="testimonial-img" src="<?php echo base_url('assets/img/banner/profile.jpg');?>" alt="User Image" style="width:100px; height:100px; object-fit: cover; border-radius: 50px;">
                             <?php } ?>
-                            <h3><?php echo $row->outlet_member; ?></h3>
-                            <h4><?php echo $row->tanggal_ulasan_pemesanan; ?></h4>
+                            <br>
+                            <span class="fs-5 text-white"><?php echo $row->nama_konsumen; ?></span>
+                            <br>
+                            <small class="text-white"><?php echo $row->tanggal_ulasan_pemesanan; ?></small>
+                            <br>
                             <?php 
                                 $aa = $row->rating_pemesanan;
                                 if($aa <= 1){
@@ -241,19 +273,20 @@
                                     <span class='fa fa-star checked'></span>";
                                 }
                             ?>
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                <?php echo $row->ulasan_pemesanan; ?>
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            <br>
+                            <p >
+                                <i class="bx bxs-quote-alt-left quote-icon-left text-white"></i>
+                                <span class="fs-5 text-white"><?php echo $row->ulasan_pemesanan; ?></span>
+                                <i class="bx bxs-quote-alt-right quote-icon-right text-white"></i>
                             </p>
                         </div>
                     </div>
                     <?php 
-                                            $no++;
-                                        }
-                                    }
-                                } 
-                            ?>
+                                    $no++;
+                                }
+                            }
+                        } 
+                    ?>
 
                 </div>
             <div class="swiper-pagination"></div>

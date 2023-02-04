@@ -80536,7 +80536,8 @@ CREATE TABLE `diskon` (
 /*Data for the table `diskon` */
 
 insert  into `diskon`(`kode_diskon`,`nama_diskon`,`deskripsi_diskon`,`tanggal_awal_diskon`,`tanggal_akhir_diskon`,`gambar_diskon`) values 
-('PRM.1674125268','Haha','haha','2023-01-19','2023-01-24','—Pngtree—hand-painted_daily_household_laundry_liquid_1096149.jpg');
+('PRM.1675476118','Promo Bulan Ramadhan','Dapatkan potongan harga sampai 2%','2023-02-03','2023-02-11','istockphoto-1361692486-1024x1024.jpg'),
+('PRM.1675476352','Promo','Promo','2023-02-03','2023-02-07','pngtree-bakery-gourmet-promotion-promotion-brown-creative-web-banner-png-image_8070836.png');
 
 /*Table structure for table `idiskon` */
 
@@ -80548,12 +80549,13 @@ CREATE TABLE `idiskon` (
   `kode_ukuran` varchar(10) DEFAULT NULL,
   `potongan_idiskon` float DEFAULT NULL,
   PRIMARY KEY (`kode_idiskon`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `idiskon` */
 
 insert  into `idiskon`(`kode_idiskon`,`kode_diskon`,`kode_ukuran`,`potongan_idiskon`) values 
-(19,'PRM.1674125268','3',12);
+(26,'PRM.1675476118','4',2),
+(27,'PRM.1675476352','13',3);
 
 /*Table structure for table `ipemesanan` */
 

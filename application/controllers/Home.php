@@ -194,6 +194,49 @@ class Home extends CI_Controller {
 
 
 
+    //DISKON
+
+    function acara_diskon(){
+        $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
+        $hak_akses = $this->session->userdata('ses_akses');  
+        
+        $data['data_diskon'] = $this->Mod_master->get_all_diskon()->result();
+
+        $data['pageTitle'] = "Diskon";
+        
+        if($id_konsumen != null && $hak_akses == 'Konsumen'){
+            $this->load->view("frontend/konsumen/diskon/body",$data);
+        }
+        else{
+            $this->session->sess_destroy();
+            $this->load->view("frontend/konsumen/diskon/body",$data);
+        }
+    }
+
+    function detail_acara_diskon($kode_diskon){
+        $id_konsumen = $this->session->userdata('ses_id_konsumen'); 
+        $hak_akses = $this->session->userdata('ses_akses');  
+        
+        $data['data_diskon'] = $this->Mod_master->get_diskon($kode_diskon)->row_array();
+        $data['data_produk'] = $this->Mod_master->get_all_produk()->result();
+        $data['data_ukuran'] = $this->Mod_master->get_all_ukuran()->result();
+        $data['data_idiskon'] = $this->Mod_master->get_display_idiskon()->result();
+        $data['data_ulasan_produk'] = $this->Mod_pemesanan->get_ulasan_produk()->result();
+
+        $data['pageTitle'] = "Detail Diskon";
+        
+        if($id_konsumen != null && $hak_akses == 'Konsumen'){
+            $this->load->view("frontend/konsumen/diskon/body_detail",$data);
+        }
+        else{
+            $this->session->sess_destroy();
+            $this->load->view("frontend/konsumen/diskon/body_detail",$data);
+        }
+    }
+
+
+
+
 
     //KERANJANG
 
@@ -348,17 +391,6 @@ class Home extends CI_Controller {
         
 
         //SETTING FORM
-        $email = $data_konsumen['email_konsumen'];
-        $judul = 'Transaksi Pemesanan Selesai Dibuat';
-        $pesan = 'Yth Bapak/Ibu konsumen Nur Bakery & Cake. Berikut kami kirimkan informasi pemesanan. <br><br>'.
-                'Kode pesanan : '.$kode_pemesanan.'<br>'.
-                'Tanggal pesanan : '.$tanggal_pemesanan.'<br>'.
-                'Metode pesanan : '.$metode_pengiriman_pemesanan.'<br>'.
-                'Pembayaran ke : '.$rekening_pemesanan.'<br>'.
-                'Total Tagihan : Rp '.number_format($total_belanja_pemesanan, 0, ".", ".").'<br><br>'.
-                'Silahkan melakukan pembayaran sesuai dengan tagihan dan rekening yang anda pilih. Selanjutnya upload bukti pembayaran ke dalam sistem kami.<br><br>'.
-                'Info Lebih Lanjut Klik dibawah ini<br>http://localhost/nur_bakery_cake/transaksi/detail/'.$kode_pemesanan.'<br><br>'.
-                'Terima kasih';
         // $nama_file = $_FILES['file']['name'];
         // $file_tmp = $_FILES['file']['tmp_name'];    
    
@@ -379,12 +411,20 @@ class Home extends CI_Controller {
 
         //pengirim
         $mail->setFrom('bakerycake791@gmail.com', 'Nur Cake & Bakery');
-        $mail->addAddress($email);     //Add a recipient
+        $mail->addAddress($data_konsumen['email_konsumen']);     //Add a recipient
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = $judul;
-        $mail->Body    = $pesan;
+        $mail->Subject = 'Transaksi Pemesanan Selesai Dibuat';
+        $mail->Body    = 'Yth Bapak/Ibu konsumen Nur Bakery & Cake. Berikut kami kirimkan informasi pemesanan. <br><br>'.
+                        'Kode pesanan : '.$kode_pemesanan.'<br>'.
+                        'Tanggal pesanan : '.$tanggal_pemesanan.'<br>'.
+                        'Metode pesanan : '.$metode_pengiriman_pemesanan.'<br>'.
+                        'Pembayaran ke : '.$rekening_pemesanan.'<br>'.
+                        'Total Tagihan : Rp '.number_format($total_belanja_pemesanan, 0, ".", ".").'<br><br>'.
+                        'Silahkan melakukan pembayaran sesuai dengan tagihan dan rekening yang anda pilih. Selanjutnya upload bukti pembayaran ke dalam sistem kami.<br><br>'.
+                        'Info Lebih Lanjut Klik dibawah ini<br>http://localhost/nur_bakery_cake/transaksi/detail/'.$kode_pemesanan.'<br><br>'.
+                        'Terima kasih';
         // $mail->addAttachment('../../file/'.$nama_file);
         $mail->AltBody = '';
         // $mail->AddEmbeddedImage('assets/img/banner/bx-cake.svg', 'logo'); //abaikan jika tidak ada logo

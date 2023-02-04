@@ -1,4 +1,13 @@
 <?php 
+//ini wajib dipanggil paling atas
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+//ini sesuaikan foldernya ke file 3 ini
+require 'assets/plugins/PHPMailer/src/Exception.php';
+require 'assets/plugins/PHPMailer/src/PHPMailer.php';
+require 'assets/plugins/PHPMailer/src/SMTP.php';
+
 defined('BASEPATH') || exit('No direct script access allowed');
 
 class Diskon extends CI_Controller {
@@ -52,10 +61,10 @@ class Diskon extends CI_Controller {
         $cek1 = $this->Mod_master->cek_idiskon0();
         
         if($cek1->num_rows() == 0){
-            echo "Produk kosong..!!";
+            echo 1;
         }
         elseif($cek->num_rows() > 0){
-            echo "Nama diskon sudah ada..!!";
+            echo 2;
         }
         else{
 
@@ -69,8 +78,8 @@ class Diskon extends CI_Controller {
                 $this->image_lib->resize();
                 $gambar_diskon = $data['upload_data']['file_name'];
                         
-                echo 1;
-                            
+                     
+                //SIMPAN EVENT DISKON       
                 $data  = array(
                     'kode_diskon'            => $kode_diskon,
                     'nama_diskon'            => $nama_diskon,
@@ -83,6 +92,7 @@ class Diskon extends CI_Controller {
                 $this->Mod_master->insert_diskon($data);    
 
                 
+                //SIMPAN ITEM DISKON
                 $item = $this->Mod_master->cek_idiskon0()->result();
 
                 foreach($item as $row){
@@ -97,8 +107,54 @@ class Diskon extends CI_Controller {
                         $this->Mod_master->update_idiskon($kode_idiskon, $data); 
                     }
                 }
+
+                //KIRIM EMAIL
+                $data_konsumen = $this->Mod_konsumen->get_all_konsumen()->result();
+
+                foreach($data_konsumen as $row){
+                //SETTING FORM
+                    // $nama_file = $_FILES['file']['name'];
+                    // $file_tmp = $_FILES['file']['tmp_name'];    
+            
+                    // move_uploaded_file($file_tmp, '../../file/'.$nama_file);
+
+                    //Create an instance; passing `true` enables exceptions
+                    $mail = new PHPMailer(true);
+
+                    //Server settings
+                    $mail->SMTPDebug = 2;                      //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = 'bakerycake791@gmail.com';                     //SMTP username
+                    $mail->Password   = 'ditbxtyshpivffsz';                               //SMTP password
+                    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                    //pengirim
+                    $mail->setFrom('bakerycake791@gmail.com', 'Nur Cake & Bakery');
+                    $mail->addAddress($row->email_konsumen);     //Add a recipient
+                    $mail->AddEmbeddedImage('assets/img/diskon/'.$gambar_diskon, 'Gambar');
+
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = $nama_diskon;
+                    $mail->Body    = 'Yth '. $row->nama_konsumen.' konsumen Nur Bakery & Cake. Berikut kami kirimkan informasi Diskon Produk. <br><br>'.
+                                    '<img src="cid:Gambar"/><br>'.
+                                    'Berlaku '.$tanggal_awal_diskon.' s.d '.$tanggal_akhir_diskon.'<br>'.
+                                    $deskripsi_diskon.'<br><br>
+                                    <a href="http://localhost/nur_bakery_cake/home/detail_acara_diskon/'.$kode_diskon.'">Klik disini</a> untuk melihat informasi lebih lanjut.
+                                    Terima Kasih.';
+                    // $mail->addAttachment('../../file/'.$nama_file);
+                    $mail->AltBody = ''; //abaikan jika tidak ada logo
+                    //$mail->addAttachment(''); 
+
+                    $mail->send();
+                  
+                }
+
             }else{
-                echo "Gambar tidak boleh kosong"; 
+                echo 3; 
             } 
         }
     }
