@@ -332,7 +332,7 @@ by exitus
                             <li class="nav-item"><hr style="margin-top: 0.4rem"></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/dashboard'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-grid-alt"></i><p>Dashboard</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/konsumen'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-group"></i><p>Konsumen</p></a></li>
-                            <li class="nav-item"><a href="<?php echo base_url('pimpinan/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-package"></i><p>Produk</p></a></li>
+                            <li class="nav-item"><a href="<?php echo base_url('pimpinan/produk'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-cake"></i><p>Produk</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/diskon'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-offer"></i><p>Diskon</p></a></li>
                             <li class="nav-item"><a href="<?php echo base_url('pimpinan/karyawan'); ?>" class="nav-link"><i class="nav-icon bx bx-fw bxs-user"></i><p>Karyawan</p></a></li>
                         <?php } ?> 

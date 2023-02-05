@@ -146,9 +146,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -249,9 +254,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -352,9 +362,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -455,9 +470,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -558,9 +578,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -662,9 +687,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 
@@ -766,9 +796,14 @@
                                                         ?>
                                                         <small><?php echo $haha->kode_pemesanan;?></small>
                                                     </td>
+                                                    <td style="text-align: right; vertical-align: middle;">
+                                                        <span class='badge bg-warning text-md'>
+                                                            <small><?php echo $haha->metode_pengiriman_pemesanan; ?></small>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="text-align: left; vertical-align: middle;">
+                                                    <td colspan="2" style="text-align: left; vertical-align: middle;">
                                                         <table style="width:100%" id="table" class="table ">
                                                             <tbody>
                                                                 <?php 

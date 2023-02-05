@@ -1,10 +1,16 @@
 <?php $this->load->view('frontend/partials/head.php') ?>
 
 <main id="main">  
-    <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 80px">
-
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><img src="<?php echo base_url('assets/img/banner/undraw_discount.svg')?>" style="height: 300px; object-fit: cover;"></h2>
+                <ol>
+                    <li><h1>Acara Diskon Nur Bakery Cake</h1></li>
+                </ol>
+            </div>
+        </div>
     </section>
-
 
     <section id="why-us" class="why-us">
         <div class="container">

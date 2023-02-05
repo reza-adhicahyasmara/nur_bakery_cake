@@ -1,10 +1,9 @@
 <?php $this->load->view('frontend/partials/head.php') ?>
 
 <main id="main">
-    <section id="breadcrumbs" class="breadcrumbs" style="margin-top: 80px">
-
+    <section class="breadcrumbs">
+        <img src="<?php echo base_url('assets/img/diskon/').$data_diskon['gambar_diskon'];?>" style="width:100%; height: 450px; object-fit: cover;">    
     </section>
-
 
 
     <?php if(date("Y-m-d") <= $data_diskon['tanggal_akhir_diskon']){ ?> 
@@ -12,9 +11,6 @@
             <div class="container">
                 <div class="entries">
                     <article class="entry" style="box-shadow: 0 0 0 rgb(0 0 0 / 10%);">
-                        <div class="entry-img"> 
-                            <img alt="Gambar diskon" src="<?php echo base_url('assets/img/diskon/').$data_diskon['gambar_diskon'];?>" style="width:100%; height: 400px; object-fit: cover;">
-                        </div>
                         <span class="fs-3 entry-title" style="color: #850523;">
                             <?php echo $data_diskon['nama_diskon']; ?>
                         </span>

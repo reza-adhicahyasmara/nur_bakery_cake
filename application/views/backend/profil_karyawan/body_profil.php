@@ -28,19 +28,17 @@
                             <?php foreach($edit->result() as $edit) { ?>
                             <div class="form-group">
                                 <div class="d-flex justify-content-center">
-                                    <div class="form-group text-center">
-                                        <label class="btn" for="foto_karyawan">
-                                            <div class="form-control" style="border-radius: 50%; padding: 0px; width:180px; height: 180px;">
-                                                <?php if($edit->foto_karyawan != "") { ?>
-                                                    <img id="blah" src="<?php echo base_url('assets/img/karyawan/'.$edit->foto_karyawan);?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
-                                                <?php }else{ ?>
-                                                    <img id="blah" src="<?php echo base_url('assets/img/banner/user_solid.png');?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
-                                                <?php } ?> 
-                                            </div>
-                                            <input class="text" accept="image/*" type="file" id="foto_karyawan" name="file" style="display: none;" />
-                                            <input class="text" type="text" id="foto_karyawan_lama" name="foto_karyawan_lama" value="<?php echo $edit->foto_karyawan; ?>" style="display: none;" />
-                                        </label>
-                                    </div>
+                                    <label class="btn" for="foto_karyawan">
+                                        <div class="form-control" style="border-radius: 50%; padding: 0px; width:180px; height: 180px;">
+                                            <?php if($edit->foto_karyawan != "") { ?>
+                                                <img id="blah" src="<?php echo base_url('assets/img/karyawan/'.$edit->foto_karyawan);?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
+                                            <?php }else{ ?>
+                                                <img id="blah" src="<?php echo base_url('assets/img/banner/user_solid.png');?>" class="product-image" alt="Gambar Profil" style="border-radius: 50%; width:180px; height:180px; object-fit: cover; ">  
+                                            <?php } ?> 
+                                        </div>
+                                        <input class="text" accept="image/*" type="file" id="foto_karyawan" name="file" style="display: none;" />
+                                        <input class="text" type="text" id="foto_karyawan_lama" name="foto_karyawan_lama" value="<?php echo $edit->foto_karyawan; ?>" style="display: none;" />
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
