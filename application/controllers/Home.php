@@ -1042,11 +1042,9 @@ class Home extends CI_Controller {
         
         $data['pageTitle'] = "Pedoman Berbelanja";
 
-        $data['konsumen'] = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
-		$data['provinsi'] = $this->Mod_master->get_all_provinsi()->result();
-		$data['kabupaten'] = $this->Mod_master->get_all_kabupaten()->result();
-		$data['kecamatan'] = $this->Mod_master->get_all_kecamatan()->result();
-		$data['desa'] = $this->Mod_master->get_all_desa()->result();
+        $kode_pengaturan = 1;
+		$data['data_pengaturan'] = $this->Mod_master->get_pengaturan($kode_pengaturan)->row_array();
+        $data['data_kabupaten'] = $this->Mod_master->get_all_kabupaten()->result();
 
         if($id_konsumen != null && $hak_akses == 'Konsumen'){
             $this->load->view("frontend/konsumen/pedoman_berbelanja/body",$data);
