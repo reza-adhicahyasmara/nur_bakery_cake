@@ -241,8 +241,9 @@
                                         <caption></caption>
                                         <th></th>
                                         <tr><td style="width: 50%; text-align:left">Total Belanja</td><td style="width: 50%; text-align:right">Rp. <label id="text_total_belanja_pemesanan_2"></label></td></tr>
-                                        <tr><td style="width: 50%; text-align:left">Ongkos Kirim</td><td style="width: 50%; text-align:right">(<label id="text_berat" ></label> kg) Rp. <label id="text_tarif_kurir" ></label></td></tr>
-                                        <tr><td style="width: 50%; text-align:left">Total Tagihan</td><td style="width: 50%; text-align:right">Rp. <label id="text_total_tagihan_pemesanan"></label></td></tr>
+                                        <tr><td style="width: 50%; text-align:left">Ongkos Kirim</td><td style="width: 50%; text-align:right">(<label id="text_berat" >0</label> kg) Rp. <label id="text_tarif_kurir" >0</label></td></tr>
+                                        <tr><td style="width: 50%; text-align:left">Potongan Harga</td><td style="width: 50%; text-align:right">Rp. <label id="text_potongan_pemesanan" >0</label></td></tr>
+                                        <tr><td style="width: 50%; text-align:left">Total Tagihan</td><td style="width: 50%; text-align:right">Rp. <label id="text_total_tagihan_pemesanan">0</label></td></tr>
                                     </table>
                                 </div>
                                 <div class="form-group mb-3">
@@ -254,6 +255,21 @@
                                         <option value="<?php echo $data_pengaturan['rek3_pengaturan'];?>"><?php echo $data_pengaturan['rek3_pengaturan'];?></option>
                                         <option value="<?php echo $data_pengaturan['rek4_pengaturan'];?>"><?php echo $data_pengaturan['rek4_pengaturan'];?></option>
                                     </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label>Poin Potongan Harga</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input status_poin_pemesanan" type="radio" name="status_poin_pemesanan" id="ya" value="Poin Digunakan|<?php echo $data_pengaturan['potongan_pengaturan'];?>" <?php if($this->Mod_konsumen->get_konsumen($this->session->userdata('ses_id_konsumen'))->row_array()['poin_konsumen'] < 10){ echo "disabled";} ?>>
+                                        <label class="form-check-label" for="ya">
+                                            Gunakan 10 Poin
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input status_poin_pemesanan" type="radio" name="status_poin_pemesanan" id="tidak" value="Poin Tidak Digunakan|0" checked>
+                                        <label class="form-check-label" for="tidak">
+                                            Poin Tidak Digunakan
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -494,6 +510,8 @@
         var metode_pengiriman_pemesanan = $('#metode_pengiriman_pemesanan').val();
         var total_belanja_pemesanan = $('#total_belanja_pemesanan').val();
         var berat = $('#berat_pemesanan').val();
+        var potongan_pemesanan = $('input[name=status_poin_pemesanan]:radio:checked').val();
+        var array_potongan = potongan_pemesanan.split("|");
 
         if(metode_pengiriman_pemesanan == "Ambil Sendiri"){
             $("div#form_ambil_sendiri").show(500);
@@ -521,10 +539,11 @@
         }
             
 
-        var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(ongkir);
+        var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(ongkir) - parseFloat(array_potongan[1]);
         $('#text_total_belanja_pemesanan_2').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
         $('#text_tarif_kurir').text(new Number(ongkir).toLocaleString("id-ID"));
         $('#text_berat').text(new Number(berat/1000).toLocaleString("id-ID"));
+        $('#text_potongan_pemesanan').text(new Number(array_potongan[1]).toLocaleString("id-ID"));
         $('#text_total_tagihan_pemesanan').text(new Number(total_tagihan_pemesanan).toLocaleString("id-ID"));
 
         $('#berat_pemesanan').val(berat);
@@ -547,9 +566,12 @@
         var estimasi = 0;
         var ongkir = 0;
 
+        var potongan_pemesanan = 0;
+
         $('#text_total_belanja_pemesanan_2').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
         $('#text_tarif_kurir').text(new Number(ongkir).toLocaleString("id-ID"));
         $('#text_berat').text(new Number(berat/1000).toLocaleString("id-ID"));
+        $('#text_potongan_pemesanan').text(new Number(potongan_pemesanan).toLocaleString("id-ID"));
         $('#text_total_tagihan_pemesanan').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
 
         $("div#form_ambil_sendiri").hide(500);
@@ -569,6 +591,8 @@
         var kurir = $('#kurir').val();
         var berat = $('#berat_pemesanan').val();
         var total_belanja_pemesanan = $('#total_belanja_pemesanan').val();
+        var potongan_pemesanan = $('input[name=status_poin_pemesanan]:radio:checked').val();
+        var array_potongan = potongan_pemesanan.split("|");
         
         $.ajax({
             url : '<?php echo base_url('home/cek_ongkir'); ?>',
@@ -598,11 +622,12 @@
                 $('.layanan').html(html);
 
                 
-                var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(hujan[0]['cost'][0]['value']);
+                var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(hujan[0]['cost'][0]['value']) - parseFloat(array_potongan[1]);
 
                 $('#text_total_belanja_pemesanan_2').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
                 $('#text_tarif_kurir').text(new Number(hujan[0]['cost'][0]['value']).toLocaleString("id-ID"));
                 $('#text_berat').text(new Number(berat/1000).toLocaleString("id-ID"));
+                $('#text_potongan_pemesanan').text(new Number(array_potongan[1]).toLocaleString("id-ID"));
                 $('#text_total_tagihan_pemesanan').text(new Number(total_tagihan_pemesanan).toLocaleString("id-ID"));
 
                 $('#berat_pemesanan').val(berat);
@@ -617,18 +642,41 @@
         var total_belanja_pemesanan = $('#total_belanja_pemesanan').val();
         var berat = $('#berat_pemesanan').val();
         var layanan = $('#layanan').val();
+        var potongan_pemesanan = $('input[name=status_poin_pemesanan]:radio:checked').val();
+        var array_potongan = potongan_pemesanan.split("|");
         var myarr = layanan.split("|");
-        var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(myarr[3]);
+        var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(myarr[3]) - parseFloat(array_potongan[1]);
 
         $('#text_total_belanja_pemesanan_2').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
         $('#text_tarif_kurir').text(new Number(myarr[3]).toLocaleString("id-ID"));
         $('#text_berat').text(new Number(berat/1000).toLocaleString("id-ID"));
+        $('#text_potongan_pemesanan').text(new Number(array_potongan[1]).toLocaleString("id-ID"));
         $('#text_total_tagihan_pemesanan').text(new Number(total_tagihan_pemesanan).toLocaleString("id-ID"));
 
         $('#berat_pemesanan').val(berat);
         $('#total_belanja_pemesanan').val(total_belanja_pemesanan);
         $('#total_tagihan_pemesanan').val(total_tagihan_pemesanan);
         $('#kurir_pemesanan').val(layanan);
+    });
+
+    $(".status_poin_pemesanan").change(function() {
+        var total_belanja_pemesanan = $('#total_belanja_pemesanan').val();
+        var berat = $('#berat_pemesanan').val();
+        var layanan = $('#kurir_pemesanan').val();
+        var potongan_pemesanan = $('input[name=status_poin_pemesanan]:radio:checked').val();
+        var array_potongan = potongan_pemesanan.split("|");
+        var myarr = layanan.split("|");
+        var total_tagihan_pemesanan = parseFloat(total_belanja_pemesanan) + parseFloat(myarr[3]) - parseFloat(array_potongan[1]);
+
+        $('#text_total_belanja_pemesanan_2').text(new Number(total_belanja_pemesanan).toLocaleString("id-ID"));
+        $('#text_tarif_kurir').text(new Number(myarr[3]).toLocaleString("id-ID"));
+        $('#text_berat').text(new Number(berat/1000).toLocaleString("id-ID"));
+        $('#text_potongan_pemesanan').text(new Number(array_potongan[1]).toLocaleString("id-ID"));
+        $('#text_total_tagihan_pemesanan').text(new Number(total_tagihan_pemesanan).toLocaleString("id-ID"));
+
+        $('#berat_pemesanan').val(berat);
+        $('#total_belanja_pemesanan').val(total_belanja_pemesanan);
+        $('#total_tagihan_pemesanan').val(total_tagihan_pemesanan);
     });
 
     $('#btn_checkout').on("click",function(){
@@ -717,7 +765,7 @@
                                 showConfirmButton: true,
                                 confirmButtonColor: '#ffc107',
                             }).then(function(){
-                                window.location.replace("<?php echo base_url('transaksi'); ?>");
+                                window.location.replace("<?php echo base_url('home/transaksi'); ?>");
                             });
                         }
                     }

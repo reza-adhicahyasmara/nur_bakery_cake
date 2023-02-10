@@ -178,9 +178,14 @@
                                                 <td style="width: 60%;"><span class="text-md"><?php echo $data_detail['rekening_pemesanan']; ?></span></td>
                                             </tr>
                                             <tr>
+                                                <th id="" style="width: 35%;"><span class="text-md">Potongan Harga</span></th>
+                                                <td style="width: 5%;"><span> : </b></td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo "Rp. -".number_format($data_detail['potongan_pemesanan'], 0, ".", ".") ?></span></td>
+                                            </tr>
+                                            <tr>
                                                 <th id="" style="width: 35%;"><span class="text-md">Total Pembayaran</span></th>
                                                 <td style="width: 5%;"><span> : </b></td>
-                                                <td style="width: 60%;"><span class="text-md"><?php echo "Rp. ".number_format($data_detail['total_belanja_pemesanan'], 0, ".", ".") ?></span></td>
+                                                <td style="width: 60%;"><span class="text-md"><?php echo "Rp. ".number_format($data_detail['total_tagihan_pemesanan'], 0, ".", ".") ?></span></td>
                                             </tr>
                                             <tr>
                                                 <th id="" style="width: 35%;"><span class="text-md">Status Pembayaran</span></th>

@@ -380,6 +380,8 @@ class Home extends CI_Controller {
         $kurir_pemesanan = $this->input->post('kurir_pemesanan');
         $berat_pemesanan = $this->input->post('berat_pemesanan');
         $status_pemesanan = "1";
+        $array_potongan = explode("|",$this->input->post('status_poin_pemesanan'));
+
         
 
 
@@ -389,11 +391,11 @@ class Home extends CI_Controller {
         $data_ukuran = $this->Mod_master->get_all_ukuran()->result();
         $data_idiskon = $this->Mod_master->get_display_idiskon()->result();
         
-
+        
         //SETTING FORM
         // $nama_file = $_FILES['file']['name'];
         // $file_tmp = $_FILES['file']['tmp_name'];    
-   
+
         // move_uploaded_file($file_tmp, '../../file/'.$nama_file);
 
         //Create an instance; passing `true` enables exceptions
@@ -430,63 +432,143 @@ class Home extends CI_Controller {
         // $mail->AddEmbeddedImage('assets/img/banner/bx-cake.svg', 'logo'); //abaikan jika tidak ada logo
         //$mail->addAttachment(''); 
 
-        if($mail->send()){
-            //DATA PEMESANAN
-            $data1  = array(
-                'kode_pemesanan'                => $kode_pemesanan,
-                'id_konsumen'                   => $id_konsumen,
-                'tanggal_pemesanan'             => $tanggal_pemesanan,
-                'rekening_pemesanan'            => $rekening_pemesanan,
-                'total_belanja_pemesanan'       => $total_belanja_pemesanan,
-                'total_tagihan_pemesanan'       => $total_tagihan_pemesanan,
-                'status_pby_pemesanan'          => $status_pby_pemesanan,
-                'metode_pengiriman_pemesanan'   => $metode_pengiriman_pemesanan,
-                'kurir_pemesanan'               => $kurir_pemesanan, 
-                'berat_pemesanan'               => $berat_pemesanan,
-                'status_pemesanan'              => $status_pemesanan,        
-            );  
+        if($array_potongan[0] == "Poin Digunakan"){
+            if($data_konsumen['poin_konsumen'] < 10){
+                echo "Poin tidak cukup";
+            }else{
+                
+                $poin_konsumen = $data_konsumen['poin_konsumen'] - 10;
+                
+                $data  = array(
+                    'id_konsumen'       => $id_konsumen,
+                    'poin_konsumen'     => $poin_konsumen    
+                ); 
+                     
+                $this->Mod_konsumen->update_konsumen($id_konsumen, $data);  
 
-            $this->Mod_pemesanan->insert_pemesanan($data1);  
-        
+                if($mail->send()){
+                    //DATA PEMESANAN
+                    $data1  = array(
+                        'kode_pemesanan'                => $kode_pemesanan,
+                        'id_konsumen'                   => $id_konsumen,
+                        'tanggal_pemesanan'             => $tanggal_pemesanan,
+                        'rekening_pemesanan'            => $rekening_pemesanan,
+                        'potongan_pemesanan'            => $array_potongan[1],
+                        'total_belanja_pemesanan'       => $total_belanja_pemesanan,
+                        'total_tagihan_pemesanan'       => $total_tagihan_pemesanan,
+                        'status_pby_pemesanan'          => $status_pby_pemesanan,
+                        'metode_pengiriman_pemesanan'   => $metode_pengiriman_pemesanan,
+                        'kurir_pemesanan'               => $kurir_pemesanan, 
+                        'berat_pemesanan'               => $berat_pemesanan,
+                        'status_poin_pemesanan'         => $array_potongan[0],  
+                        'status_pemesanan'              => $status_pemesanan,        
+                    );  
 
-            //DATA IPEMESANAN
-            foreach($data_keranjang as $row1){
-                if($row1->kode_pemesanan == "" && $row1->check_ipemesanan == "1"){
-                                
-                    //MENCARI POTONGAN HARGA
-                    foreach($data_ukuran as $row2){
-                        if($row2->kode_ukuran == $row1->kode_ukuran){
-                            $harga_ukuran = $row2->harga_ukuran;
+                    $this->Mod_pemesanan->insert_pemesanan($data1);  
+                
 
-                            $subtotal_harga = $harga_ukuran * $row1->qty_ipemesanan;
+                    //DATA IPEMESANAN
+                    foreach($data_keranjang as $row1){
+                        if($row1->kode_pemesanan == "" && $row1->check_ipemesanan == "1"){
+                                        
+                            //MENCARI POTONGAN HARGA
+                            foreach($data_ukuran as $row2){
+                                if($row2->kode_ukuran == $row1->kode_ukuran){
+                                    $harga_ukuran = $row2->harga_ukuran;
 
-                            foreach($data_idiskon as $row3){
-                                if($row3->kode_ukuran == $row2->kode_ukuran){
-                                    $potongan_idiskon = $row3->potongan_idiskon;
-                                    $subtotal_harga = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
+                                    $subtotal_harga = $harga_ukuran * $row1->qty_ipemesanan;
 
-                                }else{
-                                    $potongan_idiskon = 0;
+                                    foreach($data_idiskon as $row3){
+                                        if($row3->kode_ukuran == $row2->kode_ukuran){
+                                            $potongan_idiskon = $row3->potongan_idiskon;
+                                            $subtotal_harga = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
+
+                                        }else{
+                                            $potongan_idiskon = 0;
+                                        }
+                                    }
                                 }
                             }
+
+                            $data = array(
+                                'kode_ipemesanan'       => $row1->kode_ipemesanan,
+                                'kode_pemesanan'        => $kode_pemesanan,
+                                'harga_ipemesanan'      => $harga_ukuran,
+                                'diskon_ipemesanan'     => $potongan_idiskon,
+                                'subtotal_ipemesanan'   => $subtotal_harga,
+                                'status_ipemesanan'     => '2'
+                            );
+                            
+                            $this->Mod_pemesanan->update_ipemesanan($row1->kode_ipemesanan, $data); 
                         }
                     }
 
-                    $data = array(
-                        'kode_ipemesanan'       => $row1->kode_ipemesanan,
-                        'kode_pemesanan'        => $kode_pemesanan,
-                        'harga_ipemesanan'      => $harga_ukuran,
-                        'diskon_ipemesanan'     => $potongan_idiskon,
-                        'subtotal_ipemesanan'   => $subtotal_harga,
-                        'status_ipemesanan'     => '2'
-                    );
-                    
-                    $this->Mod_pemesanan->update_ipemesanan($row1->kode_ipemesanan, $data); 
-                }
+                } else {
+                    echo "Gagal";
+                }   
             }
 
-        } else {
-            echo "Gagal";
+        }else{
+            if($mail->send()){
+                //DATA PEMESANAN
+                $data1  = array(
+                    'kode_pemesanan'                => $kode_pemesanan,
+                    'id_konsumen'                   => $id_konsumen,
+                    'tanggal_pemesanan'             => $tanggal_pemesanan,
+                    'rekening_pemesanan'            => $rekening_pemesanan,
+                    'potongan_pemesanan'            => $array_potongan[1],
+                    'total_belanja_pemesanan'       => $total_belanja_pemesanan,
+                    'total_tagihan_pemesanan'       => $total_tagihan_pemesanan,
+                    'status_pby_pemesanan'          => $status_pby_pemesanan,
+                    'metode_pengiriman_pemesanan'   => $metode_pengiriman_pemesanan,
+                    'kurir_pemesanan'               => $kurir_pemesanan, 
+                    'berat_pemesanan'               => $berat_pemesanan,
+                    'status_poin_pemesanan'         => $array_potongan[0],  
+                    'status_pemesanan'              => $status_pemesanan,        
+                );  
+
+                $this->Mod_pemesanan->insert_pemesanan($data1);  
+            
+
+                //DATA IPEMESANAN
+                foreach($data_keranjang as $row1){
+                    if($row1->kode_pemesanan == "" && $row1->check_ipemesanan == "1"){
+                                    
+                        //MENCARI POTONGAN HARGA
+                        foreach($data_ukuran as $row2){
+                            if($row2->kode_ukuran == $row1->kode_ukuran){
+                                $harga_ukuran = $row2->harga_ukuran;
+
+                                $subtotal_harga = $harga_ukuran * $row1->qty_ipemesanan;
+
+                                foreach($data_idiskon as $row3){
+                                    if($row3->kode_ukuran == $row2->kode_ukuran){
+                                        $potongan_idiskon = $row3->potongan_idiskon;
+                                        $subtotal_harga = $harga_ukuran - (($potongan_idiskon * $harga_ukuran) / 100);
+
+                                    }else{
+                                        $potongan_idiskon = 0;
+                                    }
+                                }
+                            }
+                        }
+
+                        $data = array(
+                            'kode_ipemesanan'       => $row1->kode_ipemesanan,
+                            'kode_pemesanan'        => $kode_pemesanan,
+                            'harga_ipemesanan'      => $harga_ukuran,
+                            'diskon_ipemesanan'     => $potongan_idiskon,
+                            'subtotal_ipemesanan'   => $subtotal_harga,
+                            'status_ipemesanan'     => '2'
+                        );
+                        
+                        $this->Mod_pemesanan->update_ipemesanan($row1->kode_ipemesanan, $data); 
+                    }
+                }
+
+            } else {
+                echo "Gagal";
+            }
         }
     }
 
@@ -583,6 +665,7 @@ class Home extends CI_Controller {
         $id_karyawan = $this->input->post('id_karyawan');
         $kode_pemesanan = $this->input->post('kode_pemesanan');
         $metode_pby_pemesanan = $this->input->post('metode_pby_pemesanan');
+        $status_poin_pemesanan = $this->input->post('status_poin_pemesanan');
         $status_pemesanan = $this->input->post('status_pemesanan');
  
 
@@ -618,6 +701,19 @@ class Home extends CI_Controller {
                     
         $this->Mod_pemesanan->update_pemesanan($kode_pemesanan, $data2);  
         
+
+        //UPDATE POIN CUSTOMER
+        $data_konsumen = $this->Mod_konsumen->get_konsumen($id_konsumen)->row_array();
+        if($status_pemesanan == 6 && $status_poin_pemesanan == "Poin Tidak Digunakan"){                    
+            $poin_konsumen = $data_konsumen['poin_konsumen'] + 1;
+            
+            $save2  = array(
+                'id_konsumen'         => $id_konsumen,
+                'poin_konsumen'       => $poin_konsumen    
+            );      
+            $this->Mod_konsumen->update_konsumen($id_konsumen, $save2);  
+        }
+
         echo 1;         
     
     }
@@ -912,6 +1008,7 @@ class Home extends CI_Controller {
                     'email_konsumen'        => $email_konsumen,
                     'password_konsumen'     => $password_konsumen,
                     'status_konsumen'       => "Aktif",
+                    'poin_konsumen'         => 0,
                     'foto_konsumen'         => $foto_konsumen,
                     'daftar_konsumen'       => date("Y-m-d")
                 );    

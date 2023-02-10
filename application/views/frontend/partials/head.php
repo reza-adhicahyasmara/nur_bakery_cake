@@ -354,6 +354,8 @@ by exitus
                                 <div class="row">
                                     <div class="col-8">
                                         <?php echo $data_konsumen['nama_konsumen']; ?>
+                                        <br>
+                                        <small>Poin <b><?php echo $data_konsumen['poin_konsumen']; ?></b></small>
                                     </div>
                                     <div class="col-4">
                                         <?php 
@@ -362,8 +364,8 @@ by exitus
                                             } elseif($data_konsumen['status_konsumen'] == 'Tidak Aktif'){
                                                 echo "<div style='float:right'><span class='badge bg-danger text-xs'>Tidak Aktif</span></div>";
                                             } elseif($data_konsumen['status_konsumen'] == 'Aktif'){
-                                                echo "<div style='float:right'><span class='badge bg-success text-xs'>Aktif</span></div>";    
-                                            }
+                                                echo "<div style='float:right'><span class='badge bg-success text-xs'>Aktif</span></div>"; 
+                                            }  
                                         ?>
                                     </div>
                                 </div>

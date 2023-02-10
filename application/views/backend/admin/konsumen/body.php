@@ -156,7 +156,7 @@
                                         icon: 'success',
                                         title: 'Berhasil Disimpan!',
                                         showConfirmButton: true,
-                                        confirmButtonColor: '#007bff',
+                                        confirmButtonColor: '#ffc107',
                                         timer: 3000
                                     }).then(function(){
                                         load_data_konsumen();
@@ -168,7 +168,7 @@
                                         title: 'Gagal!',
                                         text: response,
                                         showConfirmButton: true,
-                                        confirmButtonColor: '#007bff',
+                                        confirmButtonColor: '#ffc107',
                                         timer: 3000
                                     })
                                 }
@@ -190,8 +190,8 @@
             type: 'warning',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#007bff',
-            cancelButtonColor: '#dc3545',
+            confirmButtonColor: '#ffc107',
+            cancelButtonColor: '#6c757d',
             confirmButtonText: 'Ya, hapus',
             cancelButtonText: "Tidak, batalkan",
             showLoaderOnConfirm: true,
@@ -213,7 +213,7 @@
                             title: 'Data Berhasil Dihapus',
                             icon: 'success',
                             showConfirmButton: true,
-                            confirmButtonColor: '#007bff',
+                            confirmButtonColor: '#ffc107',
                         })
                     })
                     .fail(function() {
@@ -221,7 +221,7 @@
                             title: 'Terjadi Kesalahan',
                             icon: 'error',
                             showConfirmButton: true,
-                            confirmButtonColor: '#007bff',
+                            confirmButtonColor: '#ffc107',
                         })
                     });
                 });

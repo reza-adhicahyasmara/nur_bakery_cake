@@ -34,6 +34,7 @@ class Pengaturan extends CI_Controller {
         echo 1;
         $data  = array( 
             'kode_pengaturan'       => $kode_pengaturan,
+            'potongan_pengaturan'   => $this->input->post('potongan_pengaturan'),
             'rek1_pengaturan'       => $this->input->post('no1')."-".$this->input->post('an1')."-".$this->input->post('fin1'),
             'rek2_pengaturan'       => $this->input->post('no2')."-".$this->input->post('an2')."-".$this->input->post('fin2'),
             'rek3_pengaturan'       => $this->input->post('no3')."-".$this->input->post('an3')."-".$this->input->post('fin3'),

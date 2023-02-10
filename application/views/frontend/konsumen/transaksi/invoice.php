@@ -105,6 +105,11 @@
             </tr>
             <tr>
                 <td colspan="2" style="border-style: none;"></td>
+                <td colspan="2" class="text-sm" style="text-align: left; vertical-align: middle;"><strong>Potongan Harga </strong></td>
+                <td class="text-sm" style="text-align: right; vertical-align: middle;"><?php echo "Rp -".number_format($data_pemesanan['potongan_pemesanan'], 0, ".", ".");?></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-style: none;"></td>
                 <td colspan="2" class="text-sm" style="text-align: left; vertical-align: middle;"><strong>Total Tagihan </strong></td>
                 <td class="text-sm" style="text-align: right; vertical-align: middle;"><?php echo "Rp ".number_format($data_pemesanan['total_tagihan_pemesanan'], 0, ".", ".");?></td>
             </tr>

@@ -229,7 +229,7 @@
                             </h>
                             <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>Setiap transaksi akan mendapatkan 1 poin. Anda dapat menukarkan setiap 10 poin dengan potongan harga dengan syarat berlaku.</p>
+                                    <p>Setiap transaksi akan mendapatkan 1 poin tanpa ada minimum transaksi. Anda dapat menukarkan setiap 10 poin dengan potongan harga dengan syarat berlaku.</p>
                                 </div>
                             </div>
                         </div>

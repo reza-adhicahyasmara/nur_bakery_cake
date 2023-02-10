@@ -18,11 +18,31 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="row justify-content-between">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <form role="form" id="form_pengaturan" method="post">
+            <div class="row">
+                      
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">  
+                    <form role="form" id="form_pengaturan" method="post">   
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Poin Potongan Harga</h4>
+                                <small>Pengaturan potongan harga untuk tukar 10 poin.</small>
+                                <hr>
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <label>Potongan Harga (Rp.)</label>
+                                        <input type="text" class="form-control" name="potongan_pengaturan" id="potongan_pengaturan" value="<?php echo $edit['potongan_pengaturan']; ?>" placeholder="Potongan Harga (Rp)">
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <button type="submit" class="btn bg-warning" id="btn_simpan_pengaturan1">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                            
+                        <div class="card">
+                            <div class="card-body">
                                 <h4>Rekening Bank / E-Money</h4>
                                 <small>Rekening penerima untuk pembayaran transfer</small>
                                 <hr>
@@ -142,12 +162,12 @@
                                     </div>
                                 </div>
                                 <div class="float-right">
-                                    <button type="submit" class="btn bg-warning" id="btn_simpan_pengaturan">Simpan</button>
-                                </div>
+                                    <button type="submit" class="btn bg-warning" id="btn_simpan_pengaturan2">Simpan</button>
+                                </div> 
                             </div>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+                    </form>
+                </div>  
 
                 
                             
@@ -223,87 +243,95 @@
 <!-----------------------REKENING BANK----------------------->
 <script type="text/javascript">
     
-    $(document).ready(function() {
-        $('#btn_simpan_pengaturan').on("click",function(e){
-            $('#form_pengaturan').validate({
-                rules: {
-
-                    no1: { required: true },
-                    an1: { required: true },
-                    fin1: { required: true },
-                    no2: { required: true },
-                    an2: { required: true },
-                    fin2: { required: true },
-                    no3: { required: true },
-                    an3: { required: true },
-                    fin3: { required: true },
-                    no4: { required: true },
-                    an4: { required: true },
-                    fin4: { required: true },
-                },
-                messages: {
-
-                    no1: { required: "Harus diisi" },
-                    an1: { required: "Harus diisi" },
-                    fin1: { required: "Harus diisi" },
-                    no2: { required: "Harus diisi" },
-                    an2: { required: "Harus diisi" },
-                    fin2: { required: "Harus diisi" },
-                    no3: { required: "Harus diisi" },
-                    an3: { required: "Harus diisi" },
-                    fin3: { required: "Harus diisi" },
-                    no4: { required: "Harus diisi" },
-                    an4: { required: "Harus diisi" },
-                    fin4: { required: "Harus diisi" },
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-                submitHandler: function() {
-                    $("#form_pengaturan").load('submit', function(e){
-                        $.ajax({
-                            url : '<?php echo base_url('admin/pengaturan/edit_pengaturan'); ?>',
-                            method: 'POST',
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData:false, 
-                            success: function(response){
-                                if(response==1){
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Berhasil Disimpan!',
-                                        showConfirmButton: true,
-                                        confirmButtonColor: '#007bff',
-                                        timer: 3000
-                                    }).then(function(){
-                                        location.reload();
-                                    });
-                                } else {
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        title: 'Gagal!',
-                                        text: response,
-                                        showConfirmButton: true,
-                                        confirmButtonColor: '#007bff',
-                                        timer: 3000
-                                    })
-                                }
-                            }
-                        }); 
-                    }); 
-                }
-            });  
-        });
+    $('#btn_simpan_pengaturan1').on("click",function(e){
+        simpan_pengaturan();
     });
+    
+    $('#btn_simpan_pengaturan2').on("click",function(e){
+        simpan_pengaturan();
+    });
+
+    function simpan_pengaturan(){
+        $('#form_pengaturan').validate({
+            rules: {
+
+                potongan_pengaturan: { required: true },
+                no1: { required: true },
+                an1: { required: true },
+                fin1: { required: true },
+                no2: { required: true },
+                an2: { required: true },
+                fin2: { required: true },
+                no3: { required: true },
+                an3: { required: true },
+                fin3: { required: true },
+                no4: { required: true },
+                an4: { required: true },
+                fin4: { required: true },
+            },
+            messages: {
+
+                potongan_pengaturan: { required: "Harus diisi" },
+                no1: { required: "Harus diisi" },
+                an1: { required: "Harus diisi" },
+                fin1: { required: "Harus diisi" },
+                no2: { required: "Harus diisi" },
+                an2: { required: "Harus diisi" },
+                fin2: { required: "Harus diisi" },
+                no3: { required: "Harus diisi" },
+                an3: { required: "Harus diisi" },
+                fin3: { required: "Harus diisi" },
+                no4: { required: "Harus diisi" },
+                an4: { required: "Harus diisi" },
+                fin4: { required: "Harus diisi" },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function() {
+                $("#form_pengaturan").load('submit', function(e){
+                    $.ajax({
+                        url : '<?php echo base_url('admin/pengaturan/edit_pengaturan'); ?>',
+                        method: 'POST',
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData:false, 
+                        success: function(response){
+                            if(response==1){
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil Disimpan!',
+                                    showConfirmButton: true,
+                                    confirmButtonColor: '#ffc107',
+                                    timer: 3000
+                                }).then(function(){
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Gagal!',
+                                    text: response,
+                                    showConfirmButton: true,
+                                    confirmButtonColor: '#ffc107',
+                                    timer: 3000
+                                })
+                            }
+                        }
+                    }); 
+                }); 
+            }
+        });  
+    }
 </script>
 
 <!-----------------------REKENING ONGKOS KECAMATAN----------------------->

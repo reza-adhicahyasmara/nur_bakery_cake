@@ -22,6 +22,7 @@
 <input type="hidden" id="id_karyawan" value="<?php echo $id_karyawan; ?>">
 <input type="hidden" id="metode_pengiriman_pemesanan" value="<?php echo $metode_pengiriman_pemesanan; ?>">
 <input type="hidden" id="status_pemesanan" value="<?php echo $status_pemesanan; ?>">
+<input type="hidden" id="status_poin_pemesanan" value="<?php echo $data_pemesanan['status_poin_pemesanan']; ?>">
 <input type="hidden" id="status_pby_pemesanan" value="<?php echo $status_pby_pemesanan; ?>">
 <input type="hidden" id="total_tagihan_pemesanan" value="<?php echo $total_tagihan_pemesanan; ?>">
 
@@ -169,6 +170,11 @@
                             <th id="" style="width: 20%; vertical-align: top;"><small>Ongkos Kirim</small></th>
                             <td style="width: 5%; vertical-align: top;"><small>:</small></td>
                             <td style="vertical-align: top;"><small><?php echo "Rp. ".number_format($kurir[3], 0, ".", ".")." (".number_format($data_pemesanan['berat_pemesanan']/1000, 2, ".", ".")." Kg)"; ?></td>
+                        </tr>
+                        <tr>
+                            <th id="" style="width: 20%; vertical-align: top;"><small>Potongan Harga</small></th>
+                            <td style="width: 5%; vertical-align: top;"><small>:</small></td>
+                            <td style="vertical-align: top;"><small><?php echo "Rp. -".number_format($data_pemesanan['potongan_pemesanan'], 0, ".", "."); ?></td>
                         </tr>
                         <tr>
                             <th id="" style="width: 20%; vertical-align: top;"><small>Total Tagihan</small></th>
@@ -418,6 +424,7 @@
         var kode_pemesanan = $('#kode_pemesanan').val();
         var metode_pengiriman_pemesanan = $('#metode_pengiriman_pemesanan').val();
         var status_pby_pemesanan = $('#status_pby_pemesanan').val();
+        var status_poin_pemesanan = $('#status_poin_pemesanan').val();
         var status_pemesanan = "6";
 
         Swal.fire({
@@ -441,6 +448,7 @@
                         kode_pemesanan:kode_pemesanan,
                         metode_pengiriman_pemesanan:metode_pengiriman_pemesanan,
                         status_pby_pemesanan:status_pby_pemesanan,
+                        status_poin_pemesanan:status_poin_pemesanan,
                         status_pemesanan:status_pemesanan
                     },   
                     success: function(response){ 
