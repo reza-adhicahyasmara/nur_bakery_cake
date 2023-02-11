@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1 class="m-1 text-dark"><span class="nav-icon bx bx-fw bxs-offer"></span>Diskon</h1>
+                    <h1 class="m-1 text-dark"><span class="nav-icon bx bx-fw bxs-offer"></span>Acara Diskon</h1>
                 </div>
                 <div class="col-sm-6 float-sm-right">
                     <ol class="breadcrumb float-sm-right m-2">
@@ -87,7 +87,7 @@
         var url = "<?php echo base_url('admin/diskon/form_tambah_diskon'); ?>";
 
         $('#modal_diskon').modal('show');
-        $('.modal-title').text('Tambah Diskon');
+        $('.modal-title').text('Tambah Acara Diskon');
         $('.modal-body').load(url);
     });
 

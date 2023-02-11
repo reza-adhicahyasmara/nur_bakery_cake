@@ -12,11 +12,7 @@
                 <div class="carousel-container">
                     <div class="carousel-content">
                         <h2 class="animate__animated animate__fadeInDown"><span>Nur</span> Bakery & Cake</h2>
-                        <p class="animate__animated animate__fadeInUp">.</p>
-                        <div>
-                        <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                        <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
-                        </div>
+                        <p class="animate__animated animate__fadeInUp fs-4">Ketika Anda cukup mencintai diri sendiri, itu akan membawa Anda ke kehidupan yang manis.</p>
                     </div>
                 </div>
             </div>
@@ -25,12 +21,8 @@
             <div class="carousel-item" style="background-image: url(assets/dist/frontend/img/slide/slide-2.jpg);">
                 <div class="carousel-container">
                     <div class="carousel-content">
-                        <h2 class="animate__animated animate__fadeInDown">XXX</h2>
-                        <p class="animate__animated animate__fadeInUp">.</p>
-                        <div>
-                        <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                        <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
-                        </div>
+                        <h2 class="animate__animated animate__fadeInDown">Yang Termaniss.. Dikehidupan</h2>
+                        <p class="animate__animated animate__fadeInUp fs-4">Untuk Yang Tercinta, Dirimu, dan Orang-Orang Yang Menyangimu.</p>
                     </div>
                 </div>
             </div>
@@ -39,12 +31,8 @@
             <div class="carousel-item" style="background-image: url(assets/dist/frontend/img/slide/slide-3.jpg);">
                 <div class="carousel-container">
                     <div class="carousel-content">
-                        <h2 class="animate__animated animate__fadeInDown">XXX</h2>
-                        <p class="animate__animated animate__fadeInUp">.</p>
-                        <div>
-                        <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                        <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
-                        </div>
+                        <h2 class="animate__animated animate__fadeInDown">Tak Terkikis Oleh Jaman</h2>
+                        <p class="animate__animated animate__fadeInUp fs-4">Bumi ini cukup untuk tujuh generasi, namun tidak akan pernah hanya cukup untuk tujuh produk tradisional saja.</p>
                     </div>
                 </div>
             </div>
@@ -307,17 +295,18 @@
            
             <div class="row">   
                 <div class="col-lg-6 d-flex align-items-center">
-                    <img src="<?php echo base_url(); ?>assets/img/banner/undraw_window_shopping.svg" class="img-fluid" alt="">
+                    <img src="<?php echo base_url(); ?>assets/img/banner/undraw_cooking.svg" class="img-fluid p-5" alt="">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                     <div class="skills-content">
                         <div class="row justify-content-center">
                             <p>
                                 <ol>
-                                    <li>Produk kami merupakan produk original dan berkualitas karena produksi kami sendiri.</li>
-                                    <li>Terdapat harga diskon untuk pelanggan baru.</li>
+                                    <li>Setiap transaksi akan mendapatkan 1 poin yang nantinya dapat ditukarkan dengan potongan harga.</li>
+                                    <li>Anda akan mendapatkan potongan harga pada acara diskon yang kami selenggarakan.</li>
+                                    <li>Pemesanan tidak ribet, buka aplikasi dimana saja langsung bisa pesan dan dapat diantarkan langsung ke rumah anda.</li>
                                     <li>Terdapat potongan harga untuk setiap pembelian diatas 5 liter dari setiap varian dan kategori kemasan yang berbeda.</li>
-                                    <li>Pengiriman paket yang cepat dan terjamin aman.</li>
+                                    <li>Pengiriman antar cepat dengan ongkos murah dan estimasi pengiriman hanya 1 hari di antar langusng oleh karyawan kami siap melayani wilayah kerja Kuningan, Cirebon & Majalengka.</li>
                                 </ol>
                             </p>
                         </div>
@@ -325,165 +314,6 @@
                 </div>
             </div>
 
-        </div>
-    </section>
-
-
-
-
-    <section id="services" class="services" style="background-color: rgba(0,0,0,0.05);">
-        <div class="container">
-            <div class="row">   
-                <div class="col-lg-6 pt-4 pt-lg-0 content">
-                    <div class="section-title">
-                        <h2>FAQ</h2>
-                    </div>
-                    <div class="skills-content">
-                        <div class="row justify-content-center">
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Apakah seluruh produk tersedia?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Ya, seluruh produk tersedia dan siap dikirim. Kamu bisa cek melalui halaman “Rincian Produk” > “ Stok”.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            kategori apa saja yang tersedia?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Produk kami memiliki 2 macam kategori yaitu kategori 1 Liter dan kategori 5 Liter. Dan akan ada varian aroma baru, dan kategori kemasan baru loh !
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Apakah saya dapat menjadi reseller/dropshipper?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Mohon maaf untuk saat ini toko kami tidak menerima Reseller/Dropshipper.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFour">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            Apakah saya dapat menukar produk saya?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Produk yang dibeli dapat ditukar dengan barang yang sama jika terjadi kerusakan pada produk tersebut, untuk biaya ongkos kirim ditanggung oleh pembeli.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFive">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                            Berapa lama waktu yang dibutuhkan untuk melakukan pengiriman?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Durasi pengiriman tergantung pada jenis dan jasa kirim yang dipilih. Untuk estimasi pengiriman dalam kabupaten Kuningan 1 hari kerja. Sedangkan luar kabupaten Kuningan estimasi untuk pengiriman regular adalah 2-4 hari kerja tergantung layanan ekspedii yang dipilih. 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingSix">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                            Apa saja jasa kirim dan jenis pengiriman yang tersedia?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Untuk melihat ekspedisi dan layanan jasa kirim yang tersedia, kamu bisa <a href="<?php echo base_url("home/jangkauan_wilayah"); ?>">klik disni</a> untuk melihat jangkauan wilayah pengiriman.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingSeven">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                            Kapan pesanan saya akan dikirim ?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Kami akan mengirimkan pesananmu secepatnya. Pesanan yang masuk hingga pukul 17.00 WIB akan dikirimkan pada hari yang sama, tetapi pesanan yang masuk setelah jam tersebut akan dikirimkan keesokan harinya.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingEight">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                            Bagaimana cara melakukan pengembalian barang?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Pada saat penerimaan produk dimetode pembelian Pesan Antar atau pengambilan produk dimetode Pesan Ambil, kamu dapat malakukan kompalin produk. Masukan keterangan dan foto produk yang rusak. Kemudian ajukan komplain, dan barang kamu dapat dikrim kembali ke alamat kami. Kami akan segera memproses produk retur kamu.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingNine">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                            Apa saja metode pembayaran yang tersedia?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Kami hanya menyediakan metode pembayaran transfer bank. Kami menyediakan nomer rekening beberapa bank terbesar di Indonesia, untuk memudahkan kamu bertransaksi.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTen">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                            Apakah layanan COD (Bayar di tempat) tersedia?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Tidak, layanan COD (Bayar di tempat) tidak tersedia.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingEleven">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                                            Apakah terdapat diskon/ diskon ditoko ini?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <ul>
-                                                <li>Terdapat diskon untuk setiap pelanggan baru.</li>
-                                                <li>Terdapat potongan harga untuk setiap pembelian diatas 5 liter dari setiap varian dan kategori kemasan yang berbeda.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 d-flex align-items-center">
-                    <img src="<?php echo base_url(); ?>assets/img/banner/undraw_questions.svg" class="img-fluid" alt="">
-                </div>
-            </div>
         </div>
     </section>
 </main>

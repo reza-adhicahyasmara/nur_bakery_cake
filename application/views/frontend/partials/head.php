@@ -288,7 +288,7 @@ by exitus
 <body>
     <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
-            <i class="bi bi-phone d-flex align-items-center"><span>+62 000000000</span></i>
+            <i class="bi bi-phone d-flex align-items-center"><span>085872884895</span></i>
             <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Setiap Hari: 08:00 - 21:00</span></i>
         </div>
     </section>

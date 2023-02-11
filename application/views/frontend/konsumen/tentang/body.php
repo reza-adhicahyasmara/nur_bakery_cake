@@ -18,7 +18,7 @@
                 <h2>Flash Gallery Parfume</h2>
             </div>
             <div class="content" style="text-align: justify">
-                Awal mula jualan parfum refil yaitu meneruskan usaha milik kakak yang memiliki toko parfum di winduhaji akan tetapi tidak diteruskan karena karyawannya tidak ada. Kemudian dibeli oleh pemilik yang sekarang dari mulai tokonya sampai dengan isinya pada tahun 2012. Pada tahun 2013 toko flash gallery sudah pindah ke kuningan tepatnya di jalan siliwangi depan bank BCA. Lalu, pada tahun 2015 pemilik toko mulai berjualan parfum laundry untuk kebutuhan laundry. Dan juga untuk menambah varian barang yang dijual di toko flash gallery. Parfum laundry yang pertama dibuat itu merek snappy, utuk bahannya lihat di google kemudian dimodifikasi sendiri. Setelah adanya snappy dan mulai dipasarkan kepada masyarakat dan masyarakatpun tertarik, maka dibuat lagi varian lainnya seperti downy black dan ocean fresh. Jadi awalnya jualan parfum laundry hanya ada 3 varian yaitu snappy, downy black dan ocean fresh. Untuk pemasarannya melalui media sosial seperti facebook, Instagram dan whatsapp. Kemudian pasarnya nambah ramai pemilik toko menambah lagi varian sakura dan akasia. Lalu nambah lagi varian maura dan terakhir varian violet. Untuk parfum laundry yang best seller yaitu akasia disusul violet. Awal bikin cuman beberapa botol saja perbulan tapi sekarang sudah berjalan lama bisa membuat sekitar 200 liter perbulan. Kemudian untuk sekarang karena kondisi sedang pandemi maka toko yang di kuningan tidak diteruskan lagi dan sekarang pindah ke toko yang di winduhaji yang beralamat di Gang Kebudayaan RT 06 RW06 Kel. Winduhaji, Kec. Kuningan, Kab. Kuningan.
+            Nur Bakery & Cake merupakan perusahaan home industri yang beralamat di Kampung Tarikolot Rt 02 Rw 01 Desa Babakanmulya Kec. Jalaksana Kab. Kuningan, Jawa Barat, 45554. Bergerak dalam bidang pengolahan makanan Roti dan Kue yang dibentuk tanggal 1 Agustus 2008. Nur Bakery & Cake menyediakan berbagai macam roti dan kue yang enak dan lezat yang dikerjakan dengan yang ahli di bidangnya.
             </div>
         </div>
         <div class="container mb-5 mt-5">
@@ -26,7 +26,7 @@
                 <h2>Visi</h2>
             </div>
             <div class="content" style="text-align: justify">
-                Menjadi Toko Parfum Laundry yang senantiasa mampu bersaing dan tumbuh berkembang dengan sehat di kota Kuningan.
+                Menjadikan Nur Bakery & Cake sebagai perusahaan yang maju, inspiratif dan produktif.
             </div>
         </div>
         <div class="container mt-5">
@@ -34,7 +34,12 @@
                 <h2>Misi</h2>
             </div>
             <div class="content" style="text-align: justify">
-                Mengenalkan parfum laundry pada semua lapisan masyarakat dengan membuat produk yang berkualitas dengan harga yang terjangkau untuk semua kalangan masyarakat
+                <ul>
+                    <li>Mampu bersaing dengan banyak pesaing.</li>
+                    <li>Menciptakan berbagai inovasi baru berbagai macam olahan roti dan kue.</li>
+                    <li>Menghadirkan kualitas mewah dengan harga yang ramah.</li>
+                    <li>Membuka lapangan pekerjaan.</li>
+                </ul>
             </div>
         </div>
     </section>
