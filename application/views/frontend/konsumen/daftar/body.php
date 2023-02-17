@@ -36,17 +36,17 @@
                         <br>
                         <div class="mb-3">
                             <h4 class="sidebar-title">Data Alamat</h4>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <small>Hanya tersedia 3 wilayah (Kuningan, Majalengka, dan Cirebon)</small>
-                            </div>
+                            </div> -->
                             <div class="form-floating mb-3">
                                 <select type="text" class="form-control kode_provinsi" name="kode_provinsi" id="kode_provinsi" placeholder="Contoh: Kuningan">
                                     <option value="">Pilih</option>
                                     <?php foreach($provinsi->result() as $row){
-                                        if($row->kode_provinsi == '32'){
+                                        // if($row->kode_provinsi == '32'){
                                     ?>
                                         <option value="<?php echo $row->kode_provinsi; ?>"><?php echo $row->nama_provinsi; ?></option>
-                                    <?php } } ?> 
+                                    <?php } ?> 
                                 </select>
                                 <label for="kode_provinsi">Provinsi</label>  
                             </div>
@@ -157,9 +157,9 @@
                 var html = '';
                 var i;
                 for(i=0; i<data.length; i++){
-                    if(data[i].kode_kabupaten == '3208' || data[i].kode_kabupaten == '3209' || data[i].kode_kabupaten == '3210' || data[i].kode_kabupaten == '3274'){
+                    // if(data[i].kode_kabupaten == '3208' || data[i].kode_kabupaten == '3209' || data[i].kode_kabupaten == '3210' || data[i].kode_kabupaten == '3274'){
                         html += '<option value="'+data[i].kode_kabupaten+'">'+data[i].nama_kabupaten+'</option>';
-                    }
+                    // }
                 }
                 $('#kode_kabupaten').html(html);
             }
