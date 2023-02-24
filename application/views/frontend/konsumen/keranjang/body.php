@@ -166,6 +166,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" class="form-control" id="id_konsumen" value="<?php echo $this->session->userdata['ses_id_konsumen']; ?>">
+                        <input type="hidden" class="ongkos_kecamatan" name="ongkos_kecamatan" id="ongkos_kecamatan" value="<?php echo $data_konsumen['ongkos_kecamatan']; ?>" readonly>
                         <input type="hidden" class="kurir_pemesanan" name="kurir_pemesanan" id="kurir_pemesanan" readonly>
                         <input type="hidden" class="berat_pemesanan" name="berat_pemesanan" id="berat_pemesanan" readonly>
                         <input type="hidden" class="kota_asal" name="kota_asal" id="kota_asal" value="428" readonly>
@@ -527,7 +528,7 @@
             var kurir = "Nur Cake & Bakery";
             var layanan = "Antar Cepat";
             var estimasi = 1;
-            var ongkir = <?php echo $data_konsumen['ongkos_kecamatan']; ?>;
+            var ongkir =  $('#ongkos_kecamatan').val();
 
         }else if(metode_pengiriman_pemesanan == "Ekspedisi"){
             $("div#form_ekspedisi").show(500);
