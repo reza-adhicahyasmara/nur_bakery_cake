@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v12.5.1 (64 bit)
-MySQL - 10.4.21-MariaDB : Database - nur_bakery_cake
+MySQL - 10.4.18-MariaDB : Database - nur_bakery_cake
 *********************************************************************
 */
 
@@ -64,7 +64,9 @@ insert  into `chat`(`pengirim_chat`,`tanggal_chat`,`chat`,`id_konsumen`,`id_kary
 ('admin','2023-01-10 10:53:36','Hai. Ada yang bisa saya bantu kak Reza Adhicahyasmara.. Silahkan ajukan pertanyaan kepada kami.','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'089640447447','Reza Adhicahyasmara','2'),
 ('konsumen','2023-01-10 11:21:24','haiii ;;\nwkwk','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'089640447447','Reza Adhicahyasmara','1'),
 ('admin','2023-01-10 11:49:14','Hai. Ada yang bisa saya bantu kak ujang.. Silahkan ajukan pertanyaan kepada kami.','',NULL,'083333333333','ujang','2'),
-('konsumen','2023-01-10 11:51:01','aku mau nnya min','',NULL,'083333333333','ujang','1');
+('konsumen','2023-01-10 11:51:01','aku mau nnya min','',NULL,'083333333333','ujang','1'),
+('konsumen','2023-02-24 09:04:41','fasfas','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'089640447447','Reza Adhicahyasmara','1'),
+('admin','2023-02-24 09:05:07','gitu\n','fd4060abe7060e8ee3bf1d720dc1b880','11111','089640447447','Reza Adhicahyasmara','2');
 
 /*Table structure for table `desa` */
 
@@ -80536,8 +80538,9 @@ CREATE TABLE `diskon` (
 /*Data for the table `diskon` */
 
 insert  into `diskon`(`kode_diskon`,`nama_diskon`,`deskripsi_diskon`,`tanggal_awal_diskon`,`tanggal_akhir_diskon`,`gambar_diskon`) values 
-('PRM.1675476118','Promo Bulan Ramadhan','Dapatkan potongan harga sampai 2%','2023-02-03','2023-02-11','istockphoto-1361692486-1024x1024.jpg'),
-('PRM.1675476352','Promo','Promo','2023-02-03','2023-02-07','pngtree-bakery-gourmet-promotion-promotion-brown-creative-web-banner-png-image_8070836.png');
+('PRM.1675476118','Promo Bulan Ramadhan','Dapatkan potongan harga sampai 2%','2023-02-03','2023-04-12','istockphoto-1361692486-1024x1024.jpg'),
+('PRM.1675476352','Promo','Promo','2023-02-03','2023-02-07','pngtree-bakery-gourmet-promotion-promotion-brown-creative-web-banner-png-image_8070836.png'),
+('PRM.1677204194','Test','bebas','2023-02-23','2023-02-28','374f077516bcbf413098b97b55fc676e_-_Copy.jpg');
 
 /*Table structure for table `idiskon` */
 
@@ -80549,13 +80552,15 @@ CREATE TABLE `idiskon` (
   `kode_ukuran` varchar(10) DEFAULT NULL,
   `potongan_idiskon` float DEFAULT NULL,
   PRIMARY KEY (`kode_idiskon`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `idiskon` */
 
 insert  into `idiskon`(`kode_idiskon`,`kode_diskon`,`kode_ukuran`,`potongan_idiskon`) values 
 (26,'PRM.1675476118','4',2),
-(27,'PRM.1675476352','13',3);
+(27,'PRM.1675476352','13',3),
+(28,'PRM.1677204194','4',10),
+(29,'PRM.1677204194','3',5);
 
 /*Table structure for table `ipemesanan` */
 
@@ -80577,15 +80582,20 @@ CREATE TABLE `ipemesanan` (
   `status_ipemesanan` int(10) DEFAULT NULL,
   `check_ipemesanan` int(1) DEFAULT NULL,
   PRIMARY KEY (`kode_ipemesanan`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `ipemesanan` */
 
 insert  into `ipemesanan`(`kode_ipemesanan`,`id_konsumen`,`kode_produk`,`kode_ukuran`,`kode_pemesanan`,`qty_ipemesanan`,`harga_ipemesanan`,`diskon_ipemesanan`,`subtotal_ipemesanan`,`ulasan_ipemesanan`,`tanggal_ulasan_ipemesanan`,`rating_ipemesanan`,`status_ipemesanan`,`check_ipemesanan`) values 
-(58,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',3,'INV.20230125-092440',2,395000,12,347600,NULL,NULL,NULL,2,1),
+(58,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',3,'INV.20230125-092440',2,395000,12,347600,NULL,NULL,NULL,3,1),
 (59,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',4,'INV.20230125-092106',2,250000,0,500000,'','0000-00-00 00:00:00',0,3,1),
 (60,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230125-092043',2,550000,0,1100000,'Sesuai Pemesanan','2023-01-30 11:57:13',5,4,1),
-(71,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230125-092043',1,550000,0,1100000,'Sesuai Pemesanan','2023-01-30 11:57:06',5,4,1);
+(71,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230125-092043',1,550000,0,1100000,'Sesuai Pemesanan','2023-01-30 11:57:06',5,4,1),
+(74,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230210-204126',1,275000,0,275000,NULL,NULL,NULL,2,1),
+(75,'cdcf8c081f45f4c4e04027b850956578','KUE-1233',14,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
+(76,'cdcf8c081f45f4c4e04027b850956578','KUE-111',13,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
+(77,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230224-085433',3,275000,NULL,825000,NULL,NULL,NULL,3,1),
+(78,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230224-085433',3,395000,NULL,1185000,NULL,NULL,NULL,3,1);
 
 /*Table structure for table `kabupaten` */
 
@@ -88417,14 +88427,17 @@ CREATE TABLE `konsumen` (
   `status_konsumen` varchar(20) DEFAULT NULL,
   `foto_konsumen` varchar(255) DEFAULT NULL,
   `daftar_konsumen` datetime DEFAULT NULL,
+  `poin_konsumen` float DEFAULT NULL,
   PRIMARY KEY (`id_konsumen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `konsumen` */
 
-insert  into `konsumen`(`id_konsumen`,`kode_provinsi`,`kode_kabupaten`,`kode_kecamatan`,`kode_desa`,`nama_konsumen`,`alamat_konsumen`,`kontak_konsumen`,`email_konsumen`,`password_konsumen`,`status_konsumen`,`foto_konsumen`,`daftar_konsumen`) values 
-('4e3d139bb74c6ecff7715ff1ef297bfe','32','3210','3210150','3210150019','Novi','Jl. Raya-2-3','088888888888','novi@gmail.com','konsumen','Aktif','21498662.jpg','2022-11-13 20:52:05'),
-('fd4060abe7060e8ee3bf1d720dc1b880','32','3208','3208130','3208130005','Reza Adhicahyasmara','Lamepayung-4-6','089640447447','reza.adhicahyasmara@gmail.com','konsumen','Aktif','wallpaperbetter_com_3840x2160_(5).jpg','2023-01-06 00:00:00');
+insert  into `konsumen`(`id_konsumen`,`kode_provinsi`,`kode_kabupaten`,`kode_kecamatan`,`kode_desa`,`nama_konsumen`,`alamat_konsumen`,`kontak_konsumen`,`email_konsumen`,`password_konsumen`,`status_konsumen`,`foto_konsumen`,`daftar_konsumen`,`poin_konsumen`) values 
+('4e3d139bb74c6ecff7715ff1ef297bfe','32','3210','3210150','3210150019','Jaja','Jl. Raya-2-3','088888888888','novi@gmail.com','konsumen','Aktif','21498662.jpg','2022-11-13 20:52:05',0),
+('cdcf8c081f45f4c4e04027b850956578','31','3174','3174080','3174080003','winda','Jl Raya-01-02','08888888888','bakerycake791@gmail.com','konsumen','Aktif','giphy.gif','2023-02-24 00:00:00',0),
+('d64ba836a94b38209999196b116f9186','31','3172','3172050','3172050002','Ujang','Jl Raya Batu Ampar Condet-12-03','08111111111','ujang@gmail.com','konsumen','Aktif','240491470_5003607496321969_5280599523436956808_n.jpg','2023-02-13 00:00:00',0),
+('fd4060abe7060e8ee3bf1d720dc1b880','32','3208','3208130','3208130005','Reza Adhicahyasmara','Lamepayung-4-6','089640447447','reza.adhicahyasmara@gmail.com','konsumen','Aktif','wallpaperbetter_com_3840x2160_(5).jpg','2023-01-06 00:00:00',3);
 
 /*Table structure for table `pemesanan` */
 
@@ -88436,6 +88449,7 @@ CREATE TABLE `pemesanan` (
   `id_karyawan` varchar(10) DEFAULT NULL,
   `tanggal_pemesanan` datetime DEFAULT NULL,
   `rekening_pemesanan` varchar(200) DEFAULT NULL,
+  `potongan_pemesanan` float DEFAULT NULL,
   `total_belanja_pemesanan` float DEFAULT NULL,
   `total_tagihan_pemesanan` float DEFAULT NULL,
   `bukti_pby_pemesanan` varchar(255) DEFAULT NULL,
@@ -88449,15 +88463,18 @@ CREATE TABLE `pemesanan` (
   `tanggal_ulasan_pemesanan` datetime DEFAULT NULL,
   `keterangan_pemesanan` text DEFAULT NULL,
   `status_pemesanan` int(10) DEFAULT NULL,
+  `status_poin_pemesanan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`kode_pemesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pemesanan` */
 
-insert  into `pemesanan`(`kode_pemesanan`,`id_konsumen`,`id_karyawan`,`tanggal_pemesanan`,`rekening_pemesanan`,`total_belanja_pemesanan`,`total_tagihan_pemesanan`,`bukti_pby_pemesanan`,`status_pby_pemesanan`,`metode_pengiriman_pemesanan`,`kurir_pemesanan`,`berat_pemesanan`,`noresi_pemesanan`,`ulasan_pemesanan`,`rating_pemesanan`,`tanggal_ulasan_pemesanan`,`keterangan_pemesanan`,`status_pemesanan`) values 
-('INV.20230125-092043','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:20:43','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',1100000,1100000,'44133033.jpg','Lunas','Ambil Sendiri','0|0|0|0',1000,NULL,'Mantap',5,'2023-01-30 11:56:53',NULL,6),
-('INV.20230125-092106','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-01-25 09:21:06','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',500000,510000,'5975-1-42377-1-10-20190813.pdf','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1000,NULL,NULL,NULL,'0000-00-00 00:00:00',NULL,6),
-('INV.20230125-092440','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:24:40','089999999999-NUR BAKERY & CAKE-DANA',695200,705200,'5975-1-42377-1-10-20190813.pdf','Lunas','Ekspedisi','Nur Cake & Bakery|Antar Cepat|1|10000',1000,'345667ss',NULL,NULL,NULL,NULL,4);
+insert  into `pemesanan`(`kode_pemesanan`,`id_konsumen`,`id_karyawan`,`tanggal_pemesanan`,`rekening_pemesanan`,`potongan_pemesanan`,`total_belanja_pemesanan`,`total_tagihan_pemesanan`,`bukti_pby_pemesanan`,`status_pby_pemesanan`,`metode_pengiriman_pemesanan`,`kurir_pemesanan`,`berat_pemesanan`,`noresi_pemesanan`,`ulasan_pemesanan`,`rating_pemesanan`,`tanggal_ulasan_pemesanan`,`keterangan_pemesanan`,`status_pemesanan`,`status_poin_pemesanan`) values 
+('INV.20230125-092043','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:20:43','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,1100000,1100000,'44133033.jpg','Lunas','Ambil Sendiri','0|0|0|0',1000,NULL,'Mantap',5,'2023-01-30 11:56:53',NULL,6,'Poin Tidak Digunakan'),
+('INV.20230125-092106','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-01-25 09:21:06','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,500000,510000,'5975-1-42377-1-10-20190813.pdf','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1000,NULL,NULL,NULL,'0000-00-00 00:00:00',NULL,6,'Poin Tidak Digunakan'),
+('INV.20230125-092440','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:24:40','089999999999-NUR BAKERY & CAKE-DANA',NULL,695200,705200,'5975-1-42377-1-10-20190813.pdf','Lunas','Ekspedisi','Nur Cake & Bakery|Antar Cepat|1|10000',1000,'345667ss',NULL,NULL,NULL,NULL,6,'Poin Tidak Digunakan'),
+('INV.20230210-204126','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-02-10 20:41:26','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,275000,265000,NULL,'Belum Dibayarkan','Ambil Sendiri','0|0|0|0',332,NULL,NULL,NULL,NULL,NULL,1,'Poin Digunakan'),
+('INV.20230224-085433','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-02-24 08:54:33','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,2010000,2010000,'jeniper-sirup.png','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1992,NULL,NULL,NULL,NULL,NULL,6,'Poin Digunakan');
 
 /*Table structure for table `pengaturan` */
 
@@ -88469,13 +88486,14 @@ CREATE TABLE `pengaturan` (
   `rek2_pengaturan` varchar(200) DEFAULT NULL COMMENT 'no-an-fin',
   `rek3_pengaturan` varchar(200) DEFAULT NULL COMMENT 'no-an-fin',
   `rek4_pengaturan` varchar(200) DEFAULT NULL COMMENT 'no-an-fin',
+  `potongan_pengaturan` float DEFAULT NULL,
   PRIMARY KEY (`kode_pengaturan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pengaturan` */
 
-insert  into `pengaturan`(`kode_pengaturan`,`rek1_pengaturan`,`rek2_pengaturan`,`rek3_pengaturan`,`rek4_pengaturan`) values 
-(1,'1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA','089999999999-NUR BAKERY & CAKE-DANA','08999999999-NUR BAKERY & CAKE-OVO');
+insert  into `pengaturan`(`kode_pengaturan`,`rek1_pengaturan`,`rek2_pengaturan`,`rek3_pengaturan`,`rek4_pengaturan`,`potongan_pengaturan`) values 
+(1,'1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA','089999999999-NUR BAKERY & CAKE-DANA','08999999999-NUR BAKERY & CAKE-OVO',10000);
 
 /*Table structure for table `produk` */
 
