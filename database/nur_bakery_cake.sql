@@ -80577,6 +80577,7 @@ CREATE TABLE `ipemesanan` (
   `diskon_ipemesanan` float DEFAULT NULL,
   `subtotal_ipemesanan` float DEFAULT NULL,
   `ulasan_ipemesanan` text DEFAULT NULL,
+  `ulasan2_ipemesanan` text DEFAULT NULL,
   `tanggal_ulasan_ipemesanan` datetime DEFAULT NULL,
   `rating_ipemesanan` int(10) DEFAULT NULL,
   `status_ipemesanan` int(10) DEFAULT NULL,
@@ -80586,16 +80587,16 @@ CREATE TABLE `ipemesanan` (
 
 /*Data for the table `ipemesanan` */
 
-insert  into `ipemesanan`(`kode_ipemesanan`,`id_konsumen`,`kode_produk`,`kode_ukuran`,`kode_pemesanan`,`qty_ipemesanan`,`harga_ipemesanan`,`diskon_ipemesanan`,`subtotal_ipemesanan`,`ulasan_ipemesanan`,`tanggal_ulasan_ipemesanan`,`rating_ipemesanan`,`status_ipemesanan`,`check_ipemesanan`) values 
-(58,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',3,'INV.20230125-092440',2,395000,12,347600,NULL,NULL,NULL,3,1),
-(59,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',4,'INV.20230125-092106',2,250000,0,500000,'','0000-00-00 00:00:00',0,3,1),
-(60,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230125-092043',2,550000,0,1100000,'Sesuai Pemesanan','2023-01-30 11:57:13',5,4,1),
-(71,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230125-092043',1,550000,0,1100000,'Sesuai Pemesanan','2023-01-30 11:57:06',5,4,1),
-(74,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230210-204126',1,275000,0,275000,NULL,NULL,NULL,2,1),
-(75,'cdcf8c081f45f4c4e04027b850956578','KUE-1233',14,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
-(76,'cdcf8c081f45f4c4e04027b850956578','KUE-111',13,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
-(77,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230224-085433',3,275000,NULL,825000,NULL,NULL,NULL,3,1),
-(78,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230224-085433',3,395000,NULL,1185000,NULL,NULL,NULL,3,1);
+insert  into `ipemesanan`(`kode_ipemesanan`,`id_konsumen`,`kode_produk`,`kode_ukuran`,`kode_pemesanan`,`qty_ipemesanan`,`harga_ipemesanan`,`diskon_ipemesanan`,`subtotal_ipemesanan`,`ulasan_ipemesanan`,`ulasan2_ipemesanan`,`tanggal_ulasan_ipemesanan`,`rating_ipemesanan`,`status_ipemesanan`,`check_ipemesanan`) values 
+(58,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',3,'INV.20230125-092440',2,395000,12,347600,'wow','Rasa OK','2023-08-09 10:28:43',5,4,1),
+(59,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-123',4,'INV.20230125-092106',2,250000,0,500000,'Mantapp kaliii','Rasa Mantap,Produk Bersih,Harga Murah','2023-08-09 10:21:37',5,4,1),
+(60,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230125-092043',2,550000,0,1100000,'Sesuai Pemesanan',NULL,'2023-01-30 11:57:13',5,4,1),
+(71,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230125-092043',1,550000,0,1100000,'Sesuai Pemesanan',NULL,'2023-01-30 11:57:06',5,4,1),
+(74,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230210-204126',1,275000,0,275000,NULL,NULL,NULL,NULL,2,1),
+(75,'cdcf8c081f45f4c4e04027b850956578','KUE-1233',14,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
+(76,'cdcf8c081f45f4c4e04027b850956578','KUE-111',13,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1),
+(77,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-1233',14,'INV.20230224-085433',3,275000,NULL,825000,NULL,NULL,NULL,NULL,3,1),
+(78,'fd4060abe7060e8ee3bf1d720dc1b880','KUE-111',13,'INV.20230224-085433',3,395000,NULL,1185000,NULL,NULL,NULL,NULL,3,1);
 
 /*Table structure for table `kabupaten` */
 
@@ -88459,6 +88460,7 @@ CREATE TABLE `pemesanan` (
   `berat_pemesanan` int(11) DEFAULT NULL,
   `noresi_pemesanan` varchar(100) DEFAULT NULL,
   `ulasan_pemesanan` text DEFAULT NULL,
+  `ulasan2_pemesanan` text DEFAULT NULL,
   `rating_pemesanan` int(10) DEFAULT NULL,
   `tanggal_ulasan_pemesanan` datetime DEFAULT NULL,
   `keterangan_pemesanan` text DEFAULT NULL,
@@ -88469,12 +88471,12 @@ CREATE TABLE `pemesanan` (
 
 /*Data for the table `pemesanan` */
 
-insert  into `pemesanan`(`kode_pemesanan`,`id_konsumen`,`id_karyawan`,`tanggal_pemesanan`,`rekening_pemesanan`,`potongan_pemesanan`,`total_belanja_pemesanan`,`total_tagihan_pemesanan`,`bukti_pby_pemesanan`,`status_pby_pemesanan`,`metode_pengiriman_pemesanan`,`kurir_pemesanan`,`berat_pemesanan`,`noresi_pemesanan`,`ulasan_pemesanan`,`rating_pemesanan`,`tanggal_ulasan_pemesanan`,`keterangan_pemesanan`,`status_pemesanan`,`status_poin_pemesanan`) values 
-('INV.20230125-092043','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:20:43','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,1100000,1100000,'44133033.jpg','Lunas','Ambil Sendiri','0|0|0|0',1000,NULL,'Mantap',5,'2023-01-30 11:56:53',NULL,6,'Poin Tidak Digunakan'),
-('INV.20230125-092106','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-01-25 09:21:06','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,500000,510000,'5975-1-42377-1-10-20190813.pdf','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1000,NULL,NULL,NULL,'0000-00-00 00:00:00',NULL,6,'Poin Tidak Digunakan'),
-('INV.20230125-092440','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:24:40','089999999999-NUR BAKERY & CAKE-DANA',NULL,695200,705200,'5975-1-42377-1-10-20190813.pdf','Lunas','Ekspedisi','Nur Cake & Bakery|Antar Cepat|1|10000',1000,'345667ss',NULL,NULL,NULL,NULL,6,'Poin Tidak Digunakan'),
-('INV.20230210-204126','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-02-10 20:41:26','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,275000,265000,NULL,'Belum Dibayarkan','Ambil Sendiri','0|0|0|0',332,NULL,NULL,NULL,NULL,NULL,1,'Poin Digunakan'),
-('INV.20230224-085433','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-02-24 08:54:33','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,2010000,2010000,'jeniper-sirup.png','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1992,NULL,NULL,NULL,NULL,NULL,6,'Poin Digunakan');
+insert  into `pemesanan`(`kode_pemesanan`,`id_konsumen`,`id_karyawan`,`tanggal_pemesanan`,`rekening_pemesanan`,`potongan_pemesanan`,`total_belanja_pemesanan`,`total_tagihan_pemesanan`,`bukti_pby_pemesanan`,`status_pby_pemesanan`,`metode_pengiriman_pemesanan`,`kurir_pemesanan`,`berat_pemesanan`,`noresi_pemesanan`,`ulasan_pemesanan`,`ulasan2_pemesanan`,`rating_pemesanan`,`tanggal_ulasan_pemesanan`,`keterangan_pemesanan`,`status_pemesanan`,`status_poin_pemesanan`) values 
+('INV.20230125-092043','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:20:43','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,1100000,1100000,'44133033.jpg','Lunas','Ambil Sendiri','0|0|0|0',1000,NULL,NULL,NULL,NULL,NULL,NULL,6,'Poin Tidak Digunakan'),
+('INV.20230125-092106','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-01-25 09:21:06','2222222222-NUR BAKERY & CAKE-BANK RAKYAT INDONESIA',NULL,500000,510000,'5975-1-42377-1-10-20190813.pdf','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1000,NULL,'Sangat puas sekali','Memberikan Solusi Terbaik,Pengiriman Cepat',5,'2023-08-09 10:12:26',NULL,6,'Poin Tidak Digunakan'),
+('INV.20230125-092440','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-01-25 09:24:40','089999999999-NUR BAKERY & CAKE-DANA',NULL,695200,705200,'5975-1-42377-1-10-20190813.pdf','Lunas','Ekspedisi','Nur Cake & Bakery|Antar Cepat|1|10000',1000,'345667ss','mantap kali','Respon Cepat,Pengiriman Cepat',5,'2023-08-09 10:49:03',NULL,6,'Poin Tidak Digunakan'),
+('INV.20230210-204126','fd4060abe7060e8ee3bf1d720dc1b880',NULL,'2023-02-10 20:41:26','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,275000,265000,NULL,'Belum Dibayarkan','Ambil Sendiri','0|0|0|0',332,NULL,NULL,NULL,NULL,NULL,NULL,1,'Poin Digunakan'),
+('INV.20230224-085433','fd4060abe7060e8ee3bf1d720dc1b880','666666','2023-02-24 08:54:33','1111111111-NUR BAKERY & CAKE-BANK CENTRAL ASIA',10000,2010000,2010000,'jeniper-sirup.png','Lunas','Antar Cepat','Nur Cake & Bakery|Antar Cepat|1|10000',1992,NULL,NULL,NULL,NULL,NULL,NULL,6,'Poin Digunakan');
 
 /*Table structure for table `pengaturan` */
 

@@ -113,7 +113,7 @@
                                                     <br>
                                                     <br>
                                                     <?php if($row1->status_pemesanan == 6 && $row1->ulasan_pemesanan == ""){ ?>
-                                                        <a class='btn btn-outline-warning btn-sm btn-rounded rounded-pill btn_modal_ulasan_pemesanan' kode_pemesanan = <?php echo $row1->kode_pemesanan;?>>Tulis Ulasan</a>
+                                                        <a class='btn btn-outline-warning btn-sm btn-rounded rounded-pill btn_modal_ulasan_pemesanan' kode_pemesanan = <?php echo $row1->kode_pemesanan;?> tanggal_pemesanan = <?php echo $row1->tanggal_pemesanan;?>>Tulis Ulasan</a>
                                                     <?php 
                                                         } else { 
                                                             if($row1->rating_pemesanan  >= 5){
@@ -132,6 +132,15 @@
                                                         <small class=""><?php echo $row1->tanggal_ulasan_pemesanan; ?></small>
                                                         <br>
                                                         <small class=""><?php echo $row1->ulasan_pemesanan; ?></small>
+                                                        <br>
+                                                        <small class="">
+                                                            <?php
+                                                                $str1 = explode(",", $row1->ulasan2_pemesanan);
+                                                                foreach($str1 as $r1){
+                                                                    echo "<span class='badge bg-warning mr-1'>".$r1."</span>";
+                                                                }
+                                                            ?>
+                                                        </small>
                                                     <?php }  ?>
                                                 </td>
                                                 <td style="text-align: left; vertical-align: top; width: 60%; border-left: 2px solid #dee2e6">
@@ -171,7 +180,7 @@
                                                                 </td>
                                                                 <?php if($row2->status_ipemesanan == 3){ ?>
                                                                     <td class="pt-4 pb-4" style="text-align: right; vertical-align: middle; width:30%">
-                                                                        <a class='btn btn-outline-warning btn-sm btn-rounded rounded-pill btn_modal_ulasan_produk' kode_ipemesanan = <?php echo $row2->kode_ipemesanan;?>>Tulis Ulasan</a>
+                                                                        <a class='btn btn-outline-warning btn-sm btn-rounded rounded-pill btn_modal_ulasan_produk' kode_ipemesanan = <?php echo $row2->kode_ipemesanan;?> kode_produk = <?php echo $row2->hahaha;?> nama_produk = <?php echo $row2->nama_produk;?> gambar_produk = <?php echo $row2->gambar_produk;?>>Tulis Ulasan</a>
                                                                     </td>
                                                                 <?php } elseif($row2->status_ipemesanan == 4) { ?>
                                                                     <td class="pt-4 pb-4" style="text-align: right; vertical-align: middle;">
@@ -192,6 +201,15 @@
                                                                         <small class=""><?php echo $row2->tanggal_ulasan_ipemesanan; ?></small>
                                                                         <br>
                                                                         <small class=""><?php echo $row2->ulasan_ipemesanan; ?></small>
+                                                                        <br>
+                                                                        <small class="">
+                                                                            <?php
+                                                                            $str2 = explode(",", $row2->ulasan2_ipemesanan);
+                                                                                foreach($str2 as $r2){
+                                                                                    echo "<span class='badge bg-warning mr-1'>".$r2."</span>";
+                                                                                }
+                                                                            ?>
+                                                                        </small>
                                                                     </td>
                                                                 <?php }  ?>
                                                             </tr>
@@ -259,6 +277,15 @@
                                                     <small class=""><?php echo $row1->tanggal_ulasan_pemesanan; ?></small>
                                                     <br>
                                                     <span class=""><?php echo $row1->ulasan_pemesanan; ?></span>
+                                                    <br>
+                                                    <small class="">
+                                                        <?php
+                                                            $str1 = explode(",", $row1->ulasan2_pemesanan);
+                                                            foreach($str1 as $r1){
+                                                                echo "<span class='badge bg-warning mr-1'>".$r1."</span>";
+                                                            }
+                                                        ?>
+                                                    </small>
                                                 </td>
                                                 <td style="text-align: left; vertical-align: top; width: 60%; border-left: 2px solid #dee2e6">
                                                     <span class="text-bold">Daftar Produk</span>
@@ -313,6 +340,15 @@
                                                                     <small class=""><?php echo $row2->tanggal_ulasan_ipemesanan; ?></small>
                                                                     <br>
                                                                     <small class=""><?php echo $row2->ulasan_ipemesanan; ?></small>
+                                                                    <br>
+                                                                    <small class="">
+                                                                        <?php
+                                                                        $str2 = explode(",", $row2->ulasan2_ipemesanan);
+                                                                            foreach($str2 as $r2){
+                                                                                echo "<span class='badge bg-warning mr-1'>".$r2."</span>";
+                                                                            }
+                                                                        ?>
+                                                                    </small>
                                                                 </td>
                                                             </tr>
                                                             <?php     
@@ -365,6 +401,19 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Ulasan</label>
                             <textarea class="form-control" name="ulasan_pemesanan" id="ulasan_pemesanan" style="height: 200px;" placeholder="Beri ulasan transaksi ini. Dilihat dari sisi pelayanan toko, kecepatan transaksi, packing produk atau yang lainnya"></textarea>
+                            <textarea class="form-control" name="ulasan2_pemesanan" id="ulasan2_pemesanan" style="height: 200px;" placeholder="Beri ulasan transaksi ini. Dilihat dari sisi pelayanan toko, kecepatan transaksi, packing produk atau yang lainnya" hidden></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div id="checkbox_pemesanan">
+                                <input type="checkbox" class="btn-check" id="btn-check1" value="Respon Cepat" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-check1">Respon Cepat</label>
+                                <input type="checkbox" class="btn-check" id="btn-check2" value="Ramah" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-check2">Ramah</label>
+                                <input type="checkbox" class="btn-check" id="btn-check3" value="Memberikan Solusi Terbaik" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-check3">Memberikan Solusi Terbaik</label>
+                                <input type="checkbox" class="btn-check" id="btn-check4" value="Pengiriman Cepat" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-check4">Pengiriman Cepat</label>
+                            </div>
                         </div>
                         </br>
                         <div class="form-group">
@@ -389,6 +438,17 @@
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <input type="hidden" class="kode_ipemesanan" id="kode_ipemesanan">
+                            <div class="row">
+                                <div class="col-5">
+                                    <img id="gambar" src="" alt="Gambar">
+                                </div>
+                                <div class="col-7">
+                                    <h5 class="kode_produk"></h5>
+                                    <h3 class="nama_produk"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
                             <label class="form-label">Rating</label>
                             <br>
                             <span class="star-rating star-5">
@@ -402,6 +462,25 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Ulasan</label>
                             <textarea class="form-control" name="ulasan_ipemesanan" id="ulasan_ipemesanan" placeholder="Beri ulasan produk yang telah dibeli"></textarea>
+                            <textarea class="form-control" name="ulasan2_ipemesanan" id="ulasan2_ipemesanan" placeholder="Beri ulasan produk yang telah dibeli" hidden></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div id="checkbox_ipemesanan">
+                                <input type="checkbox" class="btn-check" id="btn-checki1" value="Rasa Mantap" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki1">Rasa Mantap</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki2" value="Rasa OK" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki2">Rasa OK</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki3" value="Rasa Terbaik" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki3">Rasa Terbaik</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki4" value="Rasa Pas" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki4">Rasa Pas</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki5" value="Produk Bersih" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki5">Produk Bersih</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki6" value="Produk Rapih" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki6">Produk Rapih</label>
+                                <input type="checkbox" class="btn-check" id="btn-checki7" value="Harga Murah" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-warning" for="btn-checki7">Harga Murah</label>
+                            </div>
                         </div>
                         </br>
                         <div class="form-group">
@@ -428,6 +507,36 @@
 </script>
 
 
+<!-----------------------CEBOK----------------------->
+<script>
+    function updateTextAreaPemesanan() {         
+        var allVals = [];
+        $('#checkbox_pemesanan :checked').each(function() {
+            allVals.push($(this).val());
+        });
+        $('#ulasan2_pemesanan').val(allVals);
+    }
+    $(function() {
+        $('#checkbox_pemesanan input').click(updateTextAreaPemesanan);
+        updateTextAreaPemesanan();
+    });
+</script>
+
+<script>
+    function updateTextAreaIpemesanan() {         
+        var allVals = [];
+        $('#checkbox_ipemesanan :checked').each(function() {
+            allVals.push($(this).val());
+        });
+        $('#ulasan2_ipemesanan').val(allVals);
+    }
+    $(function() {
+        $('#checkbox_ipemesanan input').click(updateTextAreaIpemesanan);
+        updateTextAreaIpemesanan();
+    });
+</script>
+
+
 <!-----------------------ULASAN PEMESANAN----------------------->
 <script>
     $('.btn_modal_ulasan_pemesanan').on("click",function(){
@@ -450,7 +559,7 @@
             },
             messages: {
                 ulasan_pemesanan: {
-                    required: "Ulasan harus diisi",
+                    required: "Hharus diisi",
                 },
             },
             errorElement: 'span',
@@ -469,13 +578,15 @@
                 var kode_pemesanan = $('#kode_pemesanan').val();
                 var rating_pemesanan = $("input[name='rating_pemesanan']:checked").val();
                 var ulasan_pemesanan = $('#ulasan_pemesanan').val();
+                var ulasan2_pemesanan = $('#ulasan2_pemesanan').val();
                 $.ajax({
                     url : '<?php echo base_url('home/update_ulasan_pemesanan'); ?>',
                     method: 'POST',
                     data: {
                         kode_pemesanan:kode_pemesanan,
                         rating_pemesanan:rating_pemesanan,
-                        ulasan_pemesanan:ulasan_pemesanan
+                        ulasan_pemesanan:ulasan_pemesanan,
+                        ulasan2_pemesanan:ulasan2_pemesanan
                     },   
                     success: function(response){ 
                         if(response==1){
@@ -499,8 +610,21 @@
 <script>
     $('.btn_modal_ulasan_produk').on("click",function(){
         $('#modal_ulasan_produk').modal('show');
-        var text = $(this).attr("kode_ipemesanan")
-        $('.kode_ipemesanan').val(text);
+        $('.kode_ipemesanan').val($(this).attr("kode_ipemesanan"));
+        $('.kode_produk').text($(this).attr("kode_produk"));
+        $('.nama_produk').text( $(this).attr("nama_produk"));
+
+        
+
+        var gambar_produk = $(this).attr("gambar_produk");
+
+        var gambar = document.getElementById('gambar');
+        
+        // Mengatur sumber gambar
+        gambar.src = "<?php echo base_url('assets/img/produk/');?>"+ gambar_produk; 
+        gambar.alt = 'Deskripsi Gambar';
+        gambar.width = 150;
+        gambar.height = 150;
     });
 
     
@@ -517,7 +641,7 @@
             },
             messages: {
                 ulasan_ipemesanan: {
-                    required: "Password harus diisi",
+                    required: "Harus diisi",
                 },
             },
             errorElement: 'span',
@@ -536,13 +660,15 @@
                 var kode_ipemesanan = $('#kode_ipemesanan').val();
                 var rating_ipemesanan = $("input[name='rating_ipemesanan']:checked").val();
                 var ulasan_ipemesanan = $('#ulasan_ipemesanan').val();
+                var ulasan2_ipemesanan = $('#ulasan2_ipemesanan').val();
                 $.ajax({
                     url : '<?php echo base_url('home/update_ulasan_produk'); ?>',
                     method: 'POST',
                     data: {
                         kode_ipemesanan:kode_ipemesanan,
                         rating_ipemesanan:rating_ipemesanan,
-                        ulasan_ipemesanan:ulasan_ipemesanan
+                        ulasan_ipemesanan:ulasan_ipemesanan,
+                        ulasan2_ipemesanan:ulasan2_ipemesanan
                     },   
                     success: function(response){ 
                         if(response==1){

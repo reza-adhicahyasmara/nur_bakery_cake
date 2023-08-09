@@ -266,6 +266,15 @@
                                 <i class="bx bxs-quote-alt-left quote-icon-left text-white"></i>
                                 <span class="fs-5 text-white"><?php echo $row->ulasan_pemesanan; ?></span>
                                 <i class="bx bxs-quote-alt-right quote-icon-right text-white"></i>
+                                <br>
+                                <small class="">
+                                    <?php
+                                    $str1 = explode(",", $row->ulasan2_pemesanan);
+                                        foreach($str1 as $r1){
+                                            echo "<span class='badge bg-warning mr-1'>".$r1."</span>";
+                                        }
+                                    ?>
+                                </small>
                             </p>
                         </div>
                     </div>

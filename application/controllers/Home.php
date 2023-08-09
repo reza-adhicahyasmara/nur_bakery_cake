@@ -753,13 +753,15 @@ class Home extends CI_Controller {
         $tanggal_ulasan_pemesanan = date("Y-m-d H:i:s");
         $rating_pemesanan = $this->input->post('rating_pemesanan');
         $ulasan_pemesanan = $this->input->post('ulasan_pemesanan');
+        $ulasan2_pemesanan = $this->input->post('ulasan2_pemesanan');
 
         echo 1;         
         $data  = array( 
             'kode_pemesanan'            => $kode_pemesanan,
             'tanggal_ulasan_pemesanan'  => $tanggal_ulasan_pemesanan,
             'rating_pemesanan'          => $rating_pemesanan,
-            'ulasan_pemesanan'          => $ulasan_pemesanan
+            'ulasan_pemesanan'          => $ulasan_pemesanan,
+            'ulasan2_pemesanan'         => $ulasan2_pemesanan
         );
                     
         $this->Mod_pemesanan->update_pemesanan($kode_pemesanan, $data); 
@@ -770,6 +772,7 @@ class Home extends CI_Controller {
         $tanggal_ulasan_ipemesanan = date("Y-m-d H:i:s");
         $rating_ipemesanan = $this->input->post('rating_ipemesanan');
         $ulasan_ipemesanan = $this->input->post('ulasan_ipemesanan');
+        $ulasan2_ipemesanan = $this->input->post('ulasan2_ipemesanan');
         $status_ipemesanan = '4';
 
         echo 1;         
@@ -778,6 +781,7 @@ class Home extends CI_Controller {
             'tanggal_ulasan_ipemesanan'   => $tanggal_ulasan_ipemesanan,
             'rating_ipemesanan'           => $rating_ipemesanan,
             'ulasan_ipemesanan'           => $ulasan_ipemesanan,
+            'ulasan2_ipemesanan'          => $ulasan2_ipemesanan,
             'status_ipemesanan'           => $status_ipemesanan
         );
                     

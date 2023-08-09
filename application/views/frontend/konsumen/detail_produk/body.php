@@ -327,9 +327,17 @@
                                                                     }
                                                                 }
                                                                 ?>
-                                                            </p>
-                                                            <p>
+                                                                <br>
                                                                 <?php echo $ul->ulasan_ipemesanan;?>
+                                                                <br>
+                                                                <small class="">
+                                                                    <?php
+                                                                    $str2 = explode(",", $ul->ulasan2_ipemesanan);
+                                                                        foreach($str2 as $r2){
+                                                                            echo "<span class='badge bg-warning mr-1'>".$r2."</span>";
+                                                                        }
+                                                                    ?>
+                                                                </small>
                                                             </p>
                                                         </div>
                                                     </div>
