@@ -242,7 +242,8 @@
                                         <caption></caption>
                                         <th></th>
                                         <tr><td style="width: 50%; text-align:left">Total Belanja</td><td style="width: 50%; text-align:right">Rp. <label id="text_total_belanja_pemesanan_2"></label></td></tr>
-                                        <tr><td style="width: 50%; text-align:left">Ongkos Kirim</td><td style="width: 50%; text-align:right">(<label id="text_berat" >0</label> kg) Rp. <label id="text_tarif_kurir" >0</label></td></tr>
+                                        <!-- <tr><td style="width: 50%; text-align:left">Ongkos Kirim</td><td style="width: 50%; text-align:right">(<label id="text_berat" >0</label> kg) Rp. <label id="text_tarif_kurir" >0</label></td></tr> -->
+                                        <tr><td style="width: 50%; text-align:left">Ongkos Kirim</td><td style="width: 50%; text-align:right">Rp. <label id="text_tarif_kurir" >0</label></td></tr>
                                         <tr><td style="width: 50%; text-align:left">Potongan Harga</td><td style="width: 50%; text-align:right">Rp. <label id="text_potongan_pemesanan" >0</label></td></tr>
                                         <tr><td style="width: 50%; text-align:left">Total Tagihan</td><td style="width: 50%; text-align:right">Rp. <label id="text_total_tagihan_pemesanan">0</label></td></tr>
                                     </table>

@@ -325,6 +325,65 @@
 
         </div>
     </section>
+
+    <section id="specials" class="specials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Q&A</h2>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Apakah product Nur Bakery and Cake selalu fresh ?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Nur Bakery and Cake selalu menyediakan produk yang berkualitas dan fresh dari oven.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Apakah Customer bisa memesan Cake dengan desain sendiri ?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Customer bisa memesan Cake dengan kreasi sendiri, Anda cukup membawa contoh gambar yang diinginkan ke Customer Service kami.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Jika terjadi masalah pada product Nur Bakery and Cake apakah Customer mendapat jaminan?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Nur Bakery and Cake selalu mengutamakan kepuasan Customer, jika terjadi masalah pada produk kami, silahkan chat admin kami dalam waktu 1 x 24 jam dengan mengirimkan video unboxing,
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Warna dan Ketersediaan
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Harap dicatat bahwa warna item dan produk mungkin tergantung pada monitor anda dan tidak dapat ditampilkan dengan baik. Ketersediaan produk dan item masing – masing di website dapat berubah setiap saat, tanpa pemberitahuan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <?php $this->load->view('frontend/partials/footer.php') ?>
